@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1075001440452",
+    "firebase_url": "https://team-p-android-development.firebaseio.com",
+    "project_id": "team-p-android-development",
+    "storage_bucket": "team-p-android-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075001440452:android:8dc20fa8d0152f0e3d3191",
+        "android_client_info": {
+          "package_name": "com.example.projectmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075001440452-dnetg0m5dilbrdihjp0hmvrf8j7gtn0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBii5W2z05VXDHgO4mnVS6XhvUd89aCpd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075001440452-dnetg0m5dilbrdihjp0hmvrf8j7gtn0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
