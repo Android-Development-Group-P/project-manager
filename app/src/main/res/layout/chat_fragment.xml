@@ -27,6 +27,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="290dp"
         android:layout_marginEnd="60dp"
+        android:gravity="center"
         android:text="Chat page with chat timeline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
