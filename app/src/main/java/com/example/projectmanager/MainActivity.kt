@@ -16,5 +16,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        button2.setOnClickListener {
+            val intent = Intent(this, StartPageActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
