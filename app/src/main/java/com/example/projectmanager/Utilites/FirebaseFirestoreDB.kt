@@ -2,10 +2,7 @@ package com.example.projectmanager.Utilites
 
 import android.util.Log
 import com.example.projectmanager.Interfaces.DatabaseProvider
-import com.example.projectmanager.Models.Chat
-import com.example.projectmanager.Models.Issue
-import com.example.projectmanager.Models.Project
-import com.example.projectmanager.Models.UserFirebase
+import com.example.projectmanager.Models.*
 import com.google.firebase.firestore.*
 
 class FirebaseFirestoreDB : DatabaseProvider {
@@ -175,14 +172,36 @@ class FirebaseFirestoreDB : DatabaseProvider {
         issueId: String,
         callback: (isSuccessful: Boolean, issue: Issue?, error: String?) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        db.collection("issue").document(issueId)
+            .get()
+            .addOnSuccessListener { issue ->
+                callback(true,  issue.data as Issue, null)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error fetching document", e)
+                callback(false, null,"Error fetching issue")
+
+            }
+
+
     }
 
     override fun getAllIssuesForProjectListener(
         projectId: String,
-        callback: (isSuccessful: Boolean, issue: List<Issue>?, error: String?) -> Unit
+        callback: (isSuccessful: Boolean, issue: ArrayList<Issue>?, error: String?) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        db.collection("issues").whereEqualTo("project", projectId).addSnapshotListener { documents, e ->
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                return@addSnapshotListener
+            } else {
+                val issues = ArrayList<Issue>()
+                for (document in documents!!) {
+                    issues.add(document.data as Issue)
+                }
+                callback(true, issues, null)
+            }
+        }
     }
 
     override fun updateIssue(
@@ -222,25 +241,65 @@ class FirebaseFirestoreDB : DatabaseProvider {
      * Chat functions
      */
     override fun createChatMessage(
-        chat: Chat,
+        chatMessage: ChatMessage,
         callback: (isSuccessful: Boolean, error: String?) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        db.collection( "chatMessages")
+            .add(chatMessage)
+            .addOnSuccessListener {
+                Log.d(TAG, "Message posted!")
+                callback(true, null)
+            }
+            .addOnFailureListener {e ->
+                Log.w(TAG, "Error adding message", e)
+                callback(false, "Error adding message")
+            }
     }
 
     override fun deleteChatMessage(
         messageId: String,
         callback: (isSuccessful: Boolean, error: String?) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        db.collection("chatMessages").document(messageId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "message deleted")
+                callback(true, null)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                callback(false, "Error deleting message")
+            }
+
     }
 
-    override fun getChatMessageListener(
+    override fun getChatMessageWithListener(
         issueId: String?,
         projectId: String?,
         callback: (isSuccessful: Boolean, error: String?) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        lateinit var source : String
+
+        when (issueId != null) {
+            true -> source = "issue"
+            false -> source = "project"
+        }
+        db.collection("chatMessages").document(source)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: ${snapshot.data}")
+                } else {
+                    Log.d(TAG, "Current data: null")
+                }
+            }
+
     }
 
 

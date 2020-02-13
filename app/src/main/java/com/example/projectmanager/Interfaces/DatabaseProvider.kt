@@ -1,9 +1,6 @@
 package com.example.projectmanager.Interfaces
 
-import com.example.projectmanager.Models.Chat
-import com.example.projectmanager.Models.Issue
-import com.example.projectmanager.Models.Project
-import com.example.projectmanager.Models.UserFirebase
+import com.example.projectmanager.Models.*
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.DocumentReference
 
@@ -39,7 +36,7 @@ interface DatabaseProvider {
 
     fun getIssue(issueId: String, callback: (isSuccessful: Boolean, issue: Issue?, error: String?) -> Unit)
 
-    fun getAllIssuesForProjectListener(projectId: String, callback: (isSuccessful: Boolean, issue: List<Issue>?, error: String?) -> Unit)
+    fun getAllIssuesForProjectListener(projectId: String, callback: (isSuccessful: Boolean, issue: ArrayList<Issue>?, error: String?) -> Unit)
 
     fun updateIssue(issue: Issue, issueId: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
@@ -48,9 +45,9 @@ interface DatabaseProvider {
     /*
     Chat
      */
-    fun createChatMessage(chat: Chat, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun createChatMessage(chatMessage: ChatMessage, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
-    fun getChatMessageListener(issueId: String?, projectId: String?, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun getChatMessageWithListener(issueId: String?, projectId: String?, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
     fun deleteChatMessage(messageId: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
