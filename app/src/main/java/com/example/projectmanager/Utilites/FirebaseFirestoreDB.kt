@@ -2,13 +2,8 @@ package com.example.projectmanager.Utilites
 
 import android.util.Log
 import com.example.projectmanager.Interfaces.DatabaseProvider
-import com.example.projectmanager.Models.Issue
-import com.example.projectmanager.Models.Project
-import com.example.projectmanager.Models.UserFirebase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.example.projectmanager.Models.*
+import com.google.firebase.firestore.*
 
 class FirebaseFirestoreDB : DatabaseProvider {
 
@@ -47,7 +42,10 @@ class FirebaseFirestoreDB : DatabaseProvider {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
                 callback(true, null)
             }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                callback(false, "error creating document")
+            }
     }
 
     override fun getUserWithListener(
@@ -70,18 +68,22 @@ class FirebaseFirestoreDB : DatabaseProvider {
 
     }
 
+    /*
+     * Project functions
+     */
     override fun createNewProject(
         project: Project,
-        callback: (isSuccessful: Boolean, document: DocumentReference?, error: String?) -> Unit
+        callback: (isSuccessful: Boolean, documentId: String?, error: String?) -> Unit
     ) {
         db.collection("projects")
             .add(project)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
-                callback(true, documentReference, null)
+                callback(true, documentReference.id, null)
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
+                callback(false, null, "error adding document")
             }
     }
 
@@ -100,10 +102,12 @@ class FirebaseFirestoreDB : DatabaseProvider {
                     }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding document", e)
+                        callback(false, "error adding document")
                     }
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
+                callback(false, "error adding document")
             }
     }
 
@@ -142,99 +146,161 @@ class FirebaseFirestoreDB : DatabaseProvider {
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error updating document", e)
-                callback(false, "error")
+                callback(false, "error updating status")
             }
     }
 
+    /**
+     * Issue functions
+     */
     override fun createIssue(
-        projectRef: String,
         issue: Issue,
-        user: String,
         callback: (isSuccessful: Boolean, error: String?) -> Unit
     ) {
         db.collection("issues")
             .add(issue)
-            .addOnSuccessListener { documentReference ->
-                db.collection("projects").document(projectRef)
-                    .update("issues", FieldValue.arrayUnion(documentReference.id))
-                    .addOnSuccessListener {
-                        db.collection("users").document(user)
-                            .update("issues", FieldValue.arrayUnion(documentReference.id))
-                            .addOnSuccessListener {
-                                callback(true, null)
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w(TAG, "Error adding document", e)
-                            }
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error adding document", e)
-                    }
-
-
+            .addOnSuccessListener {
                 callback(true, null)
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
+                callback(false, "Error creating issue")
+            }
+    }
+
+    override fun getIssue(
+        issueId: String,
+        callback: (isSuccessful: Boolean, issue: Issue?, error: String?) -> Unit
+    ) {
+        db.collection("issue").document(issueId)
+            .get()
+            .addOnSuccessListener { issue ->
+                callback(true,  issue.data as Issue, null)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error fetching document", e)
+                callback(false, null,"Error fetching issue")
+
+            }
+
+
+    }
+
+    override fun getAllIssuesForProjectListener(
+        projectId: String,
+        callback: (isSuccessful: Boolean, issue: ArrayList<Issue>?, error: String?) -> Unit
+    ) {
+        db.collection("issues").whereEqualTo("project", projectId).addSnapshotListener { documents, e ->
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                return@addSnapshotListener
+            } else {
+                val issues = ArrayList<Issue>()
+                for (document in documents!!) {
+                    issues.add(document.data as Issue)
+                }
+                callback(true, issues, null)
+            }
+        }
+    }
+
+    override fun updateIssue(
+        issue: Issue,
+        issueId: String,
+        callback: (isSuccessful: Boolean, error: String?) -> Unit
+    ) {
+        db.collection("issues").document(issueId)
+            .set(issue)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+                callback(true, null)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error writing document", e)
+                callback(false, "error updating document")
             }
     }
 
     override fun deleteIssue(
-        projectRef: String,
-        issueRef: DocumentReference,
+        issueId: String,
         callback: (isSuccessful: Boolean, error: String?) -> Unit
     ) {
-        db.collection("projects").document(projectRef)
-            .update("issues", FieldValue.arrayRemove(issueRef))
+        db.collection("issues").document(issueId)
+            .delete()
             .addOnSuccessListener {
-
-                db.collection("users")
-                    .whereArrayContains("created_issues", issueRef)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-
-                            deleteIssueFromUser(document, issueRef)
-
-                        }
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.w(TAG, "Error getting documents: ", exception)
-                    }
-
-                issueRef.get()
-                    .addOnSuccessListener { document ->
-                        if (document.data != null) {
-                            Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                            callback(true, null)
-
-
-                            // NOT FINISHED
-
-
-                        } else {
-                            Log.d(TAG, "No such document")
-                            callback(false, "inget document")
-                        }
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d(TAG, "get failed with ", exception)
-                    }
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+                callback(true, null)
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
+                Log.w(TAG, "Error deleting document", e)
+                callback(false, "Error deleting issue")
             }
     }
 
-    private fun deleteIssueFromUser(document: QueryDocumentSnapshot, issue: DocumentReference) {
-        db.collection("users").document(document.id)
-            .update("created_issues", FieldValue.arrayRemove(issue))
+    /*
+     * Chat functions
+     */
+    override fun createChatMessage(
+        chatMessage: ChatMessage,
+        callback: (isSuccessful: Boolean, error: String?) -> Unit
+    ) {
+        db.collection( "chatMessages")
+            .add(chatMessage)
             .addOnSuccessListener {
-
+                Log.d(TAG, "Message posted!")
+                callback(true, null)
             }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
+            .addOnFailureListener {e ->
+                Log.w(TAG, "Error adding message", e)
+                callback(false, "Error adding message")
             }
     }
+
+    override fun deleteChatMessage(
+        messageId: String,
+        callback: (isSuccessful: Boolean, error: String?) -> Unit
+    ) {
+
+        db.collection("chatMessages").document(messageId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "message deleted")
+                callback(true, null)
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting document", e)
+                callback(false, "Error deleting message")
+            }
+
+    }
+
+    override fun getChatMessageWithListener(
+        issueId: String?,
+        projectId: String?,
+        callback: (isSuccessful: Boolean, error: String?) -> Unit
+    ) {
+
+        lateinit var source : String
+
+        when (issueId != null) {
+            true -> source = "issue"
+            false -> source = "project"
+        }
+        db.collection("chatMessages").document(source)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: ${snapshot.data}")
+                } else {
+                    Log.d(TAG, "Current data: null")
+                }
+            }
+
+    }
+
 
 }
