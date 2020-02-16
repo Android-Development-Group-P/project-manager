@@ -1,109 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.Issue.IssueInfoFragment">
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".ui.Issue.IssueInfoFragment">
 
-        <TextView
-            android:id="@+id/issueInfoTitleText"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Title: Create login func" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/issueInfoDescriptionText"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/issueInfoTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title: Create login func" />
+
+            <TextView
+                android:id="@+id/issueInfoDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description: gugv iodsigfu fgsiogfdiufig" />
+
+            <TextView
+                android:id="@+id/issueInfoStatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status: done" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Description: gugv iodsigfu fgsiogfdiufig" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <TextView
-            android:id="@+id/issueInfoStatusText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status: done" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/issueInfoUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/issue_info_update_button" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+            <Button
+                android:id="@+id/issueInfoDeleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/issue_info_delete_button" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/issueInfoChatList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/issueInfoSendMessageButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        </ListView>
 
         <Button
-            android:id="@+id/issueInfoUpdateButton"
+            android:id="@+id/issueInfoSendMessageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/issue_info_update_button" />
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/issue_info_send_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/issueInfoDeleteButton"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/issueInfoMessageTextField"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/issue_info_delete_button" />
-    </LinearLayout>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="@string/issue_info_hint_message"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/issueInfoSendMessageButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ListView
-        android:id="@+id/issueInfoChatList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/issueInfoSendMessageButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-    </ListView>
-
-    <Button
-        android:id="@+id/issueInfoSendMessageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/issue_info_send_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/issueInfoMessageTextField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:hint="@string/issue_info_hint_message"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/issueInfoSendMessageButton"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
