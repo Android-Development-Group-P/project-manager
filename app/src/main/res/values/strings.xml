@@ -56,6 +56,12 @@
     <string name="project_password_requirement">Require password to join project</string>
     <string name="project_create_button">Create</string>
 
+    #JoinProject
+    <string name="project_join_camera_button">Use camera to scan code</string>
+    <string name="project_join_hint_code">Write your  code here...</string>
+    <string name="project_join_button">Join</string>
+
+
     #IssueInfo
     <string name="issue_info_update_button">Update</string>
     <string name="issue_info_delete_button">Delete</string>

@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:background="#00BCD4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.JoinProject.JoinProjectFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+        <Button
+            android:id="@+id/projectJoinCameraButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/project_join_camera_button"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <View
+            android:id="@+id/projectJoinBorder"
+            android:background="#FFFFFF"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectJoinCameraButton" />
+
+        <EditText
+            android:id="@+id/projectJoinCodeInput"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/project_join_hint_code"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectJoinBorder" />
+
+
+        <Button
+            android:id="@+id/projectJoinButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/project_join_button"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectJoinCodeInput" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
