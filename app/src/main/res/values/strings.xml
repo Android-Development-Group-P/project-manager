@@ -39,6 +39,8 @@
     <string name="menu_create_project">Create Project</string>
     <string name="menu_join_project">Join Project</string>
     <string name="menu_invite_to_project">Invite To Project</string>
+    <string name="menu_issue_info">Issue info</string>
+    <string name="menu_update_issue">Update Issue</string>
 
     #Issue
     <string name="issue_hint_title">Title</string>
@@ -53,6 +55,22 @@
     <string name="project_hint_description">Description</string>
     <string name="project_password_requirement">Require password to join project</string>
     <string name="project_create_button">Create</string>
+
+    #JoinProject
+    <string name="project_join_camera_button">Use camera to scan code</string>
+    <string name="project_join_hint_code">Write your  code here...</string>
+    <string name="project_join_button">Join</string>
+
+
+    #IssueInfo
+    <string name="issue_info_update_button">Update</string>
+    <string name="issue_info_delete_button">Delete</string>
+    <string name="issue_info_send_button">Send</string>
+    <string name="issue_info_hint_message">Message</string>
+    <string name="issue_info_dialog_title">Delete</string>
+    <string name="issue_info_dialog_body">Delete this issue (this action can not be reversed)</string>
+    <string name="issue_info_dialog_yes">Yes</string>
+    <string name="issue_info_dialog_no">No</string>
 
 
 
