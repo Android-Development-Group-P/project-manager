@@ -1,4 +1,4 @@
-package com.example.projectmanager.Auth
+package com.example.projectmanager.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
