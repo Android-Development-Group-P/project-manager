@@ -12,12 +12,7 @@
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_chat" />
-        <item
-            android:id="@+id/nav_create_issue"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_create_issue" />
     </group>
-
     <item android:title="@string/menu_quickmenu">
         <menu>
             <item

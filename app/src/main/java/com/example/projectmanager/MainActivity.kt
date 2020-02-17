@@ -8,6 +8,12 @@ import com.example.projectmanager.ui.auth.LoginActivity
 import com.example.projectmanager.data.managers.AuthenticationManager
 import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.data.providers.FirebaseAuthentication
+import com.example.projectmanager.Managers.DatabaseManager
+import com.example.projectmanager.Models.Project
+import com.example.projectmanager.Utilites.FirebaseAuthentication
+import com.example.projectmanager.Utilites.FirebaseFirestoreDB
+import com.example.projectmanager.Utilites.FirebaseSession
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         // DENNA SKA FLYTTAS https://stackoverflow.com/questions/7360846/how-can-i-execute-something-just-once-per-application-start
         AuthenticationManager.init(FirebaseAuthentication())
+
         SessionManager.init(this)
+        DatabaseManager.init(FirebaseFirestoreDB())
 
         button.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
