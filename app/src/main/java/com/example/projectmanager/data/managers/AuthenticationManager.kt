@@ -1,7 +1,6 @@
-package com.example.projectmanager.Managers
+package com.example.projectmanager.data.managers
 
-import com.example.projectmanager.Interfaces.AuthenticationProvider
-import com.example.projectmanager.Interfaces.SessionProvider
+import com.example.projectmanager.data.interfaces.AuthenticationProvider
 
 object AuthenticationManager {
 

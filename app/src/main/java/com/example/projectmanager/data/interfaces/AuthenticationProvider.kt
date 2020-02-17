@@ -1,4 +1,6 @@
-package com.example.projectmanager.Interfaces
+package com.example.projectmanager.data.interfaces
+
+import com.example.projectmanager.data.network.AuthResponse
 
 interface AuthenticationProvider {
 
@@ -13,23 +15,24 @@ interface AuthenticationProvider {
      * @param password The password for the specific account
      * @param callback A callback with result of the authentication result
      */
-    fun login(email: String, password: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun login(email: String, password: String, callback: (result: AuthResponse) -> Unit)
 
     /**
      * Register a new account to the application
      *
+     * @param username The username for the specific account
      * @param email The email for the specific account
      * @param password The password for the specific account
      * @param callback A callback with result of the authentication result
      */
-    fun register(email: String, password: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun register(username: String, email: String, password: String, callback: (result: AuthResponse) -> Unit)
 
     /**
      * Logout the account to the application
      *
      * @param callback A callback with result of the authentication result
      */
-    fun logout(callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun logout(callback: (result: AuthResponse) -> Unit)
 
     /**
      * Resets the password on the account
@@ -37,7 +40,7 @@ interface AuthenticationProvider {
      * @param email The email for the specific account
      * @param callback A callback with result of the authentication result
      */
-    fun resetPassword(email: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun resetPassword(email: String, callback: (result: AuthResponse) -> Unit)
 
     /**
      * Change the password on the account
@@ -45,5 +48,5 @@ interface AuthenticationProvider {
      * @param newPassword The new password to be set
      * @param callback A callback with result of the authentication result
      */
-    fun changePassword(newPassword: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+    fun changePassword(newPassword: String, callback: (result: AuthResponse) -> Unit)
 }
