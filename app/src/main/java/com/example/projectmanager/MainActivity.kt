@@ -10,9 +10,7 @@ import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.data.providers.FirebaseAuthentication
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.Project
-import com.example.projectmanager.Utilites.FirebaseAuthentication
 import com.example.projectmanager.Utilites.FirebaseFirestoreDB
-import com.example.projectmanager.Utilites.FirebaseSession
 
 import kotlinx.android.synthetic.main.activity_main.*
 
