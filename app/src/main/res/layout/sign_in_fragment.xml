@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.auth.SignInFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.projectmanager.ui.auth.SignInViewModel" />
+    </data>
+
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/form_shape">
+
+        <LinearLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="0dp"
+                android:text="Sign In"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:indeterminate="false"
+                android:visibility="visible" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_hint_email"
+                    android:text="@={viewModel.email}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_hint_password"
+                    android:text="@={viewModel.password}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <Button
+                android:id="@+id/login_button"
+                android:onClick="@{viewModel::onLoginButtonClicked}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="#CC3F3F"
+                android:backgroundTintMode="multiply"
+                android:text="@string/login_button"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/forgotten_password_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:text="Forgot your password?"
+                android:textColor="#81000000" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

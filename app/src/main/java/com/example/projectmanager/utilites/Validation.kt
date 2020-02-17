@@ -1,8 +1,12 @@
-package com.example.projectmanager.Auth
+package com.example.projectmanager.utilites
 
 import android.util.Patterns
 
 object Validation {
+
+    fun isUsername(username: CharSequence) : Boolean {
+        return username.isEmpty() || username.contains(" ")
+    }
 
     fun isEmail(email: CharSequence) : Boolean {
         return email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()

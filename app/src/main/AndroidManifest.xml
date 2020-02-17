@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProjectActivity"
+        <activity
+            android:name=".ProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StartPageActivity"
             android:label="@string/title_activity_start_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Auth.ResetPasswordActivity" />
-        <activity android:name=".Auth.RegisterActivity" />
-        <activity android:name=".Auth.LoginActivity" />
+        <activity android:name=".ui.auth.ResetPasswordActivity" />
+        <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
