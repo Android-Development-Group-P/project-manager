@@ -1,17 +1,18 @@
 package com.example.projectmanager.ui.issue
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
-import java.util.*
 
 class CreateIssueFragment : Fragment() {
 
@@ -36,15 +37,23 @@ class CreateIssueFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(CreateIssueViewModel::class.java)
 
-        /*
-        viewModel.createProjectEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.createIssueEvent.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                CreateProjectViewModel.ProjectStatus.Success -> onSuccess()
-                CreateProjectViewModel.ProjectStatus.Failure -> onFailure(it.error!!)
+                CreateIssueViewModel.IssueStatus.Success -> onSuccess()
+                CreateIssueViewModel.IssueStatus.Failure -> onFailure(it.error!!)
             }
-        })*/
+        })
 
         binding.viewModel = viewModel
+    }
+
+    private fun onSuccess() {
+        Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
+        view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_home)
+    }
+
+    private fun onFailure(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
 }

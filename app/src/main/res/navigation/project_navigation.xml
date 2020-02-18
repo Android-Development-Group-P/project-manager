@@ -28,7 +28,11 @@
         android:id="@+id/nav_create_issue"
         android:name="com.example.projectmanager.ui.issue.CreateIssueFragment"
         android:label="@string/menu_create_issue"
-        tools:layout="@layout/create_issue_fragment" />
+        tools:layout="@layout/create_issue_fragment" >
+        <action
+            android:id="@+id/action_nav_create_issue_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
