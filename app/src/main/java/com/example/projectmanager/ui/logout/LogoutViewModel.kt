@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Logout
+package com.example.projectmanager.ui.logout
 
 import androidx.lifecycle.ViewModel
 

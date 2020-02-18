@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.Logout.LogoutFragment">
+        tools:context=".ui.logout.LogoutFragment">
 
         <TextView
             android:layout_width="match_parent"

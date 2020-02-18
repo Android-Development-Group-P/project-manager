@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Issue
+package com.example.projectmanager.ui.logout
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,24 +9,24 @@ import android.view.ViewGroup
 
 import com.example.projectmanager.R
 
-class UpdateIssueFragment : Fragment() {
+class LogoutFragment : Fragment() {
 
     companion object {
-        fun newInstance() = UpdateIssueFragment()
+        fun newInstance() = LogoutFragment()
     }
 
-    private lateinit var viewModel: UpdateIssueViewModel
+    private lateinit var viewModel: LogoutViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.update_issue_fragment, container, false)
+        return inflater.inflate(R.layout.logout_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(UpdateIssueViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(LogoutViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -1,123 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#00BCD4">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    tools:context=".ui.issue.CreateIssueFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.projectmanager.ui.issue.CreateIssueViewModel" />
+    </data>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".ui.Issue.CreateIssueFragment" >
-
-        <EditText
-            android:id="@+id/issueTitleInput"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="50dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:hint="@string/issue_hint_title"
-            android:inputType="textPersonName"
-            android:textSize="20sp"
-            android:paddingLeft="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/issueDescriptionInput"
-            android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="#00BCD4">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="50dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:gravity="top"
-            android:hint="@string/issue_hint_description"
-            android:inputType="textMultiLine"
-            android:singleLine="false"
-            android:lines="5"
-            android:textSize="20sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/issueTitleInput" />
+            tools:context=".ui.issue.CreateIssueFragment" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="50dp"
-            android:background="#D3EFFC"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/issueDescriptionInput">
+            <EditText
+                android:id="@+id/issueTitleInput"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:hint="@string/issue_hint_title"
+                android:text="@={viewModel.title}"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/issueDescriptionInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="50dp"
+                android:background="#FFFFFF"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:gravity="top"
+                android:hint="@string/issue_hint_description"
+                android:text="@={viewModel.description}"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:lines="5"
+                android:textSize="20sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/issueTitleInput" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="50dp"
+                android:background="#D3EFFC"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/issueDescriptionInput">
+
+                <Button
+                    android:id="@+id/PriorityButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/issue_set_priority"
+                    android:textAllCaps="false"
+                    android:textColor="#03A9F4"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/issueAssignButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/issue_assign_to_user"
+                    android:textAllCaps="false"
+                    android:textColor="#03A9F4"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/issueLabelButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#00FFFFFF"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/issue_add_label"
+                    android:textAllCaps="false"
+                    android:textColor="#03A9F4"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/PriorityButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
+                android:id="@+id/issueSubmitButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="50dp"
                 android:fontFamily="sans-serif"
-                android:text="@string/issue_set_priority"
+                android:text="@string/issue_submit_button"
+                android:onClick="@{viewModel::onCreateIssue}"
                 android:textAllCaps="false"
-                android:textColor="#03A9F4"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            <Button
-                android:id="@+id/issueAssignButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                android:fontFamily="sans-serif"
-                android:text="@string/issue_assign_to_user"
-                android:textAllCaps="false"
-                android:textColor="#03A9F4"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/issueLabelButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                android:fontFamily="sans-serif"
-                android:text="@string/issue_add_label"
-                android:textAllCaps="false"
-                android:textColor="#03A9F4"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/issueSubmitButton"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="50dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/issue_submit_button"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

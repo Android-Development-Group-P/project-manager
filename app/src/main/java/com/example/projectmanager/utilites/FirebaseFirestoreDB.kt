@@ -1,4 +1,4 @@
-package com.example.projectmanager.Utilites
+package com.example.projectmanager.utilites
 
 import android.util.Log
 import com.example.projectmanager.Interfaces.DatabaseProvider
@@ -149,6 +149,25 @@ class FirebaseFirestoreDB : DatabaseProvider {
                 callback(false, "error updating status")
             }
     }
+
+    override fun checkIfCodeExists(
+        code: String,
+        callback: (isSuccessful: Boolean, error: String?) -> Unit
+    ) {
+        db.collection("projects").whereEqualTo("code", code)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.size() == 0) {
+                    callback(false, null)
+                } else {
+                    callback(true, "code exists")
+                }
+            }
+            .addOnFailureListener {
+                callback(true, "error with db")
+            }
+    }
+
 
     /**
      * Issue functions

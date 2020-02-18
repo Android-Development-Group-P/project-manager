@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Settings
+package com.example.projectmanager.ui.settings
 
 import androidx.lifecycle.ViewModel
 

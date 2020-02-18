@@ -29,6 +29,8 @@ interface DatabaseProvider {
 
     fun changeStatusOnProject(status: Boolean, projectRef: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
+    fun checkIfCodeExists(code: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
+
     /*
     Issue
      */

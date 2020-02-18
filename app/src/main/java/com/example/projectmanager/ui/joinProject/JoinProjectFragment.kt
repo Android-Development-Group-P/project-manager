@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Logout
+package com.example.projectmanager.ui.joinProject
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,24 +9,24 @@ import android.view.ViewGroup
 
 import com.example.projectmanager.R
 
-class LogoutFragment : Fragment() {
+class JoinProjectFragment : Fragment() {
 
     companion object {
-        fun newInstance() = LogoutFragment()
+        fun newInstance() = JoinProjectFragment()
     }
 
-    private lateinit var viewModel: LogoutViewModel
+    private lateinit var viewModel: JoinProjectViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.logout_fragment, container, false)
+        return inflater.inflate(R.layout.join_project_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LogoutViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(JoinProjectViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
