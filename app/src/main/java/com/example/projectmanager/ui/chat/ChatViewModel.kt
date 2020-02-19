@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.ChatMessage
-import com.example.projectmanager.utilites.SingleLiveEvent
+import com.example.projectmanager.util.SingleLiveEvent
 
 class ChatViewModel : ViewModel() {
     var message: String = ""
