@@ -1,7 +1,6 @@
 package com.example.projectmanager.ui.createProject
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.factories.CreateProjectViewModelFactory
 import com.example.projectmanager.databinding.CreateProjectFragmentBinding
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class CreateProjectFragment : Fragment() {
+class CreateProjectFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = CreateProjectFragment()
     }
+
+    override val kodein by kodein()
+    private val factory : CreateProjectViewModelFactory by instance()
 
     private lateinit var binding: CreateProjectFragmentBinding
     private lateinit var viewModel: CreateProjectViewModel
@@ -36,9 +42,9 @@ class CreateProjectFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CreateProjectViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(CreateProjectViewModel::class.java)
 
-        viewModel.createProjectEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 CreateProjectViewModel.ProjectStatus.Success -> onSuccess()
                 CreateProjectViewModel.ProjectStatus.Failure -> onFailure(it.error!!)

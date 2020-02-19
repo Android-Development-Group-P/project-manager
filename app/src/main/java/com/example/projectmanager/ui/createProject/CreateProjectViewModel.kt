@@ -3,18 +3,29 @@ package com.example.projectmanager.ui.createProject
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.Managers.DatabaseManager
-import com.example.projectmanager.Models.Project
+import com.example.projectmanager.data.entities.ProjectEntity
+import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.util.SingleLiveEvent
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
+import java.util.*
 
-class CreateProjectViewModel : ViewModel() {
+class CreateProjectViewModel (
+    private val repository: IProjectRepository
+) : ViewModel() {
+
     var title: String = ""
     var description: String = ""
     var checked: Boolean = true
 
-    var createProjectEvent = SingleLiveEvent<ProjectEvent>()
+    var event = SingleLiveEvent<ProjectEvent>()
+
+    private val disposables = CompositeDisposable()
 
     fun onCreateProject(view: View) {
         if (title.isNotEmpty() && description.isNotEmpty()) {
@@ -22,52 +33,63 @@ class CreateProjectViewModel : ViewModel() {
             // TODO: get uid from logged in user
             val uid = "test123"
 
-            var project = Project()
+            var project = ProjectEntity()
+            val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
             if (checked) {
                 var code = createCode()
                 while (code == "") {
                     code = createCode()
                 }
-                project = Project(title, description, listOf(uid), false, null, code)
+                project = ProjectEntity(title, description, listOf(uid), false, null, code, created)
             } else {
-                project = Project(title, description, listOf(uid), false, null, null)
+                project = ProjectEntity(title, description, listOf(uid), false, null, null, created)
             }
 
-            DatabaseManager.db.createNewProject(project) { status, projectId, error ->
-                if (status)  {
-                    // TODO: Add user to project
-                    createProjectEvent.value = ProjectEvent(ProjectStatus.Success)
-                } else {
-                    createProjectEvent.value = ProjectEvent(ProjectStatus.Failure, error)
-                }
-            }
+            val disposable = repository.create(project)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    // PASS
+                    event.value = ProjectEvent(ProjectStatus.Success)
+                }, {
+                    // FAIL
+                    event.value = ProjectEvent(ProjectStatus.Failure, it.localizedMessage)
+                })
+
+            disposables.add(disposable)
 
         } else {
-            createProjectEvent.value = ProjectEvent(ProjectStatus.Failure, "You must write something in both fields")
+            event.value = ProjectEvent(ProjectStatus.Failure, "You must write something in both fields")
         }
     }
 
-    private fun checkCode(code: String, callback: (status: Boolean) -> Unit) {
-        GlobalScope.launch {
-            DatabaseManager.db.checkIfCodeExists(code) { status, error ->
-                if (status) {
-                    callback(false)
-                } else {
-                    callback(true)
-                }
-            }
-        }
+    override fun onCleared() {
+        super.onCleared()
+        disposables.dispose()
     }
 
     private fun createCode(): String {
         val STRING_CHARACTERS = ('0'..'z').toList().toTypedArray()
         var code = (1..8).map { STRING_CHARACTERS.random() }.joinToString("")
 
-        runBlocking { checkCode(code) {status ->
-            if (!status) {
-                code = ""
+        runBlocking {
+            GlobalScope.launch {
+                val disposable = repository.checkIfCodeExists(code)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({status ->
+                        // PASS
+                        if (!status) {
+                            code = ""
+                        }
+                    }, {
+                        // FAIL
+                        code = ""
+                    })
+
+                disposables.add(disposable)
             }
-        } }
+        }
 
         return code
     }
