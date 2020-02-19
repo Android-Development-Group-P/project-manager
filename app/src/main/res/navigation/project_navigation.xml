@@ -20,43 +20,47 @@
     </fragment>
     <fragment
         android:id="@+id/nav_chat"
-        android:name="com.example.projectmanager.ui.Chat.ChatFragment"
+        android:name="com.example.projectmanager.ui.chat.ChatFragment"
         android:label="@string/menu_chat"
         tools:layout="@layout/chat_fragment" />
 
     <fragment
         android:id="@+id/nav_create_issue"
-        android:name="com.example.projectmanager.ui.Issue.CreateIssueFragment"
+        android:name="com.example.projectmanager.ui.issue.CreateIssueFragment"
         android:label="@string/menu_create_issue"
-        tools:layout="@layout/create_issue_fragment" />
+        tools:layout="@layout/create_issue_fragment" >
+        <action
+            android:id="@+id/action_nav_create_issue_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.projectmanager.ui.Settings.SettingsFragment"
+        android:name="com.example.projectmanager.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/nav_logout"
-        android:name="com.example.projectmanager.ui.Logout.LogoutFragment"
+        android:name="com.example.projectmanager.ui.logout.LogoutFragment"
         android:label="@string/menu_logout"
         tools:layout="@layout/logout_fragment" />
 
     <fragment
         android:id="@+id/nav_invite_to_project"
-        android:name="com.example.projectmanager.ui.InviteToProject.InviteToProjectFragment"
+        android:name="com.example.projectmanager.ui.inviteToProject.InviteToProjectFragment"
         android:label="@string/menu_invite_to_project"
         tools:layout="@layout/invite_to_project_fragment" />
 
     <fragment
         android:id="@+id/nav_update_issue"
-        android:name="com.example.projectmanager.ui.Issue.UpdateIssueFragment"
+        android:name="com.example.projectmanager.ui.issue.UpdateIssueFragment"
         android:label="@string/menu_update_issue"
         tools:layout="@layout/update_issue_fragment" />
 
     <fragment
         android:id="@+id/nav_view_issue"
-        android:name="com.example.projectmanager.ui.Issue.IssueInfoFragment"
+        android:name="com.example.projectmanager.ui.issue.IssueInfoFragment"
         android:label="@string/menu_issue_info"
         tools:layout="@layout/issue_info_fragment" >
         <action

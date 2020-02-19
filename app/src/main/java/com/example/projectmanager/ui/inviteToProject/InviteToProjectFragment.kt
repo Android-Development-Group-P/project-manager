@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Chat
+package com.example.projectmanager.ui.inviteToProject
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,24 +9,24 @@ import android.view.ViewGroup
 
 import com.example.projectmanager.R
 
-class ChatFragment : Fragment() {
+class InviteToProjectFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ChatFragment()
+        fun newInstance() = InviteToProjectFragment()
     }
 
-    private lateinit var viewModel: ChatViewModel
+    private lateinit var viewModel: InviteToProjectViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.chat_fragment, container, false)
+        return inflater.inflate(R.layout.invite_to_project_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(InviteToProjectViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

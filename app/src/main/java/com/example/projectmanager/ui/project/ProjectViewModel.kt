@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Project
+package com.example.projectmanager.ui.project
 
 import androidx.lifecycle.ViewModel
 

@@ -3,14 +3,12 @@ package com.example.projectmanager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.projectmanager.ui.auth.LoginActivity
 import com.example.projectmanager.data.managers.AuthenticationManager
 import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.data.providers.FirebaseAuthentication
 import com.example.projectmanager.Managers.DatabaseManager
-import com.example.projectmanager.Models.Project
-import com.example.projectmanager.Utilites.FirebaseFirestoreDB
+import com.example.projectmanager.utilites.FirebaseFirestoreDB
 
 import kotlinx.android.synthetic.main.activity_main.*
 

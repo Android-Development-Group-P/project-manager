@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Chat
+package com.example.projectmanager.ui.chat
 
 import androidx.lifecycle.ViewModel
 
