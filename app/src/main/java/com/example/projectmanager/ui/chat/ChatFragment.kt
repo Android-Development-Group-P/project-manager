@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.chat
 
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,7 +28,6 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
 
         return binding.root
@@ -35,7 +35,6 @@ class ChatFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
 
         viewModel.chatEvent.observe(viewLifecycleOwner, Observer {
@@ -51,7 +50,4 @@ class ChatFragment : Fragment() {
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
-
-
-
 }

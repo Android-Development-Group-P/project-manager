@@ -3,33 +3,39 @@ package com.example.projectmanager.ui.auth
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.projectmanager.MainActivity
 
 import com.example.projectmanager.R
 import com.example.projectmanager.StartPageActivity
-import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.databinding.SignInFragmentBinding
 
-import com.example.projectmanager.utilites.toast
-import kotlinx.android.synthetic.main.sign_in_fragment.*
+import com.example.projectmanager.util.toast
+import com.example.projectmanager.data.factories.AuthViewModelFactory
+import com.example.projectmanager.view_models.AuthViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.sign_in_fragment.progress_bar
-import kotlinx.android.synthetic.main.sign_up_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class SignInFragment : Fragment() {
+class SignInFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = SignInFragment()
     }
 
+    override val kodein by kodein()
+    private val factory : AuthViewModelFactory by instance()
+
     private lateinit var binding: SignInFragmentBinding
-    private lateinit var viewModel: SignInViewModel
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,22 +49,17 @@ class SignInFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
-        viewModel.loginEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                SignInViewModel.LoginStatus.Started -> onStarted()
-                SignInViewModel.LoginStatus.Success -> onSuccess()
-                SignInViewModel.LoginStatus.Failure -> onFailure(it.error!!)
+                AuthViewModel.AuthStatus.Started -> onStarted()
+                AuthViewModel.AuthStatus.Success -> onSuccess()
+                AuthViewModel.AuthStatus.Failure -> onFailure(it.error!!)
             }
         })
 
         binding.viewModel = viewModel
-
-        forgotten_password_button.setOnClickListener {
-            val intent = Intent(activity, ResetPasswordActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun onStarted() {
