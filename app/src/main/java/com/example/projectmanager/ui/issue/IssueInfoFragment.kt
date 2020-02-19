@@ -1,34 +1,49 @@
 package com.example.projectmanager.ui.issue
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.factories.IssueInfoViewModelFactory
+import com.example.projectmanager.databinding.IssueInfoFragmentBinding
+import kotlinx.android.synthetic.main.issue_info_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class IssueInfoFragment : Fragment() {
+class IssueInfoFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = IssueInfoFragment()
+
+        lateinit var issueId : String
     }
 
+    override val kodein by kodein()
+    private val factory : IssueInfoViewModelFactory by instance()
+
+    private lateinit var binding: IssueInfoFragmentBinding
     private lateinit var viewModel: IssueInfoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.issue_info_fragment, container, false)
 
-        val root = inflater.inflate(R.layout.issue_info_fragment, container, false)
-
-        val buttonToUpdate = root.findViewById<Button>(R.id.issueInfoUpdateButton)
-        val buttonToDelete = root.findViewById<Button>(R.id.issueInfoDeleteButton)
+        val buttonToUpdate = binding.root.findViewById<Button>(R.id.issueInfoUpdateButton)
+        val buttonToDelete = binding.root.findViewById<Button>(R.id.issueInfoDeleteButton)
 
         buttonToUpdate.setOnClickListener {view ->
             view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_update_issue)
@@ -50,13 +65,46 @@ class IssueInfoFragment : Fragment() {
                 }.show()
         }
 
-        return root
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(IssueInfoViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        viewModel = ViewModelProvider(this, factory).get(IssueInfoViewModel::class.java)
+
+        activity?.runOnUiThread {
+            progressBar.visibility = View.VISIBLE
+            progressBar.isIndeterminate = true
+        }
+        viewModel.onGetProject(issueId)
+
+        viewModel.event.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                IssueInfoViewModel.IssueStatus.Success -> onSuccess(it.title!!, it.description!!, it.issueStatus!!)
+                IssueInfoViewModel.IssueStatus.Failure -> onFailure(it.error!!)
+            }
+        })
+
+        binding.viewModel = viewModel
     }
 
+    private fun onSuccess(title: String, description: String, status: String) {
+        activity?.runOnUiThread {
+            progressBar.visibility = View.GONE
+            progressBar.isIndeterminate = false
+        }
+        Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
+        issueInfoTitleText.text = title
+        issueInfoDescriptionText.text = description
+        issueInfoStatusText.text = status
+    }
+
+    private fun onFailure(error: String) {
+        activity?.runOnUiThread {
+            progressBar.visibility = View.GONE
+            progressBar.isIndeterminate = false
+        }
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+    }
 }

@@ -2,36 +2,49 @@ package com.example.projectmanager.ui.issue
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.Managers.DatabaseManager
-import com.example.projectmanager.Models.Issue
+import com.example.projectmanager.data.entities.IssueEntity
+import com.example.projectmanager.data.interfaces.IIssueRepository
 import com.example.projectmanager.util.SingleLiveEvent
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateIssueViewModel : ViewModel() {
+class CreateIssueViewModel (
+    private val repository: IIssueRepository
+) : ViewModel() {
+
     var title: String = ""
     var description: String = ""
 
-    var createIssueEvent = SingleLiveEvent<IssueEvent>()
+    var event = SingleLiveEvent<IssueEvent>()
+
+    private val disposables = CompositeDisposable()
 
     fun onCreateIssue(view: View) {
         if (title.isNotEmpty() && description.isNotEmpty()) {
 
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
-            var issue = Issue("test_user", created, title, description, "High",
+            val issue = IssueEntity("test_user", created, title, description, "High",
                 null, "red", null, "started", "test_project")
 
-            DatabaseManager.db.createIssue(issue) { status, error ->
-                if (status) {
-                    createIssueEvent.value = IssueEvent(IssueStatus.Success, null)
-                } else {
-                    createIssueEvent.value = IssueEvent(IssueStatus.Failure, error)
-                }
-            }
+            val disposable = repository.create(issue)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    // PASS
+                    event.value = IssueEvent(IssueStatus.Success, null)
+                }, {
+                    // FAIL
+                    event.value = IssueEvent(IssueStatus.Failure, it.localizedMessage)
+                })
+
+            disposables.add(disposable)
 
         } else {
-            createIssueEvent.value = IssueEvent(IssueStatus.Failure, "You must write something in both fields")
+            event.value = IssueEvent(IssueStatus.Failure, "You must write something in both fields")
         }
     }
 
@@ -40,5 +53,10 @@ class CreateIssueViewModel : ViewModel() {
     {
         Success,
         Failure
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.dispose()
     }
 }
