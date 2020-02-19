@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.projectmanager.MainActivity
-import com.example.projectmanager.data.entities.User
+import com.example.projectmanager.data.entities.UserEntity
 
 object SessionManager {
 
@@ -33,9 +33,9 @@ object SessionManager {
 
     /**
      * Create a new session with the specific 'User' details
-     * @param user The 'User' object
+     * @param user The 'UserEntity' object
      */
-    fun createSession(user: User) {
+    fun createSession(user: UserEntity) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
         Log.d("user", user.uid.toString())
         editor.putString(KEY_UID, user.uid)
@@ -57,15 +57,15 @@ object SessionManager {
 
         context.startActivity(intent)
     }
-
+/*
     /**
      * Retrieve the 'User' details from the current session
      * @return The 'User' object
      */
-    fun getUserDetails() : User = User(
-        preferences.getString(KEY_UID, null),
-        preferences.getString(KEY_NAME, null),
-        preferences.getString(KEY_EMAIL, null))
+    fun getUserDetails() : UserEntity = UserEntity(
+        preferences.getString(KEY_UID, ""),
+        preferences.getString(KEY_NAME, ""),
+        preferences.getString(KEY_EMAIL, ""))*/
 
     /**
      * Check if the current user is logged in

@@ -6,7 +6,7 @@ tools:context=".ui.auth.SignUpFragment">
 <data>
     <variable
         name="viewModel"
-        type="com.example.projectmanager.ui.auth.SignUpViewModel" />
+        type="com.example.projectmanager.view_models.AuthViewModel" />
 </data>
 
 <FrameLayout android:layout_width="match_parent"
@@ -122,7 +122,7 @@ tools:context=".ui.auth.SignUpFragment">
             android:background="@drawable/custom_button"
             android:backgroundTint="#CC3F3F"
             android:backgroundTintMode="multiply"
-            android:onClick="@{viewModel::onRegisterButtonClicked}"
+            android:onClick="@{() -> viewModel.register()}"
             android:text="Register"
             android:textColor="#FFFFFF" />
 
