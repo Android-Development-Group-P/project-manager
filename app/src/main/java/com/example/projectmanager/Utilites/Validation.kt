@@ -1,4 +1,4 @@
-package com.example.projectmanager.utilites
+package com.example.projectmanager.Utilites
 
 import android.util.Patterns
 

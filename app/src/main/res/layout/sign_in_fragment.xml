@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.projectmanager.ui.auth.SignInViewModel" />
+            type="com.example.projectmanager.view_models.AuthViewModel" />
     </data>
 
     <FrameLayout android:layout_width="match_parent"
@@ -84,7 +84,7 @@
 
             <Button
                 android:id="@+id/login_button"
-                android:onClick="@{viewModel::onLoginButtonClicked}"
+                android:onClick="@{() -> viewModel.login()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"

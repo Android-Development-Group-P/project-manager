@@ -1,4 +1,4 @@
-package com.example.projectmanager.data.interfaces
+package com.example.projectmanager.data.providers
 
 import com.example.projectmanager.data.network.AuthResponse
 
