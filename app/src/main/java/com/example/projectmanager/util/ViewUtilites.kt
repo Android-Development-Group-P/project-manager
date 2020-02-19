@@ -1,4 +1,4 @@
-package com.example.projectmanager.Utilites
+package com.example.projectmanager.util
 
 import android.content.Context
 import android.widget.Toast

@@ -1,4 +1,4 @@
-package com.example.projectmanager.utilites
+package com.example.projectmanager.util
 
 import android.util.Log
 import com.example.projectmanager.Interfaces.DatabaseProvider

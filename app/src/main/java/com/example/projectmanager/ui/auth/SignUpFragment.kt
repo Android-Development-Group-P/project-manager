@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projectmanager.R
 import com.example.projectmanager.StartPageActivity
 import com.example.projectmanager.databinding.SignUpFragmentBinding
-import com.example.projectmanager.Utilites.toast
+import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory
 import com.example.projectmanager.view_models.AuthViewModel
 import kotlinx.android.synthetic.main.sign_up_fragment.progress_bar

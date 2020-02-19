@@ -64,7 +64,7 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <com.example.projectmanager.Utilites.WrappingViewPager
+        <com.example.projectmanager.util.WrappingViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

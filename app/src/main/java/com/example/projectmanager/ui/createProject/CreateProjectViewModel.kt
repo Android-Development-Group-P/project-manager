@@ -1,11 +1,10 @@
 package com.example.projectmanager.ui.createProject
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.Project
-import com.example.projectmanager.utilites.SingleLiveEvent
+import com.example.projectmanager.util.SingleLiveEvent
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

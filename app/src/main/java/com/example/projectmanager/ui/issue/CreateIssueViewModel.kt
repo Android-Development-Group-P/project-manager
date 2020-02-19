@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.Issue
-import com.example.projectmanager.utilites.SingleLiveEvent
+import com.example.projectmanager.util.SingleLiveEvent
 import java.text.SimpleDateFormat
 import java.util.*
 

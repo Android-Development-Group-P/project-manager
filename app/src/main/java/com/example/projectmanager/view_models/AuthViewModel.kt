@@ -2,7 +2,7 @@ package com.example.projectmanager.view_models
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.Utilites.SingleLiveEvent
+import com.example.projectmanager.util.SingleLiveEvent
 import com.example.projectmanager.data.interfaces.IUserRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

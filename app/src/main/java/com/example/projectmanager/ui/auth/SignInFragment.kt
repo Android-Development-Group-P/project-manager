@@ -3,7 +3,6 @@ package com.example.projectmanager.ui.auth
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,8 @@ import com.example.projectmanager.R
 import com.example.projectmanager.StartPageActivity
 import com.example.projectmanager.databinding.SignInFragmentBinding
 
-import com.example.projectmanager.Utilites.toast
-import com.example.projectmanager.data.entities.ProjectEntity
+import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory
-import com.example.projectmanager.data.interfaces.IProjectRepository
-import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.view_models.AuthViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

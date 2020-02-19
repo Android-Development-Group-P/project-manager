@@ -1,4 +1,4 @@
-package com.example.projectmanager.Utilites;
+package com.example.projectmanager.util;
 
 /*
  *  Copyright 2017 Google Inc.
