@@ -72,6 +72,9 @@
     <string name="issue_info_dialog_yes">Yes</string>
     <string name="issue_info_dialog_no">No</string>
 
+    #Chat
+    <string name="chat_send_button">Send</string>
+    <string name="chat_hint_message">Message</string>
 
 
 </resources>

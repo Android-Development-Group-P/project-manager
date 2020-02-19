@@ -251,7 +251,7 @@ class FirebaseFirestoreDB : DatabaseProvider {
                 callback(true, null)
             }
             .addOnFailureListener {e ->
-                Log.w(TAG, "Error adding message", e)
+                Log.d(TAG, "Error adding message", e)
                 callback(false, "Error adding message")
             }
     }
