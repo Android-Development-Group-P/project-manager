@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Project
+package com.example.projectmanager.ui.project
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
@@ -12,7 +12,6 @@ import android.widget.Button
 import com.example.projectmanager.ProjectActivity
 
 import com.example.projectmanager.R
-import kotlinx.android.synthetic.main.project_fragment.*
 
 class ProjectFragment : Fragment() {
 

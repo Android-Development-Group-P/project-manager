@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.example.projectmanager.ui.auth.LoginActivity
 import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.Managers.DatabaseManager
-import com.example.projectmanager.Utilites.FirebaseFirestoreDB
+import com.example.projectmanager.utilites.FirebaseFirestoreDB
 
 import kotlinx.android.synthetic.main.activity_main.*
 

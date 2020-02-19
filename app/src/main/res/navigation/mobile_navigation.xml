@@ -7,31 +7,35 @@
 
     <fragment
         android:id="@+id/nav_project"
-        android:name="com.example.projectmanager.ui.Project.ProjectFragment"
+        android:name="com.example.projectmanager.ui.project.ProjectFragment"
         android:label="@string/menu_project"
         tools:layout="@layout/project_fragment" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.projectmanager.ui.Settings.SettingsFragment"
+        android:name="com.example.projectmanager.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/nav_logout"
-        android:name="com.example.projectmanager.ui.Logout.LogoutFragment"
+        android:name="com.example.projectmanager.ui.logout.LogoutFragment"
         android:label="@string/menu_logout"
         tools:layout="@layout/logout_fragment" />
 
     <fragment
         android:id="@+id/nav_create_project"
-        android:name="com.example.projectmanager.ui.CreateProject.CreateProjectFragment"
+        android:name="com.example.projectmanager.ui.createProject.CreateProjectFragment"
         android:label="@string/menu_create_project"
-        tools:layout="@layout/logout_fragment" />
+        tools:layout="@layout/logout_fragment" >
+        <action
+            android:id="@+id/action_nav_create_project_to_nav_project"
+            app:destination="@id/nav_project" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_join_project"
-        android:name="com.example.projectmanager.ui.JoinProject.JoinProjectFragment"
+        android:name="com.example.projectmanager.ui.joinProject.JoinProjectFragment"
         android:label="@string/menu_join_project"
         tools:layout="@layout/logout_fragment" />
 </navigation>

@@ -1,25 +1,15 @@
 package com.example.projectmanager.ui.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.projectmanager.ProjectActivity
 import com.example.projectmanager.R
 import android.widget.Button
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.example.projectmanager.ui.Issue.IssueInfoFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 

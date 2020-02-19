@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.InviteToProject
+package com.example.projectmanager.ui.inviteToProject
 
 import androidx.lifecycle.ViewModel
 

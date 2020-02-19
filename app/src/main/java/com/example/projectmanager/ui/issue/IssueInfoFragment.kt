@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.Issue
+package com.example.projectmanager.ui.issue
 
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
