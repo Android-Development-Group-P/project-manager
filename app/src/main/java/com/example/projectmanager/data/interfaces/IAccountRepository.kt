@@ -22,12 +22,12 @@ interface IAccountRepository {
      * @param password The password for the specific account
      * @return A "reactivex" "Completeable" object
      */
-    fun register(email: String, password: String) : Completable
-
+    fun register(email: String, password: String) : Single<String>
+/*
     /**
      * Logout the account to the application
      *
      * @return A "reactivex" "Completeable" object
      */
-    fun logout() : Completable
+    fun logout() : Completable*/
 }

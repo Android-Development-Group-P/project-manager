@@ -14,6 +14,7 @@ import com.example.projectmanager.data.repositories.firebase.FBChatRepository
 import com.example.projectmanager.data.repositories.firebase.FBIssueRepository
 import com.example.projectmanager.data.repositories.firebase.FBProjectRepository
 import com.example.projectmanager.data.repositories.firebase.FBUserRepository
+import com.example.projectmanager.data.storage.firebase.FBImageStorage
 
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -29,18 +30,20 @@ class FirebaseApplication : Application(), KodeinAware {
         import(androidXModule(this@FirebaseApplication))
 
         bind<IAccountRepository>() with singleton { FBAccountRepository() }
+        bind<IUserRepository>() with singleton { FBUserRepository() }
+        bind<IProjectRepository>() with singleton { FBProjectRepository() }
+        bind<IIssueRepository>() with singleton { FBIssueRepository() }
+        bind<IChatRepository>() with singleton { FBChatRepository() }
+
+        bind<IImageStorage>() with singleton { FBImageStorage() }
+
+        bind<SessionProvider>() with singleton { FBSession(instance()) }
 
         bind() from provider { CreateProjectViewModelFactory(instance()) }
         bind() from provider { CreateIssueViewModelFactory(instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }
         bind() from provider { ProjectViewModelFactory(instance()) }
-
-        bind<IUserRepository>() with singleton { FBUserRepository() }
-        bind<IProjectRepository>() with singleton { FBProjectRepository() }
-        bind<IIssueRepository>() with singleton { FBIssueRepository() }
-        bind<IChatRepository>() with singleton { FBChatRepository() }
-        bind<SessionProvider>() with singleton { FBSession(instance()) }
-
-        bind() from provider { AuthViewModelFactory(instance(), instance()) }
+        bind() from provider { AuthViewModelFactory(instance(), instance(), instance()) }
+        bind() from provider { UserCreationViewModelFactory(instance(), instance()) }
     }
 }

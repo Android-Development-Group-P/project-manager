@@ -15,6 +15,7 @@ import com.example.projectmanager.StartPageActivity
 import com.example.projectmanager.databinding.SignUpFragmentBinding
 import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory
+import com.example.projectmanager.ui.user_creation.UserCreationActivity
 import com.example.projectmanager.view_models.AuthViewModel
 import kotlinx.android.synthetic.main.sign_up_fragment.progress_bar
 import org.kodein.di.KodeinAware
@@ -67,8 +68,9 @@ class SignUpFragment : Fragment(), KodeinAware {
 
     private fun onSuccess() {
         activity?.toast("onSuccess")
-        val intent = Intent(activity, StartPageActivity::class.java)
+        val intent = Intent(activity, UserCreationActivity::class.java)
         startActivity(intent)
+        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         activity?.finish()
     }
 
