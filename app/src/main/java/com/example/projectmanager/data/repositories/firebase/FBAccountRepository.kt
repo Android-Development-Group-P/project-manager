@@ -24,17 +24,19 @@ class FBAccountRepository : IAccountRepository {
         }
     }
 
-    override fun register(email: String, password: String) = Completable.create { emitter ->
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (!emitter.isDisposed) {
-                if (it.isSuccessful)
-                    emitter.onComplete()
-                else
-                    emitter.onError(it.exception!!)
+    override fun register(email: String, password: String) : Single<String> {
+        return Single.create { emitter ->
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (!emitter.isDisposed) {
+                    if (it.isSuccessful)
+                        emitter.onSuccess(auth.currentUser!!.uid)
+                    else
+                        emitter.onError(it.exception!!)
+                }
             }
         }
     }
-
+/*
     override fun logout() = Completable.create { emitter ->
         auth.signOut()
 
@@ -44,5 +46,5 @@ class FBAccountRepository : IAccountRepository {
             else
                 emitter.onError(throw Exception("auth.signout: currentUser not null."))
         }
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import android.util.Log
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.IUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,9 +13,22 @@ class FBUserRepository : IUserRepository {
 
     private val db = FirebaseFirestore.getInstance()
 
-    override fun create(user: UserEntity) = Completable.create { emitter ->
+    override fun create(user: UserEntity) : Single<String> {
+        return Single.create { emitter ->
+            db.collection(COLLECTION_PATH)
+                .document(user.id!!)
+                .set(user)
+                .addOnSuccessListener {
+                    emitter.onSuccess(user.id!!)
+                }.addOnFailureListener {
+                    emitter.onError(it)
+                }
+        }
+    }
+
+    override fun update(user: UserEntity) = Completable.create { emitter ->
         db.collection(COLLECTION_PATH)
-            .document(user.id)
+            .document(user.id!!)
             .set(user)
             .addOnSuccessListener {
                 emitter.onComplete()

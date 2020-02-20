@@ -5,17 +5,19 @@ import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.util.SingleLiveEvent
 import com.example.projectmanager.data.interfaces.IAccountRepository
+import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class AuthViewModel (
-    private val repository: IAccountRepository,
+    private val accountRepository: IAccountRepository,
+    private val userRepository: IUserRepository,
     private val session: SessionProvider
 ) : ViewModel() {
 
-    var username: String? = null
     var email: String? = null
     var password: String? = null
     var repeatedPassword: String? = null
@@ -25,54 +27,48 @@ class AuthViewModel (
     private val disposables = CompositeDisposable()
 
     fun login() {
+
+        event.value = AuthEvent(AuthStatus.Started)
+
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             event.value = AuthEvent(AuthStatus.Failure, "Invalid email or password")
             return
         }
 
-        event.value = AuthEvent(AuthStatus.Started)
-
-        val disposable = repository.login(email!!, password!!)
-            .subscribeOn(Schedulers.io())
+        disposables.add(accountRepository.login(email!!, password!!)
+            .flatMap { id -> userRepository.getById(id) }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                // PASS
-
+            .subscribeOn(Schedulers.io())
+            .subscribe({ user ->
+                session.createSession(user)
                 event.value = AuthEvent(AuthStatus.Success)
             }, {
-                // FAIL
                 event.value = AuthEvent(AuthStatus.Failure, it.message!!)
             })
-
-        disposables.add(disposable)
+        )
     }
 
     fun register() {
+
+        event.value = AuthEvent(AuthStatus.Started)
+
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             event.value = AuthEvent(AuthStatus.Failure, "Invalid email or password")
             return
         }
 
-        event.value = AuthEvent(AuthStatus.Started)
-
-        val disposable = repository.register(email!!, password!!)
-            .subscribeOn(Schedulers.io())
+        disposables.add(accountRepository.register(email!!, password!!)
+            .flatMap { id -> userRepository.create(UserEntity(id = id, email = email)) }
+            .flatMap { id -> userRepository.getById(id) }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            .subscribeOn(Schedulers.io())
+            .subscribe({ user ->
+                session.createSession(user)
                 event.value = AuthEvent(AuthStatus.Success)
             }, {
                 event.value = AuthEvent(AuthStatus.Failure, it.message!!)
             })
-
-        disposables.add(disposable)
-    }
-
-    fun forwardToSignUp(view: View) {
-
-    }
-
-    fun forwardToLogin(view: View) {
-
+        )
     }
 
     override fun onCleared() {

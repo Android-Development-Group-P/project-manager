@@ -3,11 +3,11 @@ package com.example.projectmanager.data.entities
 import java.util.*
 
 data class UserEntity (
-    val id: String,
-    val name: String,
-    val email: String,
-    val projects: List<String>,
-    val createdAt: Date
+    val id: String? = null,
+    var displayName: String? = null,
+    var email: String? = null,
+    var projects: List<String>? = null,
+    var createdAt: Date = Date()
 ) {
-    override fun toString(): String = name.toString()
+    override fun toString(): String = displayName.toString()
 }

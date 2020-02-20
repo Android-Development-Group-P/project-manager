@@ -7,7 +7,9 @@ import io.reactivex.Single
 
 interface IUserRepository {
 
-    fun create(user: UserEntity) : Completable
+    fun create(user: UserEntity) : Single<String>
+
+    fun update(user: UserEntity) : Completable
 
     fun getById(id: String) : Single<UserEntity>
 
