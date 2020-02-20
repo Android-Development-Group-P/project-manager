@@ -14,6 +14,10 @@ interface IProjectRepository {
 
     fun removerUserFromProject(projectId: String, userId: String) : Completable
 
+    fun getProjectsByIds(ids: List<String>) : Single<List<ProjectEntity>>
+
+    fun getById(id: String) : Single<ProjectEntity>
+
     fun changeStatusOnProject(status: Boolean, projectId: String) : Completable
 
     fun checkIfCodeExists(code: String) : Single<Boolean>
