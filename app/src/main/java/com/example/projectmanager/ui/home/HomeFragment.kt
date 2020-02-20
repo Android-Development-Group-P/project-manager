@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.projectmanager.R
 import android.widget.Button
 import androidx.navigation.findNavController
+import com.example.projectmanager.ui.issue.IssueInfoFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
@@ -30,6 +31,7 @@ class HomeFragment : Fragment() {
         val fib = root.findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
         button.setOnClickListener {view ->
+            IssueInfoFragment.issueId = "rqcADNGsbutMpBaoHzPP"
             view.findNavController().navigate(R.id.action_nav_home_to_nav_view_issue)
         }
 

@@ -53,5 +53,4 @@ interface DatabaseProvider {
 
     fun deleteChatMessage(messageId: String, callback: (isSuccessful: Boolean, error: String?) -> Unit)
 
-
 }

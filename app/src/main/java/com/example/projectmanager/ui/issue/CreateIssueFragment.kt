@@ -12,13 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class CreateIssueFragment : Fragment() {
+class CreateIssueFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = CreateIssueFragment()
     }
+
+    override val kodein by kodein()
+    private val factory : CreateIssueViewModelFactory by instance()
 
     private lateinit var binding: CreateIssueFragmentBinding
     private lateinit var viewModel: CreateIssueViewModel
@@ -35,9 +42,9 @@ class CreateIssueFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CreateIssueViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(CreateIssueViewModel::class.java)
 
-        viewModel.createIssueEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 CreateIssueViewModel.IssueStatus.Success -> onSuccess()
                 CreateIssueViewModel.IssueStatus.Failure -> onFailure(it.error!!)
