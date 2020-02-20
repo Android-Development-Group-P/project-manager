@@ -1,6 +1,7 @@
 package com.example.projectmanager.data.entities
 
 data class ProjectEntity (
+    var id: String? = null,
     val title: String? = null,
     val description: String? = null,
     val members: List<String>? =  null,
