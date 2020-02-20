@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.projectmanager.ui.auth.LoginActivity
-import com.example.projectmanager.data.managers.SessionManager
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.util.FirebaseFirestoreDB
 
@@ -16,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        SessionManager.init(this)
         DatabaseManager.init(FirebaseFirestoreDB())
 
         button.setOnClickListener {

@@ -2,14 +2,17 @@ package com.example.projectmanager.view_models
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.util.SingleLiveEvent
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.IAccountRepository
+import com.example.projectmanager.data.interfaces.SessionProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class AuthViewModel (
-    private val repository: IUserRepository
+    private val repository: IAccountRepository,
+    private val session: SessionProvider
 ) : ViewModel() {
 
     var username: String? = null
@@ -34,6 +37,7 @@ class AuthViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 // PASS
+
                 event.value = AuthEvent(AuthStatus.Success)
             }, {
                 // FAIL

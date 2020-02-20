@@ -46,13 +46,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
 
-    //Kodein Dependency Injection
+    // Kodein Dependency Injection
     implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
     implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
 
-    //RxJava
+    // RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.5"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 apply plugin: 'com.android.application'

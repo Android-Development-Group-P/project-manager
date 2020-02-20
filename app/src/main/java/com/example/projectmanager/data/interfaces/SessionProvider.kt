@@ -1,31 +1,32 @@
-package com.example.projectmanager.data.managers
+package com.example.projectmanager.data.interfaces
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.projectmanager.MainActivity
 import com.example.projectmanager.data.entities.UserEntity
+import com.google.gson.Gson
 
-object SessionManager {
+abstract class SessionProvider {
 
     private val PRIVATE_MODE = 0
 
-    private lateinit var preferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
-    private lateinit var context: Context
+    private var preferences: SharedPreferences
+    private var editor: SharedPreferences.Editor
+    private var context: Context
 
     private val KEY_PREFERENCE = "SESSION"
     private val KEY_IS_LOGGED_IN = "IS_LOGGED_IN"
-    private val KEY_UID = "UID"
-    private val KEY_NAME = "NAME"
-    private val KEY_EMAIL = "EMAIL"
+    private val KEY_USER = "USER_ENTITY"
+
+    var user: UserEntity? = null
+        get() = Gson().fromJson(preferences.getString(KEY_USER, null), UserEntity::class.java)
 
     /**
      * Initialize the singleton SessionManager with the application context
      * @param context The 'Context'
      */
-    fun init(context: Context) {
+     constructor(context: Context) {
         this.context = context
         preferences = context.getSharedPreferences(KEY_PREFERENCE, PRIVATE_MODE)
         editor = preferences.edit()
@@ -37,10 +38,7 @@ object SessionManager {
      */
     fun createSession(user: UserEntity) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
-        Log.d("user", user.uid.toString())
-        editor.putString(KEY_UID, user.uid)
-        editor.putString(KEY_NAME, user.name)
-        editor.putString(KEY_EMAIL, user.email)
+        editor.putString(KEY_USER, Gson().toJson(user))
         editor.commit()
     }
 
@@ -57,15 +55,6 @@ object SessionManager {
 
         context.startActivity(intent)
     }
-/*
-    /**
-     * Retrieve the 'User' details from the current session
-     * @return The 'User' object
-     */
-    fun getUserDetails() : UserEntity = UserEntity(
-        preferences.getString(KEY_UID, ""),
-        preferences.getString(KEY_NAME, ""),
-        preferences.getString(KEY_EMAIL, ""))*/
 
     /**
      * Check if the current user is logged in

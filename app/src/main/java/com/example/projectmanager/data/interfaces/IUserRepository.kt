@@ -1,35 +1,15 @@
 package com.example.projectmanager.data.interfaces
 
 import com.example.projectmanager.data.entities.UserEntity
+import com.google.firebase.firestore.auth.User
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface IUserRepository {
 
-    /**
-     * Login the account to the application
-     *
-     * @param email The email for the specific account
-     * @param password The password for the specific account
-     * @return A "reactivex" "Completeable" object
-     */
-    fun login(email: String, password: String) : Completable
+    fun create(user: UserEntity) : Completable
 
-    /**
-     * Register a new account to the application
-     *
-     * @param email The email for the specific account
-     * @param password The password for the specific account
-     * @return A "reactivex" "Completeable" object
-     */
-    fun register(email: String, password: String) : Completable
+    fun getById(id: String) : Single<UserEntity>
 
-    /**
-     * Logout the account to the application
-     *
-     * @return A "reactivex" "Completeable" object
-     */
-    fun logout() : Completable
-
-    fun getCurrentUser() : Single<UserEntity>
+    fun getAll() : Single<List<UserEntity>>
 }

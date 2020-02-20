@@ -2,63 +2,51 @@ package com.example.projectmanager.data.repositories.firebase
 
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.IUserRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class FBUserRepository : IUserRepository {
 
-    private val auth = FirebaseAuth.getInstance()
+    private val COLLECTION_PATH = "users"
 
-    override fun login(email: String, password: String) = Completable.create { emitter ->
+    private val db = FirebaseFirestore.getInstance()
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (!emitter.isDisposed) {
-                if (it.isSuccessful)
-                    emitter.onComplete()
-                else
-                    emitter.onError(it.exception!!)
-            }
-        }
-    }
-
-    override fun register(email: String, password: String) = Completable.create { emitter ->
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (!emitter.isDisposed) {
-                if (it.isSuccessful)
-                    emitter.onComplete()
-                else
-                    emitter.onError(it.exception!!)
-            }
-        }
-    }
-
-    override fun logout() = Completable.create { emitter ->
-        auth.signOut()
-
-        if (!emitter.isDisposed) {
-            if (auth.currentUser == null)
+    override fun create(user: UserEntity) = Completable.create { emitter ->
+        db.collection(COLLECTION_PATH)
+            .document(user.id)
+            .set(user)
+            .addOnSuccessListener {
                 emitter.onComplete()
-            else
-                emitter.onError(throw Exception("auth.signout: currentUser not null."))
+            }.addOnFailureListener {
+                emitter.onError(it)
+            }
+    }
+
+    override fun getById(id: String): Single<UserEntity> {
+        return Single.create { emitter ->
+            db.collection(COLLECTION_PATH)
+                .document(id)
+                .get()
+                .addOnSuccessListener {
+                    val user = it.toObject(UserEntity::class.java)
+                    emitter.onSuccess(user!!)
+                }.addOnFailureListener {
+                    emitter.onError(it)
+                }
         }
     }
 
-    override fun getCurrentUser(): Single<UserEntity> {
+    override fun getAll(): Single<List<UserEntity>> {
         return Single.create { emitter ->
-
-            if (auth.currentUser != null) {
-                val user = UserEntity(
-                    uid = auth.currentUser!!.uid,
-                    name = auth.currentUser!!.displayName!!,
-                    email = auth.currentUser!!.email!!
-                )
-
-                emitter.onSuccess(user)
-
-            } else {
-                emitter.onError(throw Exception("auth.getCurrentUser: currentUser is null."))
-            }
+            db.collection(COLLECTION_PATH)
+                .get()
+                .addOnSuccessListener {
+                    val users = it.toObjects(UserEntity::class.java)
+                    emitter.onSuccess(users!!)
+                }.addOnFailureListener {
+                    emitter.onError(it)
+                }
         }
     }
 }
