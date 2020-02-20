@@ -12,10 +12,12 @@ import androidx.lifecycle.Observer
 
 import com.example.projectmanager.R
 import com.example.projectmanager.StartPageActivity
+import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.databinding.SignInFragmentBinding
 
 import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory
+import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.view_models.AuthViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.sign_in_fragment.progress_bar
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import java.util.*
 
 class SignInFragment : Fragment(), KodeinAware {
 
@@ -33,6 +36,7 @@ class SignInFragment : Fragment(), KodeinAware {
 
     override val kodein by kodein()
     private val factory : AuthViewModelFactory by instance()
+    private val repo : IUserRepository by instance()
 
     private lateinit var binding: SignInFragmentBinding
     private lateinit var viewModel: AuthViewModel
