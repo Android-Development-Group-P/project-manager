@@ -1,14 +1,11 @@
 package com.example.projectmanager
 
 import android.app.Application
+import com.example.projectmanager.data.factories.*
 import com.example.projectmanager.data.providers.firebase.FBSession
-import com.example.projectmanager.data.factories.AuthViewModelFactory
 
 import com.example.projectmanager.data.interfaces.*
 import com.example.projectmanager.data.repositories.firebase.*
-import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
-import com.example.projectmanager.data.factories.CreateProjectViewModelFactory
-import com.example.projectmanager.data.factories.IssueInfoViewModelFactory
 import com.example.projectmanager.data.interfaces.IChatRepository
 import com.example.projectmanager.data.interfaces.IIssueRepository
 import com.example.projectmanager.data.interfaces.IProjectRepository
@@ -33,10 +30,10 @@ class FirebaseApplication : Application(), KodeinAware {
 
         bind<IAccountRepository>() with singleton { FBAccountRepository() }
 
-        bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { CreateProjectViewModelFactory(instance()) }
         bind() from provider { CreateIssueViewModelFactory(instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }
+        bind() from provider { ProjectViewModelFactory(instance()) }
 
         bind<IUserRepository>() with singleton { FBUserRepository() }
         bind<IProjectRepository>() with singleton { FBProjectRepository() }

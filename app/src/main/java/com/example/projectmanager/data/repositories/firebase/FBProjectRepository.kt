@@ -1,11 +1,14 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import android.util.Log
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
+import kotlinx.coroutines.*
 
 class FBProjectRepository : IProjectRepository {
 
@@ -43,6 +46,36 @@ class FBProjectRepository : IProjectRepository {
         }
     }
 
+    override fun getProjectsByIds(ids: List<String>): Single<List<ProjectEntity>> {
+        return Observable.fromIterable(ids)
+            .flatMapSingle { id -> getById(id) }
+            .toList()
+            .doOnError {
+                Log.d("test", "test nåååå $it")
+            }
+    }
+
+    override fun getById(id: String): Single<ProjectEntity> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH).document(id)
+                .get()
+                .addOnSuccessListener { document ->
+                    Log.d("test", "test jjjjåååå")
+                    if (document.exists()) {
+                        val project = document.toObject(ProjectEntity::class.java)!!
+                        project.id = id
+                        emitter.onSuccess(project)
+                    } else {
+                        Log.d("test", "test nåååå")
+                        emitter.onError(Exception("test: hello"))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    emitter.onError(exception)
+                }
+        }
+    }
+
     override fun addUserToProject(projectId: String, userId: String) = Completable.create { emitter ->
         db.collection(COLLECTION_PATH).document(projectId)
             .update("members", FieldValue.arrayUnion(userId))
@@ -50,7 +83,7 @@ class FBProjectRepository : IProjectRepository {
                 emitter.onComplete()
             }
             .addOnFailureListener { e ->
-                emitter.onError(throw Exception("project.addUserToProject: ${e.message}"))
+                emitter.onError(Exception("project.addUserToProject: ${e.message}"))
             }
     }
 
@@ -62,7 +95,7 @@ class FBProjectRepository : IProjectRepository {
                 emitter.onComplete()
             }
             .addOnFailureListener { e ->
-                emitter.onError(throw Exception("project.removeUserFromProject: ${e.message}"))
+                emitter.onError(Exception("project.removeUserFromProject: ${e.message}"))
             }
     }
 
@@ -74,7 +107,7 @@ class FBProjectRepository : IProjectRepository {
                 emitter.onComplete()
             }
             .addOnFailureListener { e ->
-                emitter.onError(throw Exception("project.changeStatusOnProject: ${e.message}"))
+                emitter.onError(Exception("project.changeStatusOnProject: ${e.message}"))
             }
     }
 

@@ -40,9 +40,9 @@ class CreateProjectViewModel (
                 while (code == "") {
                     code = createCode()
                 }
-                project = ProjectEntity(title, description, listOf(uid), false, null, code, created)
+                project = ProjectEntity(null, title, description, listOf(uid), false, null, code, created)
             } else {
-                project = ProjectEntity(title, description, listOf(uid), false, null, null, created)
+                project = ProjectEntity(null, title, description, listOf(uid), false, null, null, created)
             }
 
             val disposable = repository.create(project)

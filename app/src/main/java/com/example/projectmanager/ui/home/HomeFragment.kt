@@ -16,6 +16,8 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeViewModel()
+
+        lateinit var projectId : String
     }
 
     private lateinit var viewModel: HomeViewModel
