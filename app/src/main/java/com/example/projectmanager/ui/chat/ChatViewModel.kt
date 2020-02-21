@@ -5,26 +5,42 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.ChatMessage
+import com.example.projectmanager.data.entities.ChatMessageEntity
+import com.example.projectmanager.data.interfaces.IChatRepository
 import com.example.projectmanager.util.SingleLiveEvent
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class ChatViewModel : ViewModel() {
+
+class ChatViewModel (
+    private val repository: IChatRepository
+) : ViewModel() {
+
     var message: String = ""
 
-    var chatEvent = SingleLiveEvent<ChatEvent>()
+    var event = SingleLiveEvent<ChatEvent>()
+
+    private val disposables = CompositeDisposable()
+
 
     fun onCreateMessage() {
-        Log.d("asd", "wasd")
         if (message.isNotEmpty()) {
-            val chatMessage = ChatMessage("Johan_Turntable", "6wX8bHgRFt2LFDphrhD3" , null, message)
-            DatabaseManager.db.createChatMessage(chatMessage) { isSuccessful, error ->
-                when (isSuccessful) {
-                    true -> chatEvent.value = ChatEvent(ChatStatus.Success)
-                    false -> chatEvent.value = ChatEvent(ChatStatus.Failure)
-                }
-            }
-        }
-        else {
-            chatEvent.value = ChatEvent(ChatStatus.Failure, "Message field can not be empty")
+            val chatMessage = ChatMessageEntity("Johan_Turntable", "6wX8bHgRFt2LFDphrhD3", null, message)
+
+            val disposable = repository.create(chatMessage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    event.value = ChatEvent(ChatStatus.Success, null)
+                }, {
+                    event.value = ChatEvent(ChatStatus.Failure, it.localizedMessage)
+                })
+
+            disposables.add(disposable)
+
+        } else {
+            event.value = ChatEvent(ChatStatus.Failure, "Message field can not be empty")
         }
     }
 
@@ -32,5 +48,10 @@ class ChatViewModel : ViewModel() {
     enum class ChatStatus {
         Success,
         Failure
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.dispose()
     }
 }
