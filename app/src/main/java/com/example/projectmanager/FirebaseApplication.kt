@@ -43,6 +43,8 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { CreateIssueViewModelFactory(instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }
         bind() from provider { ProjectViewModelFactory(instance()) }
+        bind() from provider { HomeViewModelFactory(instance()) }
+        bind() from provider { UpdateIssueViewModelFactory(instance()) }
         bind() from provider { AuthViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { UserCreationViewModelFactory(instance(), instance()) }
     }
