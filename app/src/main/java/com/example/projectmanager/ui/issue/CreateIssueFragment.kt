@@ -22,6 +22,8 @@ class CreateIssueFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = CreateIssueFragment()
+
+        lateinit var projectId : String
     }
 
     override val kodein by kodein()
@@ -43,6 +45,8 @@ class CreateIssueFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this, factory).get(CreateIssueViewModel::class.java)
+
+        viewModel.setProjectId(projectId)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {

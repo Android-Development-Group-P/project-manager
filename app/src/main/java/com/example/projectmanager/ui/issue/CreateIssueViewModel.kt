@@ -15,6 +15,7 @@ class CreateIssueViewModel (
     private val repository: IIssueRepository
 ) : ViewModel() {
 
+    var project: String = ""
     var title: String = ""
     var description: String = ""
 
@@ -22,13 +23,17 @@ class CreateIssueViewModel (
 
     private val disposables = CompositeDisposable()
 
+    fun setProjectId(projectId: String) {
+        project = projectId
+    }
+
     fun onCreateIssue(view: View) {
         if (title.isNotEmpty() && description.isNotEmpty()) {
 
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
-            val issue = IssueEntity("test_user", created, title, description, "High",
-                null, "red", null, "started", "test_project")
+            val issue = IssueEntity(null, "test_user", created, title, description, "High",
+                null, "red", null, "started", project)
 
             val disposable = repository.create(issue)
                 .subscribeOn(Schedulers.io())

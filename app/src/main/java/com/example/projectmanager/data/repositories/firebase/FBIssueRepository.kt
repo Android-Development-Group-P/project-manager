@@ -32,10 +32,60 @@ class FBIssueRepository : IIssueRepository {
                 .get()
                 .addOnSuccessListener { document ->
                     val issue = document.toObject(IssueEntity::class.java)
+                    issue?.id = issueId
                     emitter.onSuccess(issue!!)
                 }
                 .addOnFailureListener { e ->
                     emitter.onError(e)
+                }
+        }
+    }
+
+    override fun getAllIssuesForProject(projectId: String): Single<List<IssueEntity>> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH).whereEqualTo("project", projectId).get()
+                .addOnSuccessListener {documents ->
+                    val issuesList = mutableListOf<IssueEntity>()
+
+                    for (documet in documents) {
+                        val issue = documet.toObject(IssueEntity::class.java)
+                        issue.id = documet.id
+                        issuesList.add(issue)
+                    }
+
+                    emitter.onSuccess(issuesList)
+
+                    //emitter.onSuccess(documents.toObjects(IssueEntity::class.java))
+                }
+                .addOnFailureListener {
+                    emitter.onError(Exception("error with db"))
+                }
+        }
+    }
+
+    override fun updateIssue(issue: IssueEntity, issueId: String): Single<Boolean> {
+
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH).document(issueId)
+                .set(issue)
+                .addOnSuccessListener {
+                    emitter.onSuccess(true)
+                }
+                .addOnFailureListener { e ->
+                    emitter.onError(Exception("error updating document"))
+                }
+        }
+    }
+
+    override fun deleteIssue(issueId: String): Single<Boolean> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH).document(issueId)
+                .delete()
+                .addOnSuccessListener {
+                    emitter.onSuccess(true)
+                }
+                .addOnFailureListener { e ->
+                    emitter.onError(Exception("error deleting issue"))
                 }
         }
     }
