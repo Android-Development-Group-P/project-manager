@@ -10,15 +10,22 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
-
 import com.example.projectmanager.R
+import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
+import org.kodein.di.Factory
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class ChatFragment : Fragment() {
+class ChatFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = ChatFragment()
     }
+
+    override val kodein by kodein()
+    private val factory : ChatViewModelFactory by instance()
 
     private lateinit var binding: ChatFragmentBinding
     private lateinit var viewModel: ChatViewModel
@@ -34,9 +41,9 @@ class ChatFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(ChatViewModel::class.java)
 
-        viewModel.chatEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ChatViewModel.ChatStatus.Failure -> onFailure(it.error!!)
             }
