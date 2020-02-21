@@ -16,7 +16,8 @@
             app:popUpTo="@+id/nav_home" />
         <action
             android:id="@+id/action_nav_home_to_nav_create_issue"
-            app:destination="@id/nav_create_issue" />
+            app:destination="@id/nav_create_issue"
+            app:popUpTo="@+id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/nav_chat"
@@ -31,7 +32,8 @@
         tools:layout="@layout/create_issue_fragment" >
         <action
             android:id="@+id/action_nav_create_issue_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@+id/nav_home" />
     </fragment>
 
     <fragment
@@ -56,7 +58,12 @@
         android:id="@+id/nav_update_issue"
         android:name="com.example.projectmanager.ui.issue.UpdateIssueFragment"
         android:label="@string/menu_update_issue"
-        tools:layout="@layout/update_issue_fragment" />
+        tools:layout="@layout/update_issue_fragment" >
+        <action
+            android:id="@+id/action_nav_update_issue_to_nav_view_issue"
+            app:destination="@id/nav_view_issue"
+            app:popUpTo="@+id/nav_view_issue" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_view_issue"
@@ -65,9 +72,11 @@
         tools:layout="@layout/issue_info_fragment" >
         <action
             android:id="@+id/action_nav_view_issue_to_nav_update_issue"
-            app:destination="@id/nav_update_issue" />
+            app:destination="@id/nav_update_issue"
+            app:popUpTo="@+id/nav_view_issue" />
         <action
             android:id="@+id/action_nav_view_issue_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@+id/nav_home" />
     </fragment>
 </navigation>

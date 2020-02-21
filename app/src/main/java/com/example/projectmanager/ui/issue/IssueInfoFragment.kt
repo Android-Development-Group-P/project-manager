@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.IssueInfoViewModelFactory
 import com.example.projectmanager.databinding.IssueInfoFragmentBinding
 import kotlinx.android.synthetic.main.issue_info_fragment.*
@@ -35,6 +36,7 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
     private lateinit var binding: IssueInfoFragmentBinding
     private lateinit var viewModel: IssueInfoViewModel
+    private lateinit var issueEntity: IssueEntity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,26 +45,10 @@ class IssueInfoFragment : Fragment(), KodeinAware {
         binding = DataBindingUtil.inflate(inflater, R.layout.issue_info_fragment, container, false)
 
         val buttonToUpdate = binding.root.findViewById<Button>(R.id.issueInfoUpdateButton)
-        val buttonToDelete = binding.root.findViewById<Button>(R.id.issueInfoDeleteButton)
 
         buttonToUpdate.setOnClickListener {view ->
+            UpdateIssueFragment.issueEntity = issueEntity
             view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_update_issue)
-        }
-
-        buttonToDelete.setOnClickListener {view ->
-            AlertDialog.Builder(context)
-                .setTitle(R.string.issue_info_dialog_title)
-                .setMessage(R.string.issue_info_dialog_body)
-                .setPositiveButton(
-                    R.string.issue_info_dialog_yes
-                ) { _, _ ->
-                    // Delete it.
-                    view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_home)
-                }.setNegativeButton(
-                    R.string.issue_info_dialog_no
-                ) { _, _ ->
-                    // Do not delete it.
-                }.show()
         }
 
         return binding.root
@@ -73,31 +59,57 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(IssueInfoViewModel::class.java)
 
-        activity?.runOnUiThread {
-            progressBar.visibility = View.VISIBLE
-            progressBar.isIndeterminate = true
+        viewModel.getIssue(issueId)
+
+        view?.findViewById<Button>(R.id.issueInfoDeleteButton)?.setOnClickListener {view ->
+            AlertDialog.Builder(context)
+                .setTitle(R.string.issue_info_dialog_title)
+                .setMessage(R.string.issue_info_dialog_body)
+                .setPositiveButton(
+                    R.string.issue_info_dialog_yes
+                ) { _, _ ->
+                    // Delete it.
+                    viewModel.deleteIssue(issueId)
+                }.setNegativeButton(
+                    R.string.issue_info_dialog_no
+                ) { _, _ ->
+                    // Do not delete it.
+                }.show()
         }
-        viewModel.onGetProject(issueId)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                IssueInfoViewModel.IssueStatus.Success -> onSuccess(it.title!!, it.description!!, it.issueStatus!!)
+                IssueInfoViewModel.IssueStatus.Started -> onStarted()
+                IssueInfoViewModel.IssueStatus.Success -> onSuccess(it.issue!!)
                 IssueInfoViewModel.IssueStatus.Failure -> onFailure(it.error!!)
+                IssueInfoViewModel.IssueStatus.DeleteSuccess -> onDelete()
             }
         })
 
         binding.viewModel = viewModel
     }
 
-    private fun onSuccess(title: String, description: String, status: String) {
+    private fun onStarted() {
+        /*activity?.runOnUiThread {
+            progressBar.visibility = View.VISIBLE
+            progressBar.isIndeterminate = true
+        }*/
+    }
+
+    private fun onDelete() {
+        view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_home)
+    }
+
+    private fun onSuccess(issue: IssueEntity) {
+        issueEntity = issue
         activity?.runOnUiThread {
             progressBar.visibility = View.GONE
             progressBar.isIndeterminate = false
         }
         Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
-        issueInfoTitleText.text = title
-        issueInfoDescriptionText.text = description
-        issueInfoStatusText.text = status
+        issueInfoTitleText.text = issue.title
+        issueInfoDescriptionText.text = issue.description
+        issueInfoStatusText.text = issue.status
     }
 
     private fun onFailure(error: String) {
