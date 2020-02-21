@@ -47,5 +47,6 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { UpdateIssueViewModelFactory(instance()) }
         bind() from provider { AuthViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { UserCreationViewModelFactory(instance(), instance()) }
+        bind() from provider { ChatViewModelFactory(instance()) }
     }
 }
