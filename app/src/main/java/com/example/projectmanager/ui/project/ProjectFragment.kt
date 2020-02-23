@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.factories.ProjectViewModelFactory
+import com.example.projectmanager.data.interfaces.SessionProvider
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -26,7 +27,7 @@ class ProjectFragment : Fragment(), KodeinAware {
     }
 
     override val kodein by kodein()
-    private val factory : ProjectViewModelFactory by instance()
+    private val factory: ProjectViewModelFactory by instance()
 
     private lateinit var viewModel: ProjectViewModel
     private lateinit var recyclerView: RecyclerView

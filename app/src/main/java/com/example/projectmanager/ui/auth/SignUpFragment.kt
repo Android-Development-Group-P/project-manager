@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.example.projectmanager.R
-import com.example.projectmanager.StartPageActivity
 import com.example.projectmanager.databinding.SignUpFragmentBinding
 import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory

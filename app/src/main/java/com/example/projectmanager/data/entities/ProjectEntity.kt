@@ -2,13 +2,13 @@ package com.example.projectmanager.data.entities
 
 data class ProjectEntity (
     var id: String? = null,
-    val title: String? = null,
-    val description: String? = null,
-    val members: List<String>? =  null,
-    val archived: Boolean? = null,
-    val invite_qr_pic: String? = null,
-    val code: String? = null,
-    val created: String? = null
+    var title: String? = null,
+    var description: String? = null,
+    var members: List<String>? =  null,
+    var archived: Boolean? = null,
+    var invite_qr_pic: String? = null,
+    var code: String? = null,
+    var created: String? = null
 ) {
     //constructor() : this("", "", "")
 }

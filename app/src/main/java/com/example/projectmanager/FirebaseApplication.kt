@@ -39,6 +39,7 @@ class FirebaseApplication : Application(), KodeinAware {
 
         bind<SessionProvider>() with singleton { FBSession(instance()) }
 
+        bind() from provider { OldCreateProjectViewModelFactory(instance()) }
         bind() from provider { CreateProjectViewModelFactory(instance()) }
         bind() from provider { CreateIssueViewModelFactory(instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }

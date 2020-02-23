@@ -9,10 +9,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
-import com.example.projectmanager.data.factories.CreateProjectViewModelFactory
+import com.example.projectmanager.data.factories.OldCreateProjectViewModelFactory
 import com.example.projectmanager.databinding.CreateProjectFragmentBinding
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -25,7 +24,7 @@ class CreateProjectFragment : Fragment(), KodeinAware {
     }
 
     override val kodein by kodein()
-    private val factory : CreateProjectViewModelFactory by instance()
+    private val factory : OldCreateProjectViewModelFactory by instance()
 
     private lateinit var binding: CreateProjectFragmentBinding
     private lateinit var viewModel: CreateProjectViewModel
@@ -50,13 +49,11 @@ class CreateProjectFragment : Fragment(), KodeinAware {
                 CreateProjectViewModel.ProjectStatus.Failure -> onFailure(it.error!!)
             }
         })
-
-        binding.viewModel = viewModel
     }
 
     private fun onSuccess() {
         Toast.makeText(context, "Success creating the project", Toast.LENGTH_SHORT).show()
-        view?.findNavController()?.navigate(R.id.action_nav_create_project_to_nav_project)
+        //view?.findNavController()?.navigate(R.id.action_nav_create_project_to_nav_project)
     }
 
     private fun onFailure(error: String) {

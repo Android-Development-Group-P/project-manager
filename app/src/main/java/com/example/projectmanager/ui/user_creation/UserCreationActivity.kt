@@ -2,14 +2,13 @@ package com.example.projectmanager.ui.user_creation
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.projectmanager.R
-import com.example.projectmanager.StartPageActivity
+import com.example.projectmanager.ui.start.StartActivity
 import com.example.projectmanager.data.factories.UserCreationViewModelFactory
 import com.example.projectmanager.databinding.ActivityUserCreationBinding
 import com.example.projectmanager.view_models.UserCreationViewModel
@@ -55,7 +54,7 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
     }
 
     private fun onSuccess() {
-        val intent = Intent(this, StartPageActivity::class.java)
+        val intent = Intent(this, StartActivity::class.java)
         startActivity(intent)
         finish()
     }

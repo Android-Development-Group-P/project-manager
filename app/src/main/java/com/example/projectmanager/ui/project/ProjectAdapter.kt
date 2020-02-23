@@ -1,7 +1,6 @@
 package com.example.projectmanager.ui.project
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.ProjectActivity
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.ui.home.HomeFragment
 
 class ProjectAdapter(val list: List<ProjectEntity>): RecyclerView.Adapter<CustomViewHolder>() {
 
@@ -28,9 +26,9 @@ class ProjectAdapter(val list: List<ProjectEntity>): RecyclerView.Adapter<Custom
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.view.findViewById<TextView>(R.id.textView5).text = list.get(position).title
         holder.view.findViewById<Button>(R.id.button8).setOnClickListener {
-            HomeFragment.projectId = list.get(position).id!!
+            /*HomeFragment.projectId = list.get(position).id!!
             val intent = Intent(holder.view.context, ProjectActivity::class.java)
-            holder.view.context.startActivity(intent)
+            holder.view.context.startActivity(intent)*/
         }
     }
 

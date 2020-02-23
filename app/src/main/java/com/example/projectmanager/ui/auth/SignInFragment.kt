@@ -8,30 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 import com.example.projectmanager.R
-import com.example.projectmanager.StartPageActivity
-import com.example.projectmanager.data.entities.UserEntity
+import com.example.projectmanager.ui.start.StartActivity
 import com.example.projectmanager.databinding.SignInFragmentBinding
 
 import com.example.projectmanager.util.toast
 import com.example.projectmanager.data.factories.AuthViewModelFactory
 import com.example.projectmanager.data.interfaces.IUserRepository
-import com.example.projectmanager.ui.user_creation.UserCreationActivity
 import com.example.projectmanager.view_models.AuthViewModel
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.sign_in_fragment.progress_bar
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
-import java.util.*
 
 class SignInFragment : Fragment(), KodeinAware {
 
@@ -80,7 +70,7 @@ class SignInFragment : Fragment(), KodeinAware {
 
     private fun onSuccess() {
         activity?.toast("onSuccess")
-        val intent = Intent(activity, StartPageActivity::class.java)
+        val intent = Intent(activity, StartActivity::class.java)
         startActivity(intent)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         activity?.finish()
