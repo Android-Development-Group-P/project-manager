@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
+import com.google.firebase.firestore.ListenerRegistration
 import org.kodein.di.Factory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -24,6 +25,8 @@ class ChatFragment : Fragment(), KodeinAware {
         fun newInstance() = ChatFragment()
     }
 
+    private lateinit var messagesListenerRegistration: ListenerRegistration
+
     override val kodein by kodein()
     private val factory : ChatViewModelFactory by instance()
 
@@ -34,9 +37,13 @@ class ChatFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewModel.registerMessageListener("johan")
+
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
 
         return binding.root
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

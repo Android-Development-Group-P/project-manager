@@ -8,6 +8,7 @@ import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
 import com.example.projectmanager.util.SingleLiveEvent
+import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +29,7 @@ class ChatViewModel (
         if (message.isNotEmpty()) {
             val chatMessage = ChatMessageEntity("Johan_Turntable", "6wX8bHgRFt2LFDphrhD3", null, message)
 
-            val disposable = repository.create(chatMessage)
+            val disposable = repository.create("johan", chatMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -53,5 +54,13 @@ class ChatViewModel (
     override fun onCleared() {
         super.onCleared()
         disposables.dispose()
+    }
+
+    fun registerMessageListener(channelId: String) : ListenerRegistration {
+        return repository.addMessageListener(channelId, this::onMessagesChange)
+    }
+
+    fun onMessagesChange(messages: List<ChatMessageEntity>) {
+
     }
 }
