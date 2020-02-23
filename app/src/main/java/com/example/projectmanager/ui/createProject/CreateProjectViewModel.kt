@@ -6,15 +6,10 @@ import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.util.SingleLiveEvent
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+
 import java.text.SimpleDateFormat
 import java.util.*
-
+/*
 class CreateProjectViewModel (
     private val repository: IProjectRepository
 ) : ViewModel() {
@@ -101,3 +96,4 @@ class CreateProjectViewModel (
         Failure
     }
 }
+*/
