@@ -10,6 +10,7 @@ import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
+import com.example.projectmanager.util.LiveDataResult
 import com.example.projectmanager.util.SingleLiveEvent
 import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,24 +23,27 @@ class ChatViewModel (
 ) : ViewModel() {
 
     var message: String = ""
-    var messageList: List<ChatMessageEntity> = ArrayList()
 
-    private val _messages = MutableLiveData<ChatMessageEntity>()
+    private val _messages = MutableLiveData<LiveDataResult<List<ChatMessageEntity>>>()
     private val disposables = CompositeDisposable()
+
+    init {
+        loadMessages()
+    }
 
     fun loadMessages() {
         disposables.add(repository.getAllBySection("6wX8bHgRFt2LFDphrhD3",20)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-
-            }, {
-
+            .subscribe({ messages ->
+                _messages.postValue(LiveDataResult.success(messages))
+            }, {error ->
+                _messages.postValue(LiveDataResult.error(error))
             })
         )
     }
 
-    fun getMessages() : LiveData<ChatMessageEntity> = _messages
+    fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
 
     fun onCreateMessage() {
         if (message.isNotEmpty()) {

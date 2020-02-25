@@ -11,14 +11,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
-import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.android.synthetic.main.chat_fragment.*
-import org.kodein.di.Factory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -28,8 +27,6 @@ class ChatFragment : Fragment(), KodeinAware {
     companion object {
         fun newInstance() = ChatFragment()
     }
-
-    private lateinit var messagesListenerRegistration: ListenerRegistration
 
     override val kodein by kodein()
     private val factory : ChatViewModelFactory by instance()
@@ -45,14 +42,8 @@ class ChatFragment : Fragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
 
-        val listView = chatMessageView
-
-        listView.adapter = ChatAdapter(viewModel.onMessagesChange())
-
-        //chatMessageView.setBackgroundColor(Color.parseColor("#FF0000"))
-
-
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
+
 
         return binding.root
 
@@ -61,15 +52,27 @@ class ChatFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this, factory).get(ChatViewModel::class.java)
+        chatRecyclerView.layoutManager = LinearLayoutManager(activity)
 
-        viewModel.event.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                ChatViewModel.ChatStatus.Failure -> onFailure(it.error!!)
+        viewModel.getMessages().observe(viewLifecycleOwner, Observer {
+            if (it.error != null) {
+
+            } else {
+                chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
+            }
+        })
+
+        viewModel.getEvent().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is ChatViewModel.Event.Failure -> onFailure(it.error!!)
             }
         })
 
         binding.viewModel = viewModel
         viewModel.onCreateMessage()
+
+
+
     }
 
     private fun onFailure(error: String) {

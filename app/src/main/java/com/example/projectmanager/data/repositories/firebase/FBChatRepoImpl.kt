@@ -104,7 +104,7 @@ class FBChatRepoImpl : IChatRepository {
         return Single.create { emitter ->
             db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
                 .orderBy("createdAt")
-                .limit(limit as Long)
+                .limit(limit as Long * offset)
                 .get()
                 .addOnSuccessListener {
                     val messages = it.toObjects(ChatMessageEntity::class.java)
