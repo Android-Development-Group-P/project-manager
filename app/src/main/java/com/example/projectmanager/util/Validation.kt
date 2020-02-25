@@ -4,15 +4,15 @@ import android.util.Patterns
 
 object Validation {
 
-    fun isUsername(username: CharSequence) : Boolean {
-        return username.isEmpty() || username.contains(" ")
+    fun isEmail(email: String?) : Boolean {
+        return !email.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isEmail(email: CharSequence) : Boolean {
-        return email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    fun isPassword(password: String?) : Boolean {
+        return !password.isNullOrEmpty()
     }
 
-    fun isPassword(password: CharSequence, repeatedPassword: CharSequence) : Boolean {
-        return password.isEmpty() || password.length < 6 || password != repeatedPassword
+    fun isPassword(password: String?, repeatedPassword: String?) : Boolean {
+        return !password.isNullOrEmpty() && password.length >= 6 && password == repeatedPassword
     }
 }

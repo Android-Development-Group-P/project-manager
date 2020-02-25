@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.auth.SignInFragment">
+    tools:context=".ui.auth.LoginFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.projectmanager.view_models.AuthViewModel" />
+            type="com.example.projectmanager.ui.auth.LoginViewModel" />
     </data>
 
     <FrameLayout android:layout_width="match_parent"

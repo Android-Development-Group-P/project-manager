@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.projectmanager.view_models.UserCreationViewModel" />
+            type="com.example.projectmanager.ui.user_creation.UserCreationViewModel" />
     </data>
 
     <ScrollView

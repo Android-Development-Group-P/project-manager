@@ -11,7 +11,6 @@ import com.example.projectmanager.R
 import com.example.projectmanager.ui.start.StartActivity
 import com.example.projectmanager.data.factories.UserCreationViewModelFactory
 import com.example.projectmanager.databinding.ActivityUserCreationBinding
-import com.example.projectmanager.view_models.UserCreationViewModel
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -28,21 +27,19 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_creation)
-
+        viewModel = ViewModelProvider(this, factory).get(UserCreationViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_creation);
 
         // Hide top bar
         supportActionBar?.hide()
 
-        viewModel = ViewModelProvider(this, factory).get(UserCreationViewModel::class.java)
+        viewModel.getEvent().observe(this, Observer {
+            when (it) {
+                is UserCreationViewModel.Event.Success -> onActivityFinished()
 
-        viewModel.event?.observe(this, Observer {
-            when (it.status) {
-                UserCreationViewModel.UserCreationStatus.Success -> onSuccess()
+                is UserCreationViewModel.Event.Skipped -> onActivityFinished()
 
-                UserCreationViewModel.UserCreationStatus.Skipped -> onSkipped()
-
-                UserCreationViewModel.UserCreationStatus.Failure -> {
+                is UserCreationViewModel.Event.Failure -> {
                     Log.d("Hejhej", "Failure")
                 }
             }
@@ -53,16 +50,10 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
         pickImageFromGallery()
     }
 
-    private fun onSuccess() {
+    private fun onActivityFinished() {
         val intent = Intent(this, StartActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    private fun onSkipped() = onSuccess()
-
-    private fun onFailure() {
-
     }
 
     private fun pickImageFromGallery() {

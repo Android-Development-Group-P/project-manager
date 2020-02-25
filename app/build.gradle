@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
@@ -72,6 +73,11 @@ dependencies {
     //implementation 'com.google.zxing:android-core:3.3.0' // Kanske inte behövs
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
+    // LocalDateTime
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
+    // Swipe Refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
 
 apply plugin: 'com.android.application'

@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.projectmanager.R
+import com.example.projectmanager.ui.issue.IssuesFragment
 
 class StartNotificationFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = StartNotificationFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         activity?.title = "Notifications"
-
         return inflater.inflate(R.layout.fragment_start_notification, container, false)
     }
 
