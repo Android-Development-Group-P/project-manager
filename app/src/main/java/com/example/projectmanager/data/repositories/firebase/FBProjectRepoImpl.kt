@@ -53,6 +53,7 @@ class FBProjectRepoImpl : IProjectRepository {
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         val project = document.toObject(ProjectEntity::class.java)!!
+                        project.id = document.id
                         emitter.onSuccess(project)
                     } else {
                         emitter.onError(Exception("Could not fetch project with id {$id}"))
@@ -68,9 +69,15 @@ class FBProjectRepoImpl : IProjectRepository {
         return Single.create { emitter ->
             db.collection(COLLECTION_PATH)
                 .get()
-                .addOnSuccessListener {
-                    val projects = it.toObjects(ProjectEntity::class.java)
-                    emitter.onSuccess(projects)
+                .addOnSuccessListener { documents ->
+                    val projectsList = mutableListOf<ProjectEntity>()
+
+                    for (documet in documents) {
+                        val project = documet.toObject(ProjectEntity::class.java)
+                        project.id = documet.id
+                        projectsList.add(project)
+                    }
+                    emitter.onSuccess(projectsList)
                 }
                 .addOnFailureListener { exception ->
                     emitter.onError(exception)

@@ -2,27 +2,40 @@ package com.example.projectmanager.ui.project_new
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.ui.createProject.StartNotificationFragment
 import com.example.projectmanager.ui.issue.IssueInfoFragment
 import com.example.projectmanager.ui.issue.IssuesFragment
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.activity_start.drawer_layout
+import kotlinx.android.synthetic.main.activity_start.nav_view
+import kotlinx.android.synthetic.main.activity_start.toolbar
 
 class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         const val PROJECT_EXTRA_ID = "Project"
+        var currentProject: ProjectEntity? = null
     }
 
     private val project: ProjectEntity by lazy {
         intent.getSerializableExtra(PROJECT_EXTRA_ID) as ProjectEntity
     }
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +44,22 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         // Set the title for the activity
         title = project.title
 
+        currentProject = project
+
         // Initialize the action bar
-        setupActionBar()
+        //setupActionBar()
 
         if (savedInstanceState == null) {
             // Initialize the base fragment for the activity
             supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, IssuesFragment()
+                R.id.nav_host_fragment_project, IssuesFragment()
             ).commit()
 
             nav_view.setCheckedItem(R.id.nav_issues)
         }
+        val navController = findNavController(R.id.nav_host_fragment_project)
+        nav_view.setupWithNavController(navController)
+        setupActionBar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -91,6 +109,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
 
         when (p0.itemId) {
+            /*
             R.id.nav_issues -> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, IssuesFragment()
@@ -100,6 +119,17 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_members -> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, StartNotificationFragment()
+                ).commit()
+            }*/
+            R.id.nav_issues -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.nav_host_fragment_project, IssuesFragment()
+                ).commit()
+            }
+
+            R.id.nav_members -> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.nav_host_fragment_project, StartNotificationFragment()
                 ).commit()
             }
         }

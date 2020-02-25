@@ -29,6 +29,8 @@ class IssueInfoFragment : Fragment(), KodeinAware {
         fun newInstance() = IssueInfoFragment()
 
         lateinit var issueId : String
+
+        var IssueIdInRecyclerView: Int = 0
     }
 
     override val kodein by kodein()
@@ -97,7 +99,8 @@ class IssueInfoFragment : Fragment(), KodeinAware {
     }
 
     private fun onDelete() {
-        view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_home)
+        IssuesFragment.adapter.notifyItemRemoved(IssueIdInRecyclerView)
+        view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_issues)
     }
 
     private fun onSuccess(issue: IssueEntity) {
