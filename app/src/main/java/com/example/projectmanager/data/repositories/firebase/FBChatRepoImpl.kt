@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class FBChatRepository : IChatRepository {
+class FBChatRepoImpl : IChatRepository {
 
     private val COLLECTION_PATH = "chatMessages"
 
