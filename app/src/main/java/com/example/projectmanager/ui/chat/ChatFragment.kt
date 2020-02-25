@@ -1,19 +1,23 @@
 package com.example.projectmanager.ui.chat
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
 import com.google.firebase.firestore.ListenerRegistration
+import kotlinx.android.synthetic.main.chat_fragment.*
 import org.kodein.di.Factory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -33,12 +37,20 @@ class ChatFragment : Fragment(), KodeinAware {
     private lateinit var binding: ChatFragmentBinding
     private lateinit var viewModel: ChatViewModel
 
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel.registerMessageListener("johan")
+        val listView = chatMessageView
+
+        listView.adapter = ChatAdapter(viewModel.onMessagesChange())
+
+        //chatMessageView.setBackgroundColor(Color.parseColor("#FF0000"))
+
 
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
 
@@ -63,4 +75,7 @@ class ChatFragment : Fragment(), KodeinAware {
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
+
+
+
 }

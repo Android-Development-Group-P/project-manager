@@ -5,6 +5,7 @@ import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 interface IChatRepository {
@@ -26,15 +27,20 @@ interface IChatRepository {
     fun delete(channelId: String, messageId: String) : Single<Boolean>
 
 
+    fun getAll(channelId: String) : Single<List<ChatMessageEntity>>
+
+
+    fun getAllBySection(channelId: String, limit: Int, offset: Int = 1) : Single<List<ChatMessageEntity>>
+
+
     //fun getChannel(issueId: String?, projectId: String?) : Single<Boolean>
 
 
     /**
      * Adds a message listener for a specific issue or project ID
      *
-     * @param issueId Optional issue ID related to the channel
-     * @param projectId Optional project ID related to the channel
-     * @return A ListenerRegistration
+     * @param channelId The ID of the specific chat channel
+     * @return A "reactivex" "Observable" object
      */
-    fun addMessageListener(channelId: String, onListen: (List<ChatMessageEntity>) -> Unit) : ListenerRegistration
+    fun addMessageListener(channelId: String): Observable<ChatMessageEntity>
 }

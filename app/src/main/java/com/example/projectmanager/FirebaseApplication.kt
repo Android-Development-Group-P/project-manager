@@ -10,7 +10,7 @@ import com.example.projectmanager.data.interfaces.IChatRepository
 import com.example.projectmanager.data.interfaces.IIssueRepository
 import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.data.interfaces.IUserRepository
-import com.example.projectmanager.data.repositories.firebase.FBChatRepository
+import com.example.projectmanager.data.repositories.firebase.FBChatRepoImpl
 import com.example.projectmanager.data.repositories.firebase.FBIssueRepository
 import com.example.projectmanager.data.repositories.firebase.FBProjectRepository
 import com.example.projectmanager.data.repositories.firebase.FBUserRepository
@@ -33,7 +33,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind<IUserRepository>() with singleton { FBUserRepository() }
         bind<IProjectRepository>() with singleton { FBProjectRepository() }
         bind<IIssueRepository>() with singleton { FBIssueRepository() }
-        bind<IChatRepository>() with singleton { FBChatRepository() }
+        bind<IChatRepository>() with singleton { FBChatRepoImpl() }
 
         bind<IImageStorage>() with singleton { FBImageStorage() }
 
