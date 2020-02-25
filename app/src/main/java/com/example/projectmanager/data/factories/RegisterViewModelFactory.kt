@@ -2,18 +2,18 @@ package com.example.projectmanager.data.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.projectmanager.data.interfaces.IProjectRepository
+import com.example.projectmanager.data.interfaces.IAccountRepository
 import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
-import com.example.projectmanager.ui.project_new.CreateProjectViewModel
+import com.example.projectmanager.ui.auth.RegisterViewModel
 
-class CreateProjectViewModelFactory (
-    private val sessionProvider: SessionProvider,
-    private val projectRepository: IProjectRepository,
+class RegisterViewModelFactory (
+    private val session: SessionProvider,
+    private val accountRepository: IAccountRepository,
     private val userRepository: IUserRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return CreateProjectViewModel(sessionProvider, projectRepository, userRepository) as T
+        return RegisterViewModel(session, accountRepository, userRepository) as T
     }
 }

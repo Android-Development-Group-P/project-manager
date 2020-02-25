@@ -42,10 +42,6 @@ class ProjectFragment : Fragment(), KodeinAware {
 
         recyclerView = root.findViewById(R.id.recyclerView_projects)
 
-        val adapter = ProjectAdapter(listOf())
-
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
 
         return root
     }
@@ -75,9 +71,6 @@ class ProjectFragment : Fragment(), KodeinAware {
     }
 
     private fun onSuccess(projects: List<ProjectEntity>) {
-        val adapter = ProjectAdapter((projects))
-
-        recyclerView.adapter = adapter
 
         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
     }

@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.project_new
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.CreateProjectViewModelFactory
 import com.example.projectmanager.databinding.ActivityCreateProjectBinding
+import com.example.projectmanager.util.toast
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -35,7 +37,7 @@ class CreateProjectActivity : AppCompatActivity(), KodeinAware {
 
         setupViewModelActions()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -48,12 +50,19 @@ class CreateProjectActivity : AppCompatActivity(), KodeinAware {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            android.R.id.home -> { finish() }
-            R.id.create_project -> { viewModel.create() }
+            android.R.id.home -> {
+                setResult(Activity.RESULT_CANCELED)
+                onActivityFinished()
+            }
+            R.id.create_project -> {
+                viewModel.create()
+            }
         }
 
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() = onActivityFinished()
 
     private fun setupViewModelActions() {
         viewModel.getFormValidation().observe(this, Observer {
@@ -62,13 +71,18 @@ class CreateProjectActivity : AppCompatActivity(), KodeinAware {
 
         viewModel.getEvent().observe(this, Observer {
             when (it) {
-                is CreateProjectViewModel.Event.Started -> { }
-                is CreateProjectViewModel.Event.Success -> { finish() }
-                is CreateProjectViewModel.Event.Failure -> {
-                    it.error
+                is CreateProjectViewModel.Event.Started -> { toast( "Started" )}
+                is CreateProjectViewModel.Event.Success -> {
+                    setResult(Activity.RESULT_OK)
+                    onActivityFinished()
                 }
+                is CreateProjectViewModel.Event.Failure -> { toast(it.error) }
             }
         })
+    }
 
+    private fun onActivityFinished() {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

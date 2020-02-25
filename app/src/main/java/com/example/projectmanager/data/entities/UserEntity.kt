@@ -9,5 +9,5 @@ data class UserEntity (
     var projects: List<String>? = null,
     var createdAt: Date = Date()
 ) {
-    override fun toString(): String = displayName.toString()
+    override fun toString(): String = "id: ${id}: name: ${displayName} email: ${email}"
 }
