@@ -1,88 +1,75 @@
-package com.example.projectmanager.ui.project_new
+package com.example.projectmanager.ui.auth
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IProjectRepository
+import com.example.projectmanager.data.interfaces.IAccountRepository
 import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.example.projectmanager.util.Validation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.LocalDateTime
 
-class CreateProjectViewModel (
+class RegisterViewModel (
     private val session: SessionProvider,
-    private val projectRepository: IProjectRepository,
+    private val accountRepository: IAccountRepository,
     private val userRepository: IUserRepository
 ) : ViewModel() {
 
-    var title = MutableLiveData<String>()
-    var description = MutableLiveData<String>()
+    var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
+    var repeatedPassword = MutableLiveData<String>()
 
     private val disposables = CompositeDisposable()
 
-    /**
-     * Create the project
-     */
-    fun create() {
+    fun register() {
         _event.value = Event.Started()
 
         if (!isValidated()) {
-            _event.value = Event.Failure("Validation failed.")
+            _event.value = Event.Failure("All fields not set.")
             return
         }
 
-        var projectId: String? = null
-
-        disposables.add(projectRepository.create(ProjectEntity(
-            title = title.value,
-            description = description.value,
-            password = password.value,
-            members = listOf(session.user!!.id!!))
-        ).flatMap {
-                projectId = it
-                userRepository.getById(session.user!!.id!!) }
-            .flatMapCompletable {
-                val user = it
-                val projects = it.projects?.toMutableList() ?: mutableListOf()
-                projects.add(projectId!!)
-                user.projects = projects
-                userRepository.update(user)
-            }
-            .subscribeOn(Schedulers.io())
+        disposables.add(accountRepository.register(email.value!!, password.value!!)
+            .flatMap { id -> userRepository.create(
+                UserEntity(
+                    id = id,
+                    email = email.value)
+            ) }
+            .flatMap { id -> userRepository.getById(id) }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.d("Session", "Success")
+            .subscribeOn(Schedulers.io())
+            .subscribe({ user ->
+                session.createSession(user)
                 _event.value = Event.Success()
             }, {
-                Log.d("Session", "Failure" + it.message)
                 _event.value = Event.Failure(it.message!!)
             })
         )
     }
+
 
     /**
      * Validates the view models fields
      * @return The status of the validation
      */
     private fun isValidated(): Boolean {
-        return !title.value.isNullOrEmpty() && !description.value.isNullOrEmpty()
+        return Validation.isEmail(email.value!!) && Validation.isPassword(password.value, repeatedPassword.value)
     }
 
     private val _formValidation = MediatorLiveData<Boolean>().apply {
-        addSource(title) { value = isValidated() }
-        addSource(description) { value = isValidated() }
+        addSource(email) { value = isValidated() }
+        addSource(password) { value = isValidated() }
+        addSource(repeatedPassword) { value = isValidated() }
+        postValue(false)
     }
     fun getFormValidation(): LiveData<Boolean> = _formValidation
+
 
     private val _event = SingleLiveEvent<Event>()
     fun getEvent(): SingleLiveEvent<Event> = _event

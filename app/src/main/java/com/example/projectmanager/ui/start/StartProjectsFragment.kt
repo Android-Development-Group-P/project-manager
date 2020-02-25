@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.createProject
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +9,34 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectmanager.R
+import com.example.projectmanager.data.factories.StartProjectsViewModelFactory
+import com.example.projectmanager.ui.project.ProjectFragment
 import com.example.projectmanager.ui.project_new.CreateProjectActivity
+import com.example.projectmanager.ui.start.StartProjectsAdapter
+import com.example.projectmanager.ui.start.StartProjectsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_start_projects.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class StartProjectsFragment : Fragment() {
+
+class StartProjectsFragment : Fragment(), KodeinAware {
 
     companion object {
-        val ACTIVITY_TITLE = "Projects"
+        fun newInstance() = ProjectFragment()
+        const val ACTIVITY_TITLE = "Projects"
+        const val REQUEST_CREATE_PROJECT_CODE = 1
     }
 
+    override val kodein by kodein()
+    private val factory: StartProjectsViewModelFactory by instance()
+
+    private lateinit var viewModel: StartProjectsViewModel
     private lateinit var floatingMenu: FloatingMenu
 
     override fun onCreateView(
@@ -26,13 +44,18 @@ class StartProjectsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = ACTIVITY_TITLE
+
         return inflater.inflate(R.layout.fragment_start_projects, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this, factory).get(StartProjectsViewModel::class.java)
 
+        // Create the custom floating menu
         floatingMenu = createFloatingMenu()
 
+        // Setup FloatingActionButton listener
         fab_main.setOnClickListener {
             if (!floatingMenu.isExpanded)
                 floatingMenu.expand()
@@ -42,35 +65,59 @@ class StartProjectsFragment : Fragment() {
             floatingMenu.isExpanded = !floatingMenu.isExpanded
         }
 
-        super.onActivityCreated(savedInstanceState)
+        // Initialize layout manager for recycler view
+        recycler_view.layoutManager = LinearLayoutManager(activity)
+
+        viewModel.getProjects().observe(viewLifecycleOwner, Observer {
+            recycler_view.adapter = StartProjectsAdapter(it.data ?: listOf())
+            swipe_layout.isRefreshing = false
+        })
+
+        swipe_layout.setOnRefreshListener {
+            viewModel.loadProjects()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CREATE_PROJECT_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    viewModel.loadProjects()
+                }
+
+                Activity.RESULT_CANCELED -> {
+
+                }
+            }
+        }
     }
 
     private fun createFloatingMenu() : FloatingMenu {
-        val menu_item_add = FloatingMenuItem(menu_add_project,
+        val menuItemAdd = FloatingMenuItem(menu_add_project,
             menu_add_project.findViewById(R.id.fab_item) as FloatingActionButton,
             menu_add_project.findViewById(R.id.text_view) as TextView,
             -resources.getDimension(R.dimen.standard_100)
         )
 
-        menu_item_add.fab.setOnClickListener {
+        menuItemAdd.fab.setOnClickListener {
             val intent = Intent(activity, CreateProjectActivity::class.java)
-            startActivity(intent)
-            floatingMenu.dismiss()
+            startActivityForResult(intent, REQUEST_CREATE_PROJECT_CODE)
+            activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
-        val menu_item_join = FloatingMenuItem(menu_join_project,
+        val menuItemJoin = FloatingMenuItem(menu_join_project,
             menu_join_project.findViewById(R.id.fab_item) as FloatingActionButton,
             menu_join_project.findViewById(R.id.text_view) as TextView,
             -resources.getDimension(R.dimen.standard_55)
         )
 
-        menu_item_add.text_view!!.text = "Create new project"
-        menu_item_add.fab.setImageResource(R.drawable.ic_create_white_24dp)
+        menuItemAdd.text_view!!.text = "Create new project"
+        menuItemAdd.fab.setImageResource(R.drawable.ic_create_white_24dp)
 
-        menu_item_join.text_view!!.text = "Find and join project"
-        menu_item_join.fab.setImageResource(R.drawable.ic_search_white_24dp)
+        menuItemJoin.text_view!!.text = "Find and join project"
+        menuItemJoin.fab.setImageResource(R.drawable.ic_search_white_24dp)
 
-        return FloatingMenu(fab_main, listOf(menu_item_add, menu_item_join))
+        return FloatingMenu(fab_main, listOf(menuItemAdd, menuItemJoin))
     }
 
     class FloatingMenu (

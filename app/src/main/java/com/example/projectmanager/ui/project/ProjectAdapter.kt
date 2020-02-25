@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.project
+/*package com.example.projectmanager.ui.project
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projectmanager.ProjectActivity
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 
-class ProjectAdapter(val list: List<ProjectEntity>): RecyclerView.Adapter<CustomViewHolder>() {
+class ProjectAdapter(val list: List<ProjectEntity>) : RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
         return list.size
@@ -24,7 +23,7 @@ class ProjectAdapter(val list: List<ProjectEntity>): RecyclerView.Adapter<Custom
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.view.findViewById<TextView>(R.id.textView5).text = list.get(position).title
+        holder.view.findViewById<TextView>(R.id.title_text).text = list.get(position).title
         holder.view.findViewById<Button>(R.id.button8).setOnClickListener {
             /*HomeFragment.projectId = list.get(position).id!!
             val intent = Intent(holder.view.context, ProjectActivity::class.java)
@@ -35,4 +34,4 @@ class ProjectAdapter(val list: List<ProjectEntity>): RecyclerView.Adapter<Custom
 }
 
 class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) {
-}
+}*/

@@ -8,17 +8,15 @@ interface IProjectRepository {
 
     fun create(project: ProjectEntity) : Single<String>
 
-    fun getAll() : Single<List<ProjectEntity>>
+    fun update(project: ProjectEntity) : Completable
 
-    fun addUserToProject(projectId: String, userId: String) : Completable
-
-    fun removerUserFromProject(projectId: String, userId: String) : Completable
-
-    fun getProjectsByIds(ids: List<String>) : Single<List<ProjectEntity>>
+    fun delete(id: String) : Completable
 
     fun getById(id: String) : Single<ProjectEntity>
 
-    fun changeStatusOnProject(status: Boolean, projectId: String) : Completable
+    fun getAll() : Single<List<ProjectEntity>>
+
+    fun getSectionByIds(ids: List<String>) : Single<List<ProjectEntity>>
 
     fun checkIfCodeExists(code: String) : Single<Boolean>
 

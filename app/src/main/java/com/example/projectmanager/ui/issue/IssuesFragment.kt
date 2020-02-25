@@ -1,28 +1,33 @@
-package com.example.projectmanager.ui.createProject
+package com.example.projectmanager.ui.issue
 
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.projectmanager.R
-import com.example.projectmanager.ui.issue.IssuesFragment
 
-class StartNotificationFragment : Fragment() {
+import com.example.projectmanager.R
+
+class IssuesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = StartNotificationFragment()
+        fun newInstance() = IssuesFragment()
     }
+
+    private lateinit var viewModel: IssuesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = "Notifications"
-        return inflater.inflate(R.layout.fragment_start_notification, container, false)
+        return inflater.inflate(R.layout.fragment_issues, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(IssuesViewModel::class.java)
+        // TODO: Use the ViewModel
     }
+
 }

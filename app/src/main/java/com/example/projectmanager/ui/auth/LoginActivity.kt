@@ -2,7 +2,6 @@ package com.example.projectmanager.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.example.projectmanager.R
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -15,10 +14,10 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         var adapter = EntryPagerAdapter(supportFragmentManager)
-        adapter.fragments.add(SignInFragment())
+        adapter.fragments.add(LoginFragment())
         adapter.titles.add("Sign In")
 
-        adapter.fragments.add(SignUpFragment())
+        adapter.fragments.add(RegisterFragment())
         adapter.titles.add("Register")
 
         view_pager.adapter = adapter

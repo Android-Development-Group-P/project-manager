@@ -5,7 +5,7 @@ import com.example.projectmanager.data.interfaces.IIssueRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Single
 
-class FBIssueRepository : IIssueRepository {
+class FBIssueRepoImpl : IIssueRepository {
 
     private val COLLECTION_PATH = "issues"
 

@@ -9,44 +9,66 @@
             type="com.example.projectmanager.ui.project_new.CreateProjectViewModel" />
     </data>
 
-    <LinearLayout
-        tools:context=".ui.project_new.CreateProjectActivity"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/standard_23"
-        android:padding="@dimen/standard_12"
-        android:elevation="10dp"
-        android:background="@drawable/form_round_w_shadow">
+        android:layout_height="match_parent"
+        android:background="#F6F9FF">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Title"
-                android:text="@={viewModel.title}"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <EditText
-            android:id="@+id/editText3"
+        <LinearLayout
+            tools:context=".ui.project_new.CreateProjectActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:hint="Description"
-            android:text="@={viewModel.description}" />
+            android:layout_margin="@dimen/standard_12"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_12"
+            android:background="@android:color/white"
+            android:elevation="2dp">
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android="" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Project"
+                android:textSize="24sp" />
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:text="@={viewModel.title}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="3"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:hint="Description"
+                android:text="@={viewModel.description}" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:text="@={viewModel.password}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </layout>
 

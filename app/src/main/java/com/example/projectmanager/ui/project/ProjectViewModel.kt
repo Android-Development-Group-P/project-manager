@@ -18,7 +18,7 @@ class ProjectViewModel(
 
     fun loadAllProjects(ids: List<String>) {
         event.value = ProjectEvent(ProjectStatus.started)
-        val disposable = repository.getProjectsByIds(ids)
+        val disposable = repository.getSectionByIds(ids)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({projects ->

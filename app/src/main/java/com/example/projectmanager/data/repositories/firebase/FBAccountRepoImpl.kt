@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class FBAccountRepository : IAccountRepository {
+class FBAccountRepoImpl : IAccountRepository {
 
     private val auth = FirebaseAuth.getInstance()
 

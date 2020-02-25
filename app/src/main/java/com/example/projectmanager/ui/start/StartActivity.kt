@@ -7,10 +7,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.example.projectmanager.R
-import com.example.projectmanager.ui.auth.SignInFragment
 import com.example.projectmanager.ui.createProject.StartNotificationFragment
 import com.example.projectmanager.ui.createProject.StartProjectsFragment
-import com.example.projectmanager.ui.project_new.CreateProjectActivity
 import com.example.projectmanager.ui.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_start.*
