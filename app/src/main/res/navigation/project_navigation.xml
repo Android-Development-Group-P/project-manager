@@ -3,27 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/project_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_issues">
 
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.projectmanager.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home_??" >
-        <action
-            android:id="@+id/action_nav_home_to_nav_view_issue"
-            app:destination="@id/nav_view_issue"
-            app:popUpTo="@+id/nav_home" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_create_issue"
-            app:destination="@id/nav_create_issue"
-            app:popUpTo="@+id/nav_home" />
-    </fragment>
     <fragment
         android:id="@+id/nav_chat"
         android:name="com.example.projectmanager.ui.chat.ChatFragment"
         android:label="@string/menu_chat"
-        tools:layout="@layout/chat_fragment" />
+        tools:layout="@layout/chat_fragment" >
+        <action
+            android:id="@+id/action_nav_chat_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_create_issue"
@@ -31,28 +22,28 @@
         android:label="@string/menu_create_issue"
         tools:layout="@layout/create_issue_fragment" >
         <action
-            android:id="@+id/action_nav_create_issue_to_nav_home"
-            app:destination="@id/nav_home"
-            app:popUpTo="@+id/nav_home" />
+            android:id="@+id/action_nav_create_issue_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.example.projectmanager.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/settings_fragment" />
-
-    <fragment
-        android:id="@+id/nav_logout"
-        android:name="com.example.projectmanager.ui.logout.LogoutFragment"
-        android:label="@string/menu_logout"
-        tools:layout="@layout/logout_fragment" />
-
-    <fragment
-        android:id="@+id/nav_invite_to_project"
-        android:name="com.example.projectmanager.ui.inviteToProject.InviteToProjectFragment"
-        android:label="@string/menu_invite_to_project"
-        tools:layout="@layout/invite_to_project_fragment" />
+        android:id="@+id/nav_issues"
+        android:name="com.example.projectmanager.ui.issue.IssuesFragment"
+        android:label="Issues"
+        tools:layout="@layout/fragment_issues" >
+        <action
+            android:id="@+id/action_nav_issues_to_nav_view_issue"
+            app:destination="@id/nav_view_issue" />
+        <action
+            android:id="@+id/action_nav_issues_to_nav_create_issue"
+            app:destination="@id/nav_create_issue"
+            app:popUpTo="@id/nav_issues" />
+        <action
+            android:id="@+id/action_nav_issues_to_nav_chat"
+            app:destination="@id/nav_chat" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_update_issue"
@@ -62,7 +53,7 @@
         <action
             android:id="@+id/action_nav_update_issue_to_nav_view_issue"
             app:destination="@id/nav_view_issue"
-            app:popUpTo="@+id/nav_view_issue" />
+            app:popUpTo="@id/nav_issues" />
     </fragment>
 
     <fragment
@@ -75,8 +66,8 @@
             app:destination="@id/nav_update_issue"
             app:popUpTo="@+id/nav_view_issue" />
         <action
-            android:id="@+id/action_nav_view_issue_to_nav_home"
-            app:destination="@id/nav_home"
-            app:popUpTo="@+id/nav_home" />
+            android:id="@+id/action_nav_view_issue_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues" />
     </fragment>
 </navigation>

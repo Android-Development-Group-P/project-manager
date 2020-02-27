@@ -10,10 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
+import com.example.projectmanager.ui.project_new.ProjectActivity
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -46,7 +48,7 @@ class CreateIssueFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(CreateIssueViewModel::class.java)
 
-        viewModel.setProjectId(projectId)
+        viewModel.setProjectId(ProjectActivity.currentProject?.id!!)
 
         viewModel.event.observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -60,11 +62,11 @@ class CreateIssueFragment : Fragment(), KodeinAware {
 
     private fun onSuccess() {
         Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
-        view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_home)
+        view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_issues)
     }
 
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
-
 }
+
