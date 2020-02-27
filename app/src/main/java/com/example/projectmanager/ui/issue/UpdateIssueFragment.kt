@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,11 +17,12 @@ import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.UpdateIssueViewModelFactory
 import com.example.projectmanager.databinding.UpdateIssueFragmentBinding
 import kotlinx.android.synthetic.main.issue_info_fragment.*
+import kotlinx.android.synthetic.main.update_issue_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class UpdateIssueFragment : Fragment(), KodeinAware {
+class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedListener {
 
     companion object {
         fun newInstance() = UpdateIssueFragment()
@@ -64,6 +63,39 @@ class UpdateIssueFragment : Fragment(), KodeinAware {
             }
         })
 
+        ArrayAdapter.createFromResource(
+            context!!,
+            R.array.priority_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            updatePriorityDropdown.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            context!!,
+            R.array.priority_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            updateAssignedUserDropdown.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            context!!,
+            R.array.label_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            updateLabelDropdown.adapter = adapter
+        }
+
         binding.viewModel = viewModel
     }
 
@@ -77,5 +109,14 @@ class UpdateIssueFragment : Fragment(), KodeinAware {
 
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        Log.d("test", "nu körs jag")
+        viewModel.setUpdatedDropdownValues(updateLabelDropdown.selectedItem as String, updatePriorityDropdown.selectedItem as String, updateAssignedUserDropdown.selectedItem as String)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        viewModel.setUpdatedDropdownValues(updateLabelDropdown.selectedItem as String, updatePriorityDropdown.selectedItem as String, updateAssignedUserDropdown.selectedItem as String)
     }
 }

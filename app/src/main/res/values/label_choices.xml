@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="label_array">
+        <item>Tech</item>
+        <item>Fast</item>
+        <item>important</item>
+    </string-array>
+</resources>

@@ -17,6 +17,9 @@ class UpdateIssueViewModel (
     lateinit var description: String
     lateinit var status: String
     lateinit var issueEntity: IssueEntity
+    lateinit var priority: String
+    lateinit var label: String
+    lateinit var assignedUser: String
 
     var event = SingleLiveEvent<UpdateIssueEvent>()
 
@@ -27,14 +30,24 @@ class UpdateIssueViewModel (
         title = issue.title!!
         description = issue.description!!
         status = issue.status!!
+        priority = issue.priority!!
+        label = issue.label!!
+        assignedUser = issue.assigned_user!!
+    }
+
+    fun setUpdatedDropdownValues(newLabel: String, newPriority: String, newAssingedUser: String) {
+        label = newLabel
+        priority = newPriority
+        assignedUser = newAssingedUser
     }
 
     fun onUpdateIssue() {
-
         if (title.isNotEmpty() && description.isNotEmpty()) {
 
-            val issue = IssueEntity(null, "test_user", issueEntity.created, title, description, "High",
-                null, "red", null, "started", issueEntity.project)
+            Log.d("test", "$priority $label $assignedUser")
+
+            val issue = IssueEntity(null, issueEntity.creator, issueEntity.created, title, description, priority,
+                assignedUser, label, null, "started", issueEntity.project)
 
             val disposable = repository.updateIssue(issue, issueEntity.id!!)
                 .subscribeOn(Schedulers.io())
