@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.issue
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.IssueEntity
@@ -20,6 +21,9 @@ class CreateIssueViewModel (
     var project: String = ""
     var title: String = ""
     var description: String = ""
+    var priority: String = ""
+    var label: String = ""
+    var assignedUser: String = ""
 
     var event = SingleLiveEvent<IssueEvent>()
 
@@ -34,8 +38,8 @@ class CreateIssueViewModel (
 
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
-            val issue = IssueEntity(null, session.user!!.id, created, title, description, "High",
-                null, "red", null, "started", project)
+            val issue = IssueEntity(null, session.user!!.id, created, title, description, priority,
+                assignedUser, label, null, "started", project)
 
             val disposable = repository.create(issue)
                 .subscribeOn(Schedulers.io())
