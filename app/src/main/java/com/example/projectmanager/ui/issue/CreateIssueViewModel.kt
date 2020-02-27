@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.interfaces.IIssueRepository
+import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateIssueViewModel (
+    private val session: SessionProvider,
     private val repository: IIssueRepository
 ) : ViewModel() {
 
@@ -32,7 +34,7 @@ class CreateIssueViewModel (
 
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
-            val issue = IssueEntity(null, "test_user", created, title, description, "High",
+            val issue = IssueEntity(null, session.user!!.id, created, title, description, "High",
                 null, "red", null, "started", project)
 
             val disposable = repository.create(issue)

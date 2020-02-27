@@ -27,7 +27,7 @@ class LoginViewModel (
     fun login() {
         _event.value = Event.Started()
 
-        if (isValidated()) {
+        if (!isValidated()) {
             _event.value = Event.Failure("Invalid email or password")
             return
         }
