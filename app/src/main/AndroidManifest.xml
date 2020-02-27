@@ -8,17 +8,23 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true">
+
         <activity android:name=".ui.issue.IssuesFragment"></activity>
+        <activity android:name=".ui.extra.ScanActivity" />
         <activity
-            android:name=".ui.project_new.CreateProjectActivity"
+            android:name=".ui.project.CreateProjectActivity"
+            android:label="Create new project" />
+        <activity
+            android:name=".ui.project.JoinProjectActivity"
             android:label="Create new project" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".ui.user_creation.UserCreationActivity" />
         <activity
-            android:name=".ui.project_new.ProjectActivity"
+            android:name=".ui.project.ProjectActivity"
             android:configChanges="orientation|screenSize"
             android:label="ProjectPage"
             android:theme="@style/AppTheme.NoActionBar" />

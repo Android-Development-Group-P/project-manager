@@ -2,36 +2,48 @@ package com.example.projectmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projectmanager.Managers.DatabaseManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.projectmanager.data.factories.MainViewModelFactory
 import com.example.projectmanager.ui.auth.LoginActivity
-import com.example.projectmanager.ui.project_new.InviteDialog
+import com.example.projectmanager.ui.extra.ScanActivity
 import com.example.projectmanager.ui.start.StartActivity
-import com.example.projectmanager.util.FirebaseFirestoreDB
-import com.example.projectmanager.util.QRGenerator
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.projectmanager.util.toast
+import com.google.zxing.integration.android.IntentIntegrator
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinAware {
+
+    override val kodein by kodein()
+    private val factory: MainViewModelFactory by instance()
+
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        DatabaseManager.init(FirebaseFirestoreDB())
+        toast("CardView")
 
-        val ft = supportFragmentManager.beginTransaction()
-        val newFragment = InviteDialog.newInstance(QRGenerator.QRObject("2193129038091283091820938091238908", 512, 512))
-        newFragment.show(ft, "dialog")
+        viewModel.isLoggedIn().observe(this, Observer {
+            when (it) {
+                true -> {
+                    val intent = Intent(this, StartActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
 
-        button.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        button2.setOnClickListener {
-            val intent = Intent(this, StartActivity::class.java)
-            startActivity(intent)
-        }
+                false -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        })
     }
 }

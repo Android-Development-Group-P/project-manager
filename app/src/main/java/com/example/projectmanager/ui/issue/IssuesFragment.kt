@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.IssuesViewModelFactory
-import com.example.projectmanager.ui.project_new.ProjectActivity
+import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.fragment_issues.*
 import kotlinx.android.synthetic.main.fragment_start_projects.*
 import org.kodein.di.KodeinAware

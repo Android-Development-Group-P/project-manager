@@ -14,8 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.StartProjectsViewModelFactory
-import com.example.projectmanager.ui.project.ProjectFragment
-import com.example.projectmanager.ui.project_new.CreateProjectActivity
+import com.example.projectmanager.ui.project.CreateProjectActivity
+import com.example.projectmanager.ui.project.JoinProjectActivity
+import com.example.projectmanager.ui.project.JoinProjectViewModel
 import com.example.projectmanager.ui.start.StartProjectsAdapter
 import com.example.projectmanager.ui.start.StartProjectsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,9 +29,10 @@ import org.kodein.di.generic.instance
 class StartProjectsFragment : Fragment(), KodeinAware {
 
     companion object {
-        fun newInstance() = ProjectFragment()
+        fun newInstance() = StartProjectsFragment()
         const val ACTIVITY_TITLE = "Projects"
         const val REQUEST_CREATE_PROJECT_CODE = 1
+        const val REQUEST_JOIN_PROJECT_CODE = 2
     }
 
     override val kodein by kodein()
@@ -66,10 +68,13 @@ class StartProjectsFragment : Fragment(), KodeinAware {
         }
 
         // Initialize layout manager for recycler view
+        var adapter = StartProjectsAdapter(listOf())
+
+        recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(activity)
 
         viewModel.getProjects().observe(viewLifecycleOwner, Observer {
-            recycler_view.adapter = StartProjectsAdapter(it.data ?: listOf())
+            adapter.setProjects(it.data!!)
             swipe_layout.isRefreshing = false
         })
 
@@ -82,7 +87,7 @@ class StartProjectsFragment : Fragment(), KodeinAware {
         if (requestCode == REQUEST_CREATE_PROJECT_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    viewModel.loadProjects()
+                    //viewModel.loadProjects()
                 }
 
                 Activity.RESULT_CANCELED -> {
@@ -110,6 +115,12 @@ class StartProjectsFragment : Fragment(), KodeinAware {
             menu_join_project.findViewById(R.id.text_view) as TextView,
             -resources.getDimension(R.dimen.standard_55)
         )
+
+        menuItemJoin.fab.setOnClickListener {
+            val intent = Intent(activity, JoinProjectActivity::class.java)
+            startActivityForResult(intent, REQUEST_JOIN_PROJECT_CODE)
+            activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
 
         menuItemAdd.text_view!!.text = "Create new project"
         menuItemAdd.fab.setImageResource(R.drawable.ic_create_white_24dp)

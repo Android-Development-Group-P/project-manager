@@ -48,4 +48,12 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="General">
+
+        <Preference
+            app:key="logout"
+            app:title="Logout" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.project_new
+package com.example.projectmanager.ui.project
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity

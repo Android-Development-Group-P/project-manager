@@ -1,27 +1,24 @@
-package com.example.projectmanager.ui.project_new
+package com.example.projectmanager.ui.project
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.projectmanager.data.entities.InviteCodeEntity
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IProjectRepository
-import com.example.projectmanager.data.interfaces.IUserRepository
-import com.example.projectmanager.data.interfaces.SessionProvider
+import com.example.projectmanager.data.interfaces.*
+import com.example.projectmanager.data.interfaces.services.IInviteCodeService
+import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.util.SingleLiveEvent
-import io.reactivex.Completable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.LocalDateTime
 
 class CreateProjectViewModel (
     private val session: SessionProvider,
-    private val projectRepository: IProjectRepository,
-    private val userRepository: IUserRepository
+    private val projectService: IProjectService,
+    private val inviteService: IInviteCodeService
 ) : ViewModel() {
 
     var title = MutableLiveData<String>()
@@ -41,23 +38,22 @@ class CreateProjectViewModel (
             return
         }
 
-        var projectId: String? = null
 
-        disposables.add(projectRepository.create(ProjectEntity(
+        var project = ProjectEntity(
+            id = null,
             title = title.value,
             description = description.value,
             password = password.value,
-            members = listOf(session.user!!.id!!))
-        ).flatMap {
-                projectId = it
-                userRepository.getById(session.user!!.id!!) }
-            .flatMapCompletable {
-                val user = it
-                val projects = it.projects?.toMutableList() ?: mutableListOf()
-                projects.add(projectId!!)
-                user.projects = projects
-                userRepository.update(user)
-            }
+            members = listOf(session.user!!.id!!)
+        )
+
+        disposables.add(projectService.create(session.user!!.id!!, project)
+            .flatMap { id ->
+                inviteService.create(InviteCodeEntity(
+                    projectId = id,
+                    password = password.value
+                )
+            )}
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
