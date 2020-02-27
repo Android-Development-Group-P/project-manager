@@ -54,7 +54,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:text="@string/chat_send_button"
-            android:onClick="@{()-> viewModel.onCreateMessage()}"
+            android:onClick="@{viewModel::onCreateMessage}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

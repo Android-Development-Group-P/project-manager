@@ -17,7 +17,11 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
+import com.example.projectmanager.ui.issue.IssuesAdapter
+import com.example.projectmanager.ui.issue.IssuesFragment
+import com.example.projectmanager.ui.project_new.ProjectActivity
 import kotlinx.android.synthetic.main.chat_fragment.*
+import kotlinx.android.synthetic.main.fragment_issues.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -26,6 +30,8 @@ class ChatFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = ChatFragment()
+
+        lateinit var adapter: ChatAdapter
     }
 
     override val kodein by kodein()
@@ -33,7 +39,6 @@ class ChatFragment : Fragment(), KodeinAware {
 
     private lateinit var binding: ChatFragmentBinding
     private lateinit var viewModel: ChatViewModel
-
 
 
 
@@ -54,9 +59,17 @@ class ChatFragment : Fragment(), KodeinAware {
         viewModel = ViewModelProvider(this, factory).get(ChatViewModel::class.java)
         chatRecyclerView.layoutManager = LinearLayoutManager(activity)
 
+        viewModel.projectId = ProjectActivity.currentProject?.id!!
+
+        viewModel.test()
+
+        chatRecyclerView.layoutManager = LinearLayoutManager(activity)
+        adapter = ChatAdapter(listOf())
+        chatRecyclerView.adapter = adapter
+
+
         viewModel.getMessages().observe(viewLifecycleOwner, Observer {
             if (it.error != null) {
-
             } else {
                 chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
             }
@@ -69,7 +82,7 @@ class ChatFragment : Fragment(), KodeinAware {
         })
 
         binding.viewModel = viewModel
-        viewModel.onCreateMessage()
+        viewModel.onCreateMessage(view!!)
 
 
 
@@ -79,6 +92,9 @@ class ChatFragment : Fragment(), KodeinAware {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
+    private fun onSuccess(error: String) {
+        Toast.makeText(context, "hehe", Toast.LENGTH_LONG).show()
+    }
 
 
 }

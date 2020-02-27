@@ -2,6 +2,7 @@ package com.example.projectmanager.ui.chat
 
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -10,8 +11,10 @@ import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
+import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.LiveDataResult
 import com.example.projectmanager.util.SingleLiveEvent
+import com.example.projectmanager.util.default
 import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,20 +22,34 @@ import io.reactivex.schedulers.Schedulers
 
 
 class ChatViewModel (
+    private val session: SessionProvider,
     private val repository: IChatRepository
 ) : ViewModel() {
 
-    var message: String = ""
+    lateinit var projectId: String
+    var message = MutableLiveData<String>().default("")
 
-    private val _messages = MutableLiveData<LiveDataResult<List<ChatMessageEntity>>>()
+    private val _messages by lazy {
+        val liveData = MutableLiveData<LiveDataResult<List<ChatMessageEntity>>>()
+        loadMessages()
+        return@lazy liveData
+    }
     private val disposables = CompositeDisposable()
 
-    init {
-        loadMessages()
+    fun loadLatestMessage() {
+        disposables.add(repository.listener.getMessageById(projectId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ message ->
+               Log.d("123", message.message)
+            }, {error ->
+                _messages.postValue(LiveDataResult.error(error))
+            })
+        )
     }
 
     fun loadMessages() {
-        disposables.add(repository.getAllBySection("6wX8bHgRFt2LFDphrhD3",20)
+        disposables.add(repository.getAllBySection(projectId,20)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ messages ->
@@ -45,12 +62,13 @@ class ChatViewModel (
 
     fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
 
-    fun onCreateMessage() {
-        if (message.isNotEmpty()) {
-            val chatMessage =
-                ChatMessageEntity("Johan_Turntable", "6wX8bHgRFt2LFDphrhD3", null, message)
+    fun onCreateMessage(view: View) {
 
-            val disposable = repository.create("johan", chatMessage)
+        if (message.value!!.isNotEmpty()) {
+            val chatMessage =
+                ChatMessageEntity(session.user!!.id!!, projectId, null, message.value!!)
+
+            val disposable = repository.create(projectId, chatMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

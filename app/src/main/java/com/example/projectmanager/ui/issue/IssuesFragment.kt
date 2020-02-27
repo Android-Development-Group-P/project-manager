@@ -67,6 +67,7 @@ class IssuesFragment : Fragment(), KodeinAware {
         }
 
         toChatButton.setOnClickListener {view ->
+            Log.d("1234", "asd")
             view.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
         }
     }

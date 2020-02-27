@@ -7,14 +7,18 @@ import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class FBChatRepoImpl : IChatRepository {
+    override val listener: IChatRepository.IListener = Listener()
 
-    private val CHANNELS_PATH = "chatChannels"
-    private val MESSAGES_PATH = "chatMessages"
+    companion object {
+        const val CHANNELS_PATH = "chatChannels"
+        const val MESSAGES_PATH = "chatMessages"
+    }
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -24,6 +28,7 @@ class FBChatRepoImpl : IChatRepository {
             db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
                 .add(chatMessage)
                 .addOnSuccessListener {
+                    Log.d("asd", it.toString())
                     emitter.onSuccess(true)
                 }
                 .addOnFailureListener { e ->
@@ -100,15 +105,19 @@ class FBChatRepoImpl : IChatRepository {
         }
     }
 
-    override fun getAllBySection(channelId: String, limit: Int, offset: Int) : Single<List<ChatMessageEntity>> {
+    override fun getAllBySection(channelId: String, limit: Long, offset: Long) : Single<List<ChatMessageEntity>> {
         return Single.create { emitter ->
             db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
                 .orderBy("createdAt")
-                .limit(limit as Long * offset)
+                .limit(limit * offset)
                 .get()
                 .addOnSuccessListener {
-                    val messages = it.toObjects(ChatMessageEntity::class.java)
-                    emitter.onSuccess(messages)
+                    if (it.isEmpty) {
+                        emitter.onSuccess(listOf())
+                    } else {
+                        val messages = it.toObjects(ChatMessageEntity::class.java)
+                        emitter.onSuccess(messages)
+                    }
                 }
                 .addOnFailureListener { exception ->
                     emitter.onError(exception)
@@ -116,36 +125,30 @@ class FBChatRepoImpl : IChatRepository {
         }
     }
 
-    override fun addMessageListener(channelId: String): Observable<ChatMessageEntity> {
-        return Observable.create { emitter ->
-            val registration = db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
-                .orderBy("createdAt").limit(1)
-                .addSnapshotListener { snapshot, exception ->
-                    if (exception != null) {
-                        emitter.onError(exception)
-                    } else if (snapshot != null && !snapshot.isEmpty) {
 
-                        val message = snapshot.documents[0].toObject(ChatMessageEntity::class.java)
-                        emitter.onNext(message!!)
+
+
+    inner class Listener: IChatRepository.IListener {
+        override fun getMessageById(channelId: String): Observable<ChatMessageEntity> {
+            return Observable.create { emitter ->
+                val registration = db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
+                    .orderBy("createdAt", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .addSnapshotListener { snapshot, exception ->
+                        Log.d("123", "dffhf")
+                        if (exception != null) {
+                            emitter.onError(exception)
+                        } else if (snapshot != null && !snapshot.isEmpty) {
+                            Log.d("123", snapshot.size().toString())
+                            val message = snapshot.documents.first().toObject(ChatMessageEntity::class.java)
+                            emitter.onNext(message!!)
                         }
                     }
-            emitter.setCancellable { registration.remove() }
-        }
-    }
-        /*db.collection("chatMessages").document(source)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    emitter.onError(Exception("chatMessage.getChannel: ${e.message}"))
-                    return@addSnapshotListener
+                emitter.setCancellable {
+                    registration.remove()
                 }
-                if (snapshot!!.exists()) {
-
-                    Log.d("testlog", "Current data: ${snapshot.data}")
-                } else {
-                    Log.d("testlog", "Current data: null")
-                }
-                emitter.onComplete()
             }
-        */
+        }
 
+    }
 }

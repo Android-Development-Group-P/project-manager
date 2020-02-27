@@ -34,8 +34,6 @@ class ChatAdapter (
 
         holder.view.findViewById<TextView>(R.id.sender).text = message.sender
         holder.view.findViewById<TextView>(R.id.message).text = message.message
-
-
     }
 
 
