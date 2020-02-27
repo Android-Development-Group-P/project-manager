@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.ui.project_new.ProjectActivity
+import com.example.projectmanager.ui.project.ProjectActivity
 import java.io.Serializable
 import java.text.SimpleDateFormat
 

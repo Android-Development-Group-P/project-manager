@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
-import com.example.projectmanager.ui.project_new.ProjectActivity
+import com.example.projectmanager.ui.project.ProjectActivity
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance

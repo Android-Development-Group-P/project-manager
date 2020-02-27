@@ -62,10 +62,10 @@ class FirebaseApplication : Application(), KodeinAware {
         /** ViewModelFactories initialization */
         bind() from provider { MainViewModelFactory(instance()) }
         bind() from provider { CreateProjectViewModelFactory(instance(), instance(), instance()) }
+        bind() from provider { JoinProjectViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { CreateIssueViewModelFactory(instance(), instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }
         bind() from provider { IssuesViewModelFactory(instance()) }
-        bind() from provider { ProjectViewModelFactory(instance()) }
         bind() from provider { StartProjectsViewModelFactory(instance(), instance()) }
         bind() from provider { UpdateIssueViewModelFactory(instance()) }
         bind() from provider { RegisterViewModelFactory(instance(), instance(), instance(), instance()) }
