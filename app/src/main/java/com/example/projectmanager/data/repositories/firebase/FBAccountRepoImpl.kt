@@ -2,7 +2,9 @@ package com.example.projectmanager.data.repositories.firebase
 
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.IAccountRepository
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -20,6 +22,18 @@ class FBAccountRepoImpl : IAccountRepository {
                     else
                         emitter.onError(it.exception!!)
                 }
+            }
+        }
+    }
+
+    override fun loginWithGoogleSignIn(account: GoogleSignInAccount): Single<String> {
+        return Single.create { emitter ->
+            val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
+            auth.signInWithCredential(credentials).addOnCompleteListener {
+                if (it.isSuccessful)
+                    emitter.onSuccess(account.id!!)
+                else
+                    emitter.onError(it.exception!!)
             }
         }
     }

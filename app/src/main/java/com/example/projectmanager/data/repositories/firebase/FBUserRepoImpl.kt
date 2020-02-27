@@ -1,6 +1,7 @@
 package com.example.projectmanager.data.repositories.firebase
 
 import android.util.Log
+import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.IUserRepository
 import com.google.firebase.firestore.EventListener
@@ -12,15 +13,17 @@ import io.reactivex.Single
 
 class FBUserRepoImpl : IUserRepository {
 
+    override val listeners: IUserRepository.IListener = Listener()
+
     companion object {
-        const val COLLECTION_PATH = "users"
+        const val COLLECTION_ROOT = "users"
     }
 
     private val db = FirebaseFirestore.getInstance()
 
     override fun create(user: UserEntity) : Single<String> {
         return Single.create { emitter ->
-            db.collection(COLLECTION_PATH)
+            db.collection(COLLECTION_ROOT)
                 .document(user.id!!)
                 .set(user).addOnSuccessListener {
                     emitter.onSuccess(user.id!!)
@@ -31,7 +34,7 @@ class FBUserRepoImpl : IUserRepository {
     }
 
     override fun update(user: UserEntity) = Completable.create { emitter ->
-        db.collection(COLLECTION_PATH)
+        db.collection(COLLECTION_ROOT)
             .document(user.id!!)
             .set(user).addOnSuccessListener {
                 emitter.onComplete()
@@ -41,7 +44,7 @@ class FBUserRepoImpl : IUserRepository {
     }
 
     override fun delete(id: String) = Completable.create { emitter ->
-        db.collection(COLLECTION_PATH).document(id)
+        db.collection(COLLECTION_ROOT).document(id)
             .delete().addOnSuccessListener {
                 emitter.onComplete()
             }.addOnFailureListener {
@@ -51,7 +54,7 @@ class FBUserRepoImpl : IUserRepository {
 
     override fun getById(id: String): Single<UserEntity> {
         return Single.create { emitter ->
-            db.collection(COLLECTION_PATH)
+            db.collection(COLLECTION_ROOT)
                 .document(id)
                 .get().addOnSuccessListener {
                     val user = it.toObject(UserEntity::class.java)
@@ -64,60 +67,34 @@ class FBUserRepoImpl : IUserRepository {
 
     override fun getAll(): Single<List<UserEntity>> {
         return Single.create { emitter ->
-            db.collection(COLLECTION_PATH)
+            db.collection(COLLECTION_ROOT)
                 .get().addOnSuccessListener {
                     val users = it.toObjects(UserEntity::class.java)
-                    emitter.onSuccess(users!!)
+                    emitter.onSuccess(users)
                 }.addOnFailureListener {
                     emitter.onError(it)
                 }
         }
     }
 
-    override fun subscribe(id: String): Observable<UserEntity> {
-        return Observable.create { emitter ->
-            val registration = db.collection(COLLECTION_PATH).document(id)
-                .addSnapshotListener { snapshot, exception ->
-                    if (exception != null)
-                        emitter.onError(exception)
+    inner class Listener : IUserRepository.IListener {
+        override fun getById(id: String): Observable<UserEntity> {
+            return Observable.create { emitter ->
+                val registration = db.collection(COLLECTION_ROOT)
+                    .document(id)
+                    .addSnapshotListener { snapshot, exception ->
+                        if (exception != null)
+                            emitter.onError(exception)
 
-                    if (snapshot != null && snapshot.exists()) {
-                        val user = snapshot.toObject(UserEntity::class.java)
-                        emitter.onNext(user!!)
+                        if (snapshot != null && snapshot.exists()) {
+                            val user = snapshot.toObject(UserEntity::class.java)!!
+                            user.id = id
+                            emitter.onNext(user)
+                        }
                     }
-                }
 
-
-            emitter.setCancellable { registration.remove() }
-        }
-    }
-
-    override fun subscribe(id: String, field: IUserRepository.Fields): Observable<Any> {
-        var fieldPath: String? = null
-
-        fieldPath = when (field) {
-            IUserRepository.Fields.Name -> {
-                "displayName"
+                emitter.setCancellable { registration.remove() }
             }
-            IUserRepository.Fields.Projects -> {
-                "projects"
-            }
-        }
-
-        return Observable.create { emitter ->
-            val registration = db.collection(COLLECTION_PATH).document("$id/$fieldPath")
-                .addSnapshotListener { snapshot, exception ->
-                    if (exception != null)
-                        emitter.onError(exception)
-
-                    if (snapshot != null && snapshot.exists()) {
-                        val any = snapshot.toObject(Any::class.java)
-                        emitter.onNext(any!!)
-                    }
-                }
-
-
-            emitter.setCancellable { registration.remove() }
         }
     }
 }

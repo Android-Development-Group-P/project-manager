@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ProjectManager</string>
 
+    <!-- Main Activity -->
+    <string name="main_activity_header">Welcome to "ProjectManager"!&#128522;</string>
+
     #Login
     <string name="login_button">Login</string>
     <string name="login_button_google">Login with Google</string>

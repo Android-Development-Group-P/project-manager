@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.auth
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +28,7 @@ class LoginViewModel (
     fun login() {
         _event.value = Event.Started()
 
-        if (isValidated()) {
+        if (!isValidated()) {
             _event.value = Event.Failure("Invalid email or password")
             return
         }

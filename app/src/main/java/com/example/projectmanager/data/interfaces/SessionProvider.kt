@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.projectmanager.MainActivity
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
+import com.example.projectmanager.data.interfaces.services.IUserService
 import com.google.firebase.firestore.auth.User
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class SessionProvider {
 
-    private val repository: IUserRepository
+    private val userService: IUserService
 
     private val PRIVATE_MODE = 0
 
@@ -27,7 +28,7 @@ abstract class SessionProvider {
     private val KEY_IS_LOGGED_IN = "IS_LOGGED_IN"
     private val KEY_USER = "USER_ENTITY"
 
-    private var hasSubscribed = false
+    private var isListening = false
 
     private var disposable: Disposable? = null
 
@@ -38,11 +39,30 @@ abstract class SessionProvider {
      * Initialize the singleton SessionManager with the application context
      * @param context The 'Context'
      */
-     constructor(context: Context, repository: IUserRepository) {
+     constructor(context: Context, userService: IUserService) {
         this.context = context
-        this.repository = repository
+        this.userService = userService
         preferences = context.getSharedPreferences(KEY_PREFERENCE, PRIVATE_MODE)
         editor = preferences.edit()
+    }
+
+    fun startListener() {
+        disposable = userService.listeners.getById(user!!.id!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d("Session", "Retrieved new update for user in sessionn.")
+                createSession(it)
+            }, {
+
+            })
+
+        isListening = true
+    }
+
+    fun stopListener() {
+        disposable?.dispose()
+        isListening = false
     }
 
     /**
@@ -50,23 +70,12 @@ abstract class SessionProvider {
      * @param user The 'UserEntity' object
      */
     fun createSession(user: UserEntity) {
-        if (!hasSubscribed) {
-            disposable = repository.subscribe(user.id!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( {
-                    Log.d("Session", "Retrieved new update for user in sessionn.")
-                    createSession(it)
-                }, {
-
-                })
-
-            hasSubscribed = true
-        }
-
         editor.putBoolean(KEY_IS_LOGGED_IN, true)
         editor.putString(KEY_USER, Gson().toJson(user))
         editor.commit()
+
+        if (!isListening)
+            startListener()
 
         Log.d("SessionTag", "Null or " + user.toString())
     }
@@ -75,7 +84,8 @@ abstract class SessionProvider {
      * Remove the current session
      */
     fun removeSession() {
-        disposable?.dispose()
+        stopListener()
+
         editor.clear()
         editor.commit()
 

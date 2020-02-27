@@ -1,11 +1,11 @@
-package com.example.projectmanager.data.interfaces
+package com.example.projectmanager.data.interfaces.services
 
 import com.example.projectmanager.data.entities.UserEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface IUserRepository {
+interface IUserService {
 
     val listeners: IListener
 
@@ -13,7 +13,6 @@ interface IUserRepository {
     fun update(user: UserEntity) : Completable
     fun delete(id: String) : Completable
     fun getById(id: String) : Single<UserEntity>
-    fun getAll(): Single<List<UserEntity>>
 
     interface IListener {
         fun getById(id: String): Observable<UserEntity>

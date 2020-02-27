@@ -1,23 +1,22 @@
 package com.example.projectmanager.ui.start
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.ProjectEntity
+import com.example.projectmanager.data.interfaces.IProjectRefRepository
 import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
+import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.util.LiveDataResult
 import com.example.projectmanager.util.SingleLiveEvent
-import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class StartProjectsViewModel (
     private val session: SessionProvider,
-    private val repository: IProjectRepository
+    private val projectService: IProjectService
 ) : ViewModel() {
 
     private val _projects = MutableLiveData<LiveDataResult<List<ProjectEntity>>>()
@@ -32,17 +31,17 @@ class StartProjectsViewModel (
     fun getProjects(): LiveData<LiveDataResult<List<ProjectEntity>>> = _projects
 
     fun loadProjects() {
-        val ids = session.user!!.projects ?: listOf()
-        Log.d("SessionTag", ids.toString())
-        disposables.add(repository.getSectionByIds(ids)
+        disposables.clear()
+
+        disposables.add(projectService.listeners.getSectionByUser(session.user!!.id!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _projects.postValue(LiveDataResult.success(it))
-            }, {
+            },{
                 _projects.postValue(LiveDataResult.error(it))
-            }
-        ))
+            })
+        )
     }
 
     private val _event = SingleLiveEvent<Event>()
