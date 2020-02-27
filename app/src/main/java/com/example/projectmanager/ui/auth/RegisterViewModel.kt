@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.IAccountRepository
+import com.example.projectmanager.data.interfaces.IProjectRefRepository
 import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
@@ -18,7 +19,8 @@ import io.reactivex.schedulers.Schedulers
 class RegisterViewModel (
     private val session: SessionProvider,
     private val accountRepository: IAccountRepository,
-    private val userRepository: IUserRepository
+    private val userRepository: IUserRepository,
+    private val projectRefRepository: IProjectRefRepository
 ) : ViewModel() {
 
     var email = MutableLiveData<String>()
@@ -41,6 +43,7 @@ class RegisterViewModel (
                     id = id,
                     email = email.value)
             ) }
+            .flatMap { id -> projectRefRepository.create(id) }
             .flatMap { id -> userRepository.getById(id) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

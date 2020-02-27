@@ -7,22 +7,15 @@ import io.reactivex.Single
 
 interface IUserRepository {
 
+    val listeners: IListener
+
     fun create(user: UserEntity) : Single<String>
-
     fun update(user: UserEntity) : Completable
-
     fun delete(id: String) : Completable
-
     fun getById(id: String) : Single<UserEntity>
+    fun getAll(): Single<List<UserEntity>>
 
-    fun getAll() : Single<List<UserEntity>>
-
-    fun subscribe(id: String) : Observable<UserEntity>
-
-    fun subscribe(id: String, field: Fields) : Observable<Any>
-
-    enum class Fields {
-        Name,
-        Projects,
+    interface IListener {
+        fun getById(id: String): Observable<UserEntity>
     }
 }

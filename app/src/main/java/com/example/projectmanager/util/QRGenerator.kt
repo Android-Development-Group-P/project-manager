@@ -5,10 +5,13 @@ import android.graphics.Color
 import com.google.gson.annotations.SerializedName
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import java.io.Serializable
 
 object QRGenerator {
 
+    private val QR_WIDTH = 512
+    private val QR_HEIGHT = 512
     private val writer = QRCodeWriter()
 
     fun generate(qr: QRObject) : Bitmap {
@@ -22,6 +25,13 @@ object QRGenerator {
         }
 
         return bitmap
+    }
+
+    fun  generate2(qr: QRObject) : Bitmap {
+        val barcodeEncoder = BarcodeEncoder()
+        return barcodeEncoder.encodeBitmap(qr.content, BarcodeFormat.QR_CODE,
+            qr.width ?: QR_WIDTH,
+            qr.height ?: QR_HEIGHT)
     }
 
     data class QRObject (

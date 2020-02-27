@@ -1,26 +1,25 @@
 package com.example.projectmanager.data.repositories.firebase
 
-import android.util.Log
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.interfaces.IProjectRepository
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import kotlinx.coroutines.*
 
 class FBProjectRepoImpl : IProjectRepository {
 
+    override val listeners: IProjectRepository.Listener = Listener()
+
     companion object {
-        const val COLLECTION_PATH = "projects"
+        const val COLLECTION_ROOT = "projects"
     }
 
     private val db = FirebaseFirestore.getInstance()
 
     override fun create(project: ProjectEntity): Single<String> {
         return Single.create { emitter ->
-            db.collection(COLLECTION_PATH).add(project).addOnSuccessListener {
+            db.collection(COLLECTION_ROOT).add(project).addOnSuccessListener {
                 emitter.onSuccess(it.id)
             }.addOnFailureListener {
                 emitter.onError(it)
@@ -29,7 +28,7 @@ class FBProjectRepoImpl : IProjectRepository {
     }
 
     override fun update(project: ProjectEntity) = Completable.create { emitter ->
-        db.collection(COLLECTION_PATH).document(project.id!!)
+        db.collection(COLLECTION_ROOT).document(project.id!!)
             .set(project).addOnSuccessListener {
                 emitter.onComplete()
             }.addOnFailureListener {
@@ -38,7 +37,7 @@ class FBProjectRepoImpl : IProjectRepository {
     }
 
     override fun delete(id: String) = Completable.create { emitter ->
-        db.collection(COLLECTION_PATH).document(id)
+        db.collection(COLLECTION_ROOT).document(id)
             .delete().addOnSuccessListener {
                 emitter.onComplete()
             }.addOnFailureListener {
@@ -48,15 +47,15 @@ class FBProjectRepoImpl : IProjectRepository {
 
     override fun getById(id: String): Single<ProjectEntity> {
         return Single.create {emitter ->
-            db.collection(COLLECTION_PATH).document(id)
+            db.collection(COLLECTION_ROOT).document(id)
                 .get()
                 .addOnSuccessListener { document ->
-                    if (document.exists()) {
+                    if (!document.exists()) {
+                        emitter.onError(Exception("Entity not found"))
+                    } else {
                         val project = document.toObject(ProjectEntity::class.java)!!
                         project.id = document.id
                         emitter.onSuccess(project)
-                    } else {
-                        emitter.onError(Exception("Could not fetch project with id {$id}"))
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -67,7 +66,7 @@ class FBProjectRepoImpl : IProjectRepository {
 
     override fun getAll() : Single<List<ProjectEntity>> {
         return Single.create { emitter ->
-            db.collection(COLLECTION_PATH)
+            db.collection(COLLECTION_ROOT)
                 .get()
                 .addOnSuccessListener { documents ->
                     val projectsList = mutableListOf<ProjectEntity>()
@@ -86,31 +85,25 @@ class FBProjectRepoImpl : IProjectRepository {
     }
 
 
-    override fun getSectionByIds(ids: List<String>): Single<List<ProjectEntity>> {
-        return Observable.fromIterable(ids)
-            .flatMapSingle { id -> getById(id) }
-            .toList()
-            .doOnError {
-                Log.d("test", "$it")
-            }
-    }
+    inner class Listener : IProjectRepository.Listener {
+        override fun getById(id: String): Observable<ProjectEntity> {
+            return Observable.create { emitter ->
+                val registration = db.collection(COLLECTION_ROOT)
+                    .document(id)
+                    .addSnapshotListener { snapshot, exception ->
+                        if (exception != null)
+                            emitter.onError(exception)
 
-
-    override fun checkIfCodeExists(code: String): Single<Boolean> {
-        return Single.create {emitter ->
-
-            db.collection(COLLECTION_PATH).whereEqualTo("code", code)
-                .get()
-                .addOnSuccessListener { documents ->
-                    if (documents.size() == 0) {
-                        emitter.onSuccess(false)
-                    } else {
-                        emitter.onSuccess(true)
+                        if (snapshot != null && !snapshot.exists()) {
+                            val project = snapshot.toObject(ProjectEntity::class.java)!!
+                            project.id = id
+                            emitter.onNext(project)
+                        }
                     }
-                }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
+
+                emitter.setCancellable { registration.remove() }
+            }
         }
+
     }
 }

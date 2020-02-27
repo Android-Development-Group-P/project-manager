@@ -1,4 +1,4 @@
-package com.example.projectmanager.ui.project_new
+package com.example.projectmanager.ui.project
 
 import android.app.Activity
 import android.os.Bundle
@@ -15,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.ui.createProject.StartNotificationFragment
-import com.example.projectmanager.ui.issue.IssueInfoFragment
 import com.example.projectmanager.ui.issue.IssuesFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_project.*

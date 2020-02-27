@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.projectmanager.ui.project_new.CreateProjectViewModel" />
+            type="com.example.projectmanager.ui.project.CreateProjectViewModel" />
     </data>
 
     <FrameLayout
@@ -15,7 +15,7 @@
         android:background="#F6F9FF">
 
         <LinearLayout
-            tools:context=".ui.project_new.CreateProjectActivity"
+            tools:context=".ui.project.CreateProjectActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_12"
