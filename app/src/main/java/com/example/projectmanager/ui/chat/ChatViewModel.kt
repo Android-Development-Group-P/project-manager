@@ -21,42 +21,54 @@ class ChatViewModel (
     private val repository: IChatRepository
 ) : ViewModel() {
 
+    var offset: Long = 1
+
     lateinit var projectId: String
     var message = MutableLiveData<String>().default("")
 
-    private val _messages by lazy {
+    private val _previousMessages by lazy {
         val liveData = MutableLiveData<LiveDataResult<List<ChatMessageEntity>>>()
-        loadMessages()
+        loadPreviousMessages()
         return@lazy liveData
     }
+
+    private val _latestMessage by lazy {
+        val liveData = MutableLiveData<LiveDataResult<ChatMessageEntity>>()
+        loadLatestMessage()
+        return@lazy liveData
+    }
+
     private val disposables = CompositeDisposable()
+
+    fun getLatestMessage(): LiveData<LiveDataResult<ChatMessageEntity>> = _latestMessage
+
+    fun getPreviousMessage() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _previousMessages
 
     fun loadLatestMessage() {
         disposables.add(repository.listener.getMessageById(projectId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ message ->
-               Log.d("123", message.message)
-            }, {error ->
-                _messages.postValue(LiveDataResult.error(error))
+                _latestMessage.postValue(LiveDataResult.success(message))
+            }, { error ->
+                _latestMessage.postValue(LiveDataResult.error(error))
             })
         )
     }
 
-    fun loadMessages() {
-        disposables.add(repository.getAllBySection(projectId,20)
+    fun loadPreviousMessages() {
+        disposables.add(repository.getAllBySection(projectId,20, offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ messages ->
-                Log.d("123", messages.toString())
-                _messages.postValue(LiveDataResult.success(messages))
+                _previousMessages.postValue(LiveDataResult.success(messages))
             }, {error ->
-                _messages.postValue(LiveDataResult.error(error))
+                _previousMessages.postValue(LiveDataResult.error(error))
             })
         )
-    }
 
-    fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
+        offset += 1
+    }
 
     fun onCreateMessage(view: View) {
 

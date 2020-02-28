@@ -106,7 +106,8 @@ class FBChatRepoImpl :
         return Single.create { emitter ->
             db.collection(CHANNELS_PATH).document(channelId).collection(MESSAGES_PATH)
                 .orderBy("createdAt")
-                .limit(limit * offset)
+                .limitToLast(limit)
+                .endAt(offset * limit)
                 .get()
                 .addOnSuccessListener {
                     if (it.isEmpty) {

@@ -49,9 +49,7 @@ class ChatFragment : Fragment(), KodeinAware {
 
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
 
-
         return binding.root
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -64,16 +62,30 @@ class ChatFragment : Fragment(), KodeinAware {
         viewModel.loadLatestMessage()
 
         chatRecyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = ChatAdapter(listOf())
+
+        adapter = ChatAdapter(mutableListOf())
         chatRecyclerView.adapter = adapter
 
-
-        viewModel.getMessages().observe(viewLifecycleOwner, Observer {
+        viewModel.getLatestMessage().observe(viewLifecycleOwner, Observer {
             if (it.error != null) {
+
             } else {
-                chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
+                adapter.addItem(adapter.itemCount, it.data!!)
+                chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
             }
         })
+
+        viewModel.getPreviousMessage().observe(viewLifecycleOwner, Observer {
+            if (it.error != null) {
+            } else {
+                adapter.addItems(0, it.data!!)
+                swipe_layout.isRefreshing = false
+            }
+        })
+
+        swipe_layout.setOnRefreshListener {
+            viewModel.loadPreviousMessages()
+        }
 
         viewModel.getEvent().observe(viewLifecycleOwner, Observer {
             when (it) {
