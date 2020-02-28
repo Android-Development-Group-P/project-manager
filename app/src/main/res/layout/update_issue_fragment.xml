@@ -18,6 +18,39 @@
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/view12"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginBottom="-10dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@+id/updateStatusDropdown"
+                app:layout_constraintEnd_toEndOf="@+id/view10"
+                app:layout_constraintStart_toStartOf="@+id/view10"
+                app:layout_constraintTop_toTopOf="@+id/updateStatusDropdown" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Update status"
+                app:layout_constraintBottom_toBottomOf="@+id/view12"
+                app:layout_constraintStart_toStartOf="@+id/view12"
+                app:layout_constraintTop_toTopOf="@+id/view12" />
+
+            <Spinner
+                android:id="@+id/updateStatusDropdown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/view12"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/view10" />
+
+            <View
                 android:id="@+id/view7"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -33,22 +66,22 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
                 android:text="Update priority"
                 app:layout_constraintStart_toStartOf="@+id/view7"
-                app:layout_constraintTop_toBottomOf="@+id/updateIssueDescription" />
+                app:layout_constraintTop_toTopOf="@+id/updatePriorityDropdown" />
 
             <Spinner
                 android:id="@+id/updatePriorityDropdown"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/updateIssueDescription"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/updateIssueDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/view12" />
 
             <View
                 android:id="@+id/view8"
@@ -67,7 +100,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="24dp"
                 android:text="Update assigned user"
                 app:layout_constraintStart_toStartOf="@+id/view8"
@@ -138,7 +171,7 @@
                 android:layout_marginTop="-10dp"
                 android:layout_marginBottom="-10dp"
                 android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/updateLabelDropdown"
+                app:layout_constraintBottom_toBottomOf="@+id/updateDepartmentDropdown"
                 app:layout_constraintEnd_toEndOf="@+id/view8"
                 app:layout_constraintStart_toStartOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
@@ -147,19 +180,18 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="24dp"
-                android:text="Update label"
+                android:text="Update department"
                 app:layout_constraintStart_toStartOf="@+id/view9"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <Spinner
-                android:id="@+id/updateLabelDropdown"
+                android:id="@+id/updateDepartmentDropdown"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="19dp"
-                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/view9"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView11"
@@ -169,9 +201,32 @@
                 android:id="@+id/updateIssueButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="20dp"
                 android:onClick="@{()-> viewModel.onUpdateIssue()}"
                 android:text="Update"
+                app:layout_constraintEnd_toEndOf="@+id/updateIssueDescription"
+                app:layout_constraintStart_toStartOf="@+id/updateIssueDescription"
+                app:layout_constraintTop_toBottomOf="@+id/updateDepartmentDropdown" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="@+id/editText3"
+                app:layout_constraintEnd_toEndOf="@+id/editText3"
+                app:layout_constraintStart_toStartOf="@+id/editText3"
+                app:layout_constraintTop_toTopOf="@+id/editText3" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Update label"
+                android:text="@={viewModel.label}"
+                android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/updateIssueDescription"
                 app:layout_constraintStart_toStartOf="@+id/updateIssueDescription"
                 app:layout_constraintTop_toBottomOf="@+id/updateIssueDescription" />

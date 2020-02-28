@@ -16,7 +16,6 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.UpdateIssueViewModelFactory
 import com.example.projectmanager.databinding.UpdateIssueFragmentBinding
-import kotlinx.android.synthetic.main.issue_info_fragment.*
 import kotlinx.android.synthetic.main.update_issue_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -93,8 +92,24 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            updateLabelDropdown.adapter = adapter
+            updateDepartmentDropdown.adapter = adapter
         }
+
+        ArrayAdapter.createFromResource(
+            context!!,
+            R.array.project_status_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            updateStatusDropdown.adapter = adapter
+        }
+
+        updateAssignedUserDropdown.onItemSelectedListener = this
+        updateDepartmentDropdown.onItemSelectedListener = this
+        updatePriorityDropdown.onItemSelectedListener = this
+        updateStatusDropdown.onItemSelectedListener = this
 
         binding.viewModel = viewModel
     }
@@ -112,11 +127,16 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        Log.d("test", "nu körs jag")
-        viewModel.setUpdatedDropdownValues(updateLabelDropdown.selectedItem as String, updatePriorityDropdown.selectedItem as String, updateAssignedUserDropdown.selectedItem as String)
+        viewModel.department = updateDepartmentDropdown.selectedItem as String
+        viewModel.assignedUser = updateAssignedUserDropdown.selectedItem as String
+        viewModel.priority = updatePriorityDropdown.selectedItem as String
+        viewModel.status = updateStatusDropdown.selectedItem as String
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        viewModel.setUpdatedDropdownValues(updateLabelDropdown.selectedItem as String, updatePriorityDropdown.selectedItem as String, updateAssignedUserDropdown.selectedItem as String)
+        viewModel.department = updateDepartmentDropdown.selectedItem as String
+        viewModel.assignedUser = updateAssignedUserDropdown.selectedItem as String
+        viewModel.priority = updatePriorityDropdown.selectedItem as String
+        viewModel.status = updateStatusDropdown.selectedItem as String
     }
 }

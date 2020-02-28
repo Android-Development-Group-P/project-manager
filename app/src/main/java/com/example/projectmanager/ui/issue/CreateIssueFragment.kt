@@ -13,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
@@ -91,12 +90,16 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            labelDropdown.adapter = adapter
+            departmentDropdown.adapter = adapter
         }
 
-        viewModel.label = labelDropdown.selectedItem as String
+        viewModel.department = departmentDropdown.selectedItem as String
         viewModel.priority = priorityDropdown.selectedItem as String
         viewModel.assignedUser = assignToUserDropdown.selectedItem as String
+
+        departmentDropdown.onItemSelectedListener = this
+        assignToUserDropdown.onItemSelectedListener = this
+        priorityDropdown.onItemSelectedListener = this
 
         binding.viewModel = viewModel
 
@@ -112,15 +115,16 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        viewModel.label = labelDropdown.selectedItem as String
+        viewModel.department = departmentDropdown.selectedItem as String
         viewModel.priority = priorityDropdown.selectedItem as String
         viewModel.assignedUser = assignToUserDropdown.selectedItem as String
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        viewModel.label = labelDropdown.selectedItem as String
+        viewModel.department = departmentDropdown.selectedItem as String
         viewModel.priority = priorityDropdown.selectedItem as String
         viewModel.assignedUser = assignToUserDropdown.selectedItem as String
     }
+
 }
 

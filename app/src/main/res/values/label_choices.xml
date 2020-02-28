@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="label_array">
-        <item>Tech</item>
-        <item>Fast</item>
-        <item>important</item>
+        <item>IT</item>
+        <item>HR</item>
+        <item>Sales</item>
+        <item>Marketing</item>
+        <item>Production</item>
+        <item>R&amp;D</item>
+        <item>Financial</item>
     </string-array>
 </resources>

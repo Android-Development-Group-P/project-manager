@@ -52,6 +52,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind<IProjectService>() with singleton { FBProjectService(instance(), instance()) }
         bind<IInviteCodeService>() with singleton { FBInviteCodeService(instance()) }
         bind<IUserService>() with singleton { FBUserService(instance()) }
+
         /** Storage layer initialization */
         bind<IImageStorage>() with singleton { FBImageStorage() }
 
