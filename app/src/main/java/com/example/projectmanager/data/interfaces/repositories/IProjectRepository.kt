@@ -1,7 +1,6 @@
-package com.example.projectmanager.data.interfaces
+package com.example.projectmanager.data.interfaces.repositories
 
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.entities.UserEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

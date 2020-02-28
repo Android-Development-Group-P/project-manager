@@ -1,13 +1,14 @@
 package com.example.projectmanager.data.repositories.firebase
 
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.interfaces.IProjectRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class FBProjectRepoImpl : IProjectRepository {
+class FBProjectRepoImpl :
+    IProjectRepository {
 
     override val listeners: IProjectRepository.Listener = Listener()
 

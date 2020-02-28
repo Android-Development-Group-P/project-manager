@@ -1,4 +1,4 @@
-package com.example.projectmanager.data.interfaces
+package com.example.projectmanager.data.interfaces.repositories
 
 import com.example.projectmanager.data.entities.InviteCodeEntity
 import io.reactivex.Completable

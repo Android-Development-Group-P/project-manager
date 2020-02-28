@@ -2,8 +2,6 @@ package com.example.projectmanager.data.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.projectmanager.data.interfaces.IProjectRefRepository
-import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.ui.start.StartProjectsViewModel

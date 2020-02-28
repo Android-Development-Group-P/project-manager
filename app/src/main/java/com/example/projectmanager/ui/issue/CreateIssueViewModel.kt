@@ -1,10 +1,9 @@
 package com.example.projectmanager.ui.issue
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.IssueEntity
-import com.example.projectmanager.data.interfaces.IIssueRepository
+import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers

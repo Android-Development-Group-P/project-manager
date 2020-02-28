@@ -1,13 +1,13 @@
 package com.example.projectmanager.data.repositories.firebase
 
-import android.util.Log
-import com.example.projectmanager.data.interfaces.IProjectRefRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRefRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class FBProjectRefRepoImpl : IProjectRefRepository {
+class FBProjectRefRepoImpl :
+    IProjectRefRepository {
 
     override val listener: IProjectRefRepository.IListener = Listener()
 

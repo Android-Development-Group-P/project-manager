@@ -1,11 +1,12 @@
 package com.example.projectmanager.data.repositories.firebase
 
 import com.example.projectmanager.data.entities.IssueEntity
-import com.example.projectmanager.data.interfaces.IIssueRepository
+import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Single
 
-class FBIssueRepoImpl : IIssueRepository {
+class FBIssueRepoImpl :
+    IIssueRepository {
 
     private val COLLECTION_PATH = "issues"
 

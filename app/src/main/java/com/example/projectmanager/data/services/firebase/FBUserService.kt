@@ -1,7 +1,7 @@
 package com.example.projectmanager.data.services.firebase
 
 import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.example.projectmanager.data.interfaces.services.IUserService
 
 class FBUserService (

@@ -2,15 +2,14 @@ package com.example.projectmanager.data.repositories.firebase
 
 import android.util.Log
 import com.example.projectmanager.data.entities.ChatMessageEntity
-import com.example.projectmanager.data.interfaces.IChatRepository
+import com.example.projectmanager.data.interfaces.repositories.IChatRepository
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class FBChatRepoImpl : IChatRepository {
+class FBChatRepoImpl :
+    IChatRepository {
     override val listener: IChatRepository.IListener = Listener()
 
     companion object {

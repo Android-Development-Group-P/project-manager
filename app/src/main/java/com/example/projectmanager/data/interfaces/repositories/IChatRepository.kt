@@ -1,9 +1,6 @@
-package com.example.projectmanager.data.interfaces
+package com.example.projectmanager.data.interfaces.repositories
 
-import android.util.Log
 import com.example.projectmanager.data.entities.ChatMessageEntity
-import com.google.firebase.firestore.ListenerRegistration
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 

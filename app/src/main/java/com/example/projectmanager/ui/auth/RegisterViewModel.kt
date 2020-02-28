@@ -1,14 +1,13 @@
 package com.example.projectmanager.ui.auth
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IAccountRepository
-import com.example.projectmanager.data.interfaces.IProjectRefRepository
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.IAccountRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRefRepository
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
 import com.example.projectmanager.util.Validation

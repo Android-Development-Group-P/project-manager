@@ -1,18 +1,15 @@
 package com.example.projectmanager.ui.issue
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.IssueEntity
-import com.example.projectmanager.data.interfaces.IIssueRepository
+import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.example.projectmanager.util.LiveDataResult
 import com.example.projectmanager.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-
-import androidx.lifecycle.LiveDataReactiveStreams
 
 class IssuesViewModel (
     private val repository: IIssueRepository

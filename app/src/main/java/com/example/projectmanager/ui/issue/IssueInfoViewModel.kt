@@ -1,10 +1,8 @@
 package com.example.projectmanager.ui.issue
 
-import android.icu.text.CaseMap
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.IssueEntity
-import com.example.projectmanager.data.interfaces.IIssueRepository
+import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.example.projectmanager.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

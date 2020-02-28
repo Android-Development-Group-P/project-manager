@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,17 +1,14 @@
 package com.example.projectmanager.data.repositories.firebase
 
-import android.util.Log
-import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IUserRepository
-import com.google.firebase.firestore.EventListener
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import io.reactivex.Single
 
-class FBUserRepoImpl : IUserRepository {
+class FBUserRepoImpl :
+    IUserRepository {
 
     override val listeners: IUserRepository.IListener = Listener()
 

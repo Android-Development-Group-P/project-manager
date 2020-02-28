@@ -2,8 +2,8 @@ package com.example.projectmanager.data.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.projectmanager.data.interfaces.IAccountRepository
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.IAccountRepository
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.ui.auth.LoginViewModel
 

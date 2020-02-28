@@ -1,15 +1,13 @@
 package com.example.projectmanager.data.repositories.firebase
 
-import com.example.projectmanager.data.entities.UserEntity
-import com.example.projectmanager.data.interfaces.IAccountRepository
+import com.example.projectmanager.data.interfaces.repositories.IAccountRepository
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
-import io.reactivex.Completable
 import io.reactivex.Single
 
-class FBAccountRepoImpl : IAccountRepository {
+class FBAccountRepoImpl :
+    IAccountRepository {
 
     private val auth = FirebaseAuth.getInstance()
 

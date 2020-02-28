@@ -6,10 +6,9 @@ import com.example.projectmanager.data.providers.firebase.FBSessionImpl
 
 import com.example.projectmanager.data.interfaces.*
 import com.example.projectmanager.data.repositories.firebase.*
-import com.example.projectmanager.data.interfaces.IChatRepository
-import com.example.projectmanager.data.interfaces.IIssueRepository
-import com.example.projectmanager.data.interfaces.IProjectRepository
-import com.example.projectmanager.data.interfaces.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRepository
+import com.example.projectmanager.data.interfaces.repositories.IUserRepository
+import com.example.projectmanager.data.interfaces.repositories.*
 import com.example.projectmanager.data.interfaces.services.IInviteCodeService
 import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.data.interfaces.services.IUserService

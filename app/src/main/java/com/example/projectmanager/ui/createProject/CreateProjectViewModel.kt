@@ -1,13 +1,5 @@
 package com.example.projectmanager.ui.createProject
 
-import android.view.View
-import androidx.lifecycle.ViewModel
-import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.interfaces.IProjectRepository
-import com.example.projectmanager.util.SingleLiveEvent
-
-import java.text.SimpleDateFormat
-import java.util.*
 /*
 class CreateProjectViewModel (
     private val repository: IProjectRepository

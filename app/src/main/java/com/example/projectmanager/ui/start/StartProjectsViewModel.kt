@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.interfaces.IProjectRefRepository
-import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.util.LiveDataResult

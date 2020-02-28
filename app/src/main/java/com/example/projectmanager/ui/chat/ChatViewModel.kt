@@ -2,18 +2,15 @@ package com.example.projectmanager.ui.chat
 
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.ChatMessageEntity
-import com.example.projectmanager.data.interfaces.IChatRepository
+import com.example.projectmanager.data.interfaces.repositories.IChatRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.util.LiveDataResult
 import com.example.projectmanager.util.SingleLiveEvent
 import com.example.projectmanager.util.default
-import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

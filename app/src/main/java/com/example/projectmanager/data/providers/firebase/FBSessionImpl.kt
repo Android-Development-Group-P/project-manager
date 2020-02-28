@@ -1,7 +1,6 @@
 package com.example.projectmanager.data.providers.firebase
 
 import android.content.Context
-import com.example.projectmanager.data.interfaces.IUserRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
 import com.example.projectmanager.data.interfaces.services.IUserService
 import com.google.firebase.auth.FirebaseAuth

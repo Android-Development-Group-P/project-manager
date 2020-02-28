@@ -1,18 +1,12 @@
 package com.example.projectmanager.data.services.firebase
 
-import android.util.Log
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.interfaces.IProjectRefRepository
-import com.example.projectmanager.data.interfaces.IProjectRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRefRepository
+import com.example.projectmanager.data.interfaces.repositories.IProjectRepository
 import com.example.projectmanager.data.interfaces.services.IProjectService
-import com.example.projectmanager.ui.project.JoinProjectViewModel
-import com.example.projectmanager.util.CLASS_TAG
-import com.example.projectmanager.util.LiveDataResult
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
 
 class FBProjectService (
