@@ -35,6 +35,11 @@ class ChatAdapter (
         holder.view.findViewById<TextView>(R.id.message).text = message.message
     }
 
+    fun addItems(index: Int, items: List<ChatMessageEntity>) {
+        messages.addAll(index, items)
+        notifyItemRangeInserted(index, items.count())
+    }
+
     fun addItem(index: Int, item: ChatMessageEntity) {
         messages.add(index, item)
         notifyItemInserted(index)

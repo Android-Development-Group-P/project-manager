@@ -21,12 +21,14 @@ class ChatViewModel (
     private val repository: IChatRepository
 ) : ViewModel() {
 
+    var offset: Long = 1
+
     lateinit var projectId: String
     var message = MutableLiveData<String>().default("")
 
-    private val _messages by lazy {
+    private val _previousMessages by lazy {
         val liveData = MutableLiveData<LiveDataResult<List<ChatMessageEntity>>>()
-        loadMessages()
+        loadPreviousMessages()
         return@lazy liveData
     }
 
@@ -40,7 +42,7 @@ class ChatViewModel (
 
     fun getLatestMessage(): LiveData<LiveDataResult<ChatMessageEntity>> = _latestMessage
 
-    fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
+    fun getPreviousMessage() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _previousMessages
 
     fun loadLatestMessage() {
         disposables.add(repository.listener.getMessageById(projectId)
@@ -54,16 +56,18 @@ class ChatViewModel (
         )
     }
 
-    fun loadMessages() {
-        disposables.add(repository.getAllBySection(projectId,20)
+    fun loadPreviousMessages() {
+        disposables.add(repository.getAllBySection(projectId,20, offset)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ messages ->
-                _messages.postValue(LiveDataResult.success(messages))
+                _previousMessages.postValue(LiveDataResult.success(messages))
             }, {error ->
-                _messages.postValue(LiveDataResult.error(error))
+                _previousMessages.postValue(LiveDataResult.error(error))
             })
         )
+
+        offset += 1
     }
 
     fun onCreateMessage(view: View) {

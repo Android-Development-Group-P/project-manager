@@ -62,6 +62,7 @@ class ChatFragment : Fragment(), KodeinAware {
         viewModel.loadLatestMessage()
 
         chatRecyclerView.layoutManager = LinearLayoutManager(activity)
+
         adapter = ChatAdapter(mutableListOf())
         chatRecyclerView.adapter = adapter
 
@@ -70,16 +71,21 @@ class ChatFragment : Fragment(), KodeinAware {
 
             } else {
                 adapter.addItem(adapter.itemCount, it.data!!)
+                chatRecyclerView.scrollToPosition(adapter.itemCount - 1)
             }
         })
 
-        viewModel.getMessages().observe(viewLifecycleOwner, Observer {
+        viewModel.getPreviousMessage().observe(viewLifecycleOwner, Observer {
             if (it.error != null) {
             } else {
-                //chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
-
+                adapter.addItems(0, it.data!!)
+                swipe_layout.isRefreshing = false
             }
         })
+
+        swipe_layout.setOnRefreshListener {
+            viewModel.loadPreviousMessages()
+        }
 
         viewModel.getEvent().observe(viewLifecycleOwner, Observer {
             when (it) {
