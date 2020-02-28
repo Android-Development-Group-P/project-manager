@@ -29,16 +29,27 @@ class ChatViewModel (
         loadMessages()
         return@lazy liveData
     }
+
+    private val _latestMessage by lazy {
+        val liveData = MutableLiveData<LiveDataResult<ChatMessageEntity>>()
+        loadLatestMessage()
+        return@lazy liveData
+    }
+
     private val disposables = CompositeDisposable()
+
+    fun getLatestMessage(): LiveData<LiveDataResult<ChatMessageEntity>> = _latestMessage
+
+    fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
 
     fun loadLatestMessage() {
         disposables.add(repository.listener.getMessageById(projectId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ message ->
-               Log.d("123", message.message)
-            }, {error ->
-                _messages.postValue(LiveDataResult.error(error))
+                _latestMessage.postValue(LiveDataResult.success(message))
+            }, { error ->
+                _latestMessage.postValue(LiveDataResult.error(error))
             })
         )
     }
@@ -48,15 +59,12 @@ class ChatViewModel (
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ messages ->
-                Log.d("123", messages.toString())
                 _messages.postValue(LiveDataResult.success(messages))
             }, {error ->
                 _messages.postValue(LiveDataResult.error(error))
             })
         )
     }
-
-    fun getMessages() : LiveData<LiveDataResult<List<ChatMessageEntity>>> = _messages
 
     fun onCreateMessage(view: View) {
 

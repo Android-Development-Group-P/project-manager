@@ -49,9 +49,7 @@ class ChatFragment : Fragment(), KodeinAware {
 
         binding =  DataBindingUtil.inflate(inflater, R.layout.chat_fragment, container, false)
 
-
         return binding.root
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -64,14 +62,22 @@ class ChatFragment : Fragment(), KodeinAware {
         viewModel.loadLatestMessage()
 
         chatRecyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = ChatAdapter(listOf())
+        adapter = ChatAdapter(mutableListOf())
         chatRecyclerView.adapter = adapter
 
+        viewModel.getLatestMessage().observe(viewLifecycleOwner, Observer {
+            if (it.error != null) {
+
+            } else {
+                adapter.addItem(adapter.itemCount, it.data!!)
+            }
+        })
 
         viewModel.getMessages().observe(viewLifecycleOwner, Observer {
             if (it.error != null) {
             } else {
-                chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
+                //chatRecyclerView.adapter = ChatAdapter(it.data ?: listOf())
+
             }
         })
 

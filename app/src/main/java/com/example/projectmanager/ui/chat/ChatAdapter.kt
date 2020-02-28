@@ -15,7 +15,7 @@ import org.w3c.dom.Text
 
 
 class ChatAdapter (
-    val messages: List<ChatMessageEntity>
+    private var messages: MutableList<ChatMessageEntity>
 ) : RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -35,7 +35,10 @@ class ChatAdapter (
         holder.view.findViewById<TextView>(R.id.message).text = message.message
     }
 
-
+    fun addItem(index: Int, item: ChatMessageEntity) {
+        messages.add(index, item)
+        notifyItemInserted(index)
+    }
 }
 
 
