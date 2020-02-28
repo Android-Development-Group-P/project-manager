@@ -7,8 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.Managers.DatabaseManager
-import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
 import com.example.projectmanager.data.interfaces.SessionProvider
@@ -53,6 +51,7 @@ class ChatViewModel (
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ messages ->
+                Log.d("123", messages.toString())
                 _messages.postValue(LiveDataResult.success(messages))
             }, {error ->
                 _messages.postValue(LiveDataResult.error(error))

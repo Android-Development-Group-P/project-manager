@@ -2,7 +2,6 @@ package com.example.projectmanager.ui.createProject
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.example.projectmanager.Managers.DatabaseManager
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.interfaces.IProjectRepository
 import com.example.projectmanager.util.SingleLiveEvent

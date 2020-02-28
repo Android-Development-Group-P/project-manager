@@ -1,8 +1,6 @@
 package com.example.projectmanager.data.repositories.firebase
 
 import android.util.Log
-import com.example.projectmanager.Models.ChatMessage
-import com.example.projectmanager.Models.Project
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.example.projectmanager.data.interfaces.IChatRepository
 import com.google.firebase.firestore.FirebaseFirestore

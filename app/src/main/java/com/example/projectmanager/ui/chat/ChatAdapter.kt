@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ChatMessageEntity
-import com.example.projectmanager.ui.start.CustomViewHolder
 import kotlinx.android.synthetic.main.chat_fragment.view.*
 import kotlinx.android.synthetic.main.chat_row.view.*
 import org.w3c.dom.Text

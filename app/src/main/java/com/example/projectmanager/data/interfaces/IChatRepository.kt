@@ -1,7 +1,6 @@
 package com.example.projectmanager.data.interfaces
 
 import android.util.Log
-import com.example.projectmanager.Models.ChatMessage
 import com.example.projectmanager.data.entities.ChatMessageEntity
 import com.google.firebase.firestore.ListenerRegistration
 import io.reactivex.Completable

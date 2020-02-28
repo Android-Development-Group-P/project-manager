@@ -19,7 +19,7 @@ import com.example.projectmanager.data.factories.ChatViewModelFactory
 import com.example.projectmanager.databinding.ChatFragmentBinding
 import com.example.projectmanager.ui.issue.IssuesAdapter
 import com.example.projectmanager.ui.issue.IssuesFragment
-import com.example.projectmanager.ui.project_new.ProjectActivity
+import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.chat_fragment.*
 import kotlinx.android.synthetic.main.fragment_issues.*
 import org.kodein.di.KodeinAware
@@ -61,7 +61,7 @@ class ChatFragment : Fragment(), KodeinAware {
 
         viewModel.projectId = ProjectActivity.currentProject?.id!!
 
-        viewModel.test()
+        viewModel.loadLatestMessage()
 
         chatRecyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = ChatAdapter(listOf())

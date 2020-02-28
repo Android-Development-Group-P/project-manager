@@ -1,8 +1,6 @@
 package com.example.projectmanager.util
-
+/*
 import android.util.Log
-import com.example.projectmanager.Interfaces.DatabaseProvider
-import com.example.projectmanager.Models.*
 import com.google.firebase.firestore.*
 
 class FirebaseFirestoreDB : DatabaseProvider {
@@ -322,4 +320,4 @@ class FirebaseFirestoreDB : DatabaseProvider {
     }
 
 
-}
+}*/
