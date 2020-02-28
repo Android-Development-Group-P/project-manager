@@ -23,6 +23,7 @@ class CreateIssueViewModel (
     var priority: String = ""
     var label: String = ""
     var assignedUser: String = ""
+    var department: String = ""
 
     var event = SingleLiveEvent<IssueEvent>()
 
@@ -38,7 +39,7 @@ class CreateIssueViewModel (
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
             val issue = IssueEntity(null, session.user!!.id, created, title, description, priority,
-                assignedUser, label, null, "started", project)
+                assignedUser, label, department, "Started", project)
 
             val disposable = repository.create(issue)
                 .subscribeOn(Schedulers.io())
