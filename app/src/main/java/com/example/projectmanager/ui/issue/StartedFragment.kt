@@ -48,15 +48,16 @@ class StartedFragment : Fragment(), KodeinAware {
 
         viewModel.initFun()
 
-        Log.d("test1", "Nu körs started")
-
-        /*
         recyclerView_issues.layoutManager = LinearLayoutManager(activity)
         adapter = IssuesAdapter(listOf())
         recyclerView_issues.adapter = adapter
         viewModel.getIssues().observe(viewLifecycleOwner, Observer {
             adapter.setList(it.data!!)
-            //swipeLayoutIssues.isRefreshing = false
-        })*/
+            swipeLayoutStarted.isRefreshing = false
+        })
+
+        swipeLayoutStarted.setOnRefreshListener {
+            viewModel.loadIssues()
+        }
     }
 }

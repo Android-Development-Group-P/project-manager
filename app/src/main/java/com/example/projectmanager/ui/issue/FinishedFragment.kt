@@ -44,19 +44,20 @@ class FinishedFragment : Fragment(), KodeinAware {
         viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
 
         viewModel.projectId = ProjectActivity.currentProject?.id!!
-        viewModel.status = "Finished"
+        viewModel.status = "Completed"
 
         viewModel.initFun()
 
-        Log.d("test1", "Nu körs finished")
-
-        /*
         recyclerView_issues.layoutManager = LinearLayoutManager(activity)
         adapter = IssuesAdapter(listOf())
         recyclerView_issues.adapter = adapter
         viewModel.getIssues().observe(viewLifecycleOwner, Observer {
             adapter.setList(it.data!!)
-            //swipeLayoutIssues.isRefreshing = false
-        })*/
+            swipeLayoutFinished.isRefreshing = false
+        })
+
+        swipeLayoutFinished.setOnRefreshListener {
+            viewModel.loadIssues()
+        }
     }
 }

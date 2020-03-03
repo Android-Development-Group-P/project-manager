@@ -5,12 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.IssuesViewModelFactory
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_issues.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -37,11 +37,10 @@ class IssuesFragment : Fragment(), KodeinAware {
         return inflater.inflate(R.layout.fragment_issues, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ViewPageAdapter(activity?.supportFragmentManager!!)
+        val adapter = ViewPageAdapter(childFragmentManager)
         adapter.fragments.add(CreatedFragment())
         adapter.titles.add("Created")
 
@@ -51,62 +50,9 @@ class IssuesFragment : Fragment(), KodeinAware {
         adapter.fragments.add(FinishedFragment())
         adapter.titles.add("Finished")
 
-        viewPagerIssues.adapter = adapter
+        viewPager.adapter = adapter
 
-        tabLayoutIssues.setupWithViewPager(viewPagerIssues)
-
-        viewPagerIssues.addOnPageChangeListener(object : OnPageChangeListener {
-            // This method will be invoked when a new page becomes selected.
-            override fun onPageSelected(position: Int) {
-                viewPagerIssues.currentItem = position
-                Log.d("test1", "Nuuuu kööörs jåååååå ${position} ${tabLayoutIssues.selectedTabPosition} ${tabLayoutIssues.isSelected}")
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) { // Code goes here
-            }
-
-            override fun onPageScrollStateChanged(state: Int) { // Code goes here
-            }
-        })
-
-        /*
-        tabLayoutIssues.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                Log.d("test1", "Nuuuu kööörs jåååååå ${tab.position} ${tabLayoutIssues.selectedTabPosition} ${tabLayoutIssues.isSelected}")
-                viewPagerIssues.currentItem = tab.position
-                viewPagerIssues.setCurrentItem(tab.position)
-                //tabLayoutIssues.setSelectedTabIndicator(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
-*/
-
-        /*
-        viewModel.projectId = ProjectActivity.currentProject?.id!!
-
-        viewModel.initFun()
-
-
-        recyclerView_issues.layoutManager = LinearLayoutManager(activity)
-        adapter = IssuesAdapter(listOf())
-        recyclerView_issues.adapter = adapter
-        viewModel.getIssues().observe(viewLifecycleOwner, Observer {
-            adapter.setList(it.data!!)
-            swipeLayoutIssues.isRefreshing = false
-        })
-
-        swipeLayoutIssues.setOnRefreshListener {
-            viewModel.loadIssues()
-        }*/
+        tabLayoutIssues.setupWithViewPager(viewPager)
 
         addIssueButton.setOnClickListener {view ->
             view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
@@ -115,5 +61,6 @@ class IssuesFragment : Fragment(), KodeinAware {
         toChatButton.setOnClickListener {view ->
             view.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
         }
+
     }
 }
