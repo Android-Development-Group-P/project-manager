@@ -2,25 +2,20 @@ package com.example.projectmanager.ui.issue
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.IssuesViewModelFactory
-import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.fragment_issues.*
-import kotlinx.android.synthetic.main.fragment_start_projects.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+
 
 class IssuesFragment : Fragment(), KodeinAware {
 
@@ -44,11 +39,62 @@ class IssuesFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
+        //viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
 
+        val adapter = ViewPageAdapter(activity?.supportFragmentManager!!)
+        adapter.fragments.add(CreatedFragment())
+        adapter.titles.add("Created")
+
+        adapter.fragments.add(StartedFragment())
+        adapter.titles.add("Started")
+
+        adapter.fragments.add(FinishedFragment())
+        adapter.titles.add("Finished")
+
+        viewPagerIssues.adapter = adapter
+
+        tabLayoutIssues.setupWithViewPager(viewPagerIssues)
+
+        viewPagerIssues.addOnPageChangeListener(object : OnPageChangeListener {
+            // This method will be invoked when a new page becomes selected.
+            override fun onPageSelected(position: Int) {
+                viewPagerIssues.currentItem = position
+                Log.d("test1", "Nuuuu kööörs jåååååå ${position} ${tabLayoutIssues.selectedTabPosition} ${tabLayoutIssues.isSelected}")
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) { // Code goes here
+            }
+
+            override fun onPageScrollStateChanged(state: Int) { // Code goes here
+            }
+        })
+
+        /*
+        tabLayoutIssues.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                Log.d("test1", "Nuuuu kööörs jåååååå ${tab.position} ${tabLayoutIssues.selectedTabPosition} ${tabLayoutIssues.isSelected}")
+                viewPagerIssues.currentItem = tab.position
+                viewPagerIssues.setCurrentItem(tab.position)
+                //tabLayoutIssues.setSelectedTabIndicator(tab.position)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+*/
+
+        /*
         viewModel.projectId = ProjectActivity.currentProject?.id!!
 
         viewModel.initFun()
+
 
         recyclerView_issues.layoutManager = LinearLayoutManager(activity)
         adapter = IssuesAdapter(listOf())
@@ -60,14 +106,13 @@ class IssuesFragment : Fragment(), KodeinAware {
 
         swipeLayoutIssues.setOnRefreshListener {
             viewModel.loadIssues()
-        }
+        }*/
 
         addIssueButton.setOnClickListener {view ->
             view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
         }
 
         toChatButton.setOnClickListener {view ->
-            Log.d("1234", "asd")
             view.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
         }
     }
