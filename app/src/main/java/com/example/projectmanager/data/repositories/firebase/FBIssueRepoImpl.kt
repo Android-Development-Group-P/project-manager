@@ -64,6 +64,34 @@ class FBIssueRepoImpl :
         }
     }
 
+    override fun getAllIssuesForProjectByStatus(
+        projectId: String,
+        status: String
+    ): Single<List<IssueEntity>> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH)
+                .whereEqualTo("project", projectId)
+                .whereEqualTo("status", status)
+                .get()
+                .addOnSuccessListener {documents ->
+                    val issuesList = mutableListOf<IssueEntity>()
+
+                    for (documet in documents) {
+                        val issue = documet.toObject(IssueEntity::class.java)
+                        issue.id = documet.id
+                        issuesList.add(issue)
+                    }
+
+                    emitter.onSuccess(issuesList)
+
+                    //emitter.onSuccess(documents.toObjects(IssueEntity::class.java))
+                }
+                .addOnFailureListener {
+                    emitter.onError(Exception("error with db"))
+                }
+        }
+    }
+
     override fun updateIssue(issue: IssueEntity, issueId: String): Single<Boolean> {
 
         return Single.create {emitter ->

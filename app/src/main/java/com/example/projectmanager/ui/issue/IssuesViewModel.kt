@@ -16,6 +16,7 @@ class IssuesViewModel (
 ) : ViewModel() {
 
     lateinit var projectId: String
+    lateinit var status: String
 
     private val _issues = MutableLiveData<LiveDataResult<List<IssueEntity>>>()
 
@@ -28,7 +29,7 @@ class IssuesViewModel (
     fun getIssues(): LiveData<LiveDataResult<List<IssueEntity>>> = _issues
 
     fun loadIssues() {
-        disposables.add(repository.getAllIssuesForProject(projectId)
+        disposables.add(repository.getAllIssuesForProjectByStatus(projectId, status)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

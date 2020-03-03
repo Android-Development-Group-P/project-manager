@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="project_status_array">
+        <item>Created</item>
         <item>Started</item>
-        <item>In progress</item>
         <item>Completed</item>
     </string-array>
 </resources>

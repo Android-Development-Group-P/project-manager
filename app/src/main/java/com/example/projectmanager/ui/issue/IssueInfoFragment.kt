@@ -99,7 +99,6 @@ class IssueInfoFragment : Fragment(), KodeinAware {
     }
 
     private fun onDelete() {
-        IssuesFragment.adapter.notifyItemRemoved(IssueIdInRecyclerView)
         view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_issues)
     }
 
