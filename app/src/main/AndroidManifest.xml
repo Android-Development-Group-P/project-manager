@@ -11,7 +11,10 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
 
-        <activity android:name=".ui.issue.IssuesFragment"></activity>
+        <activity
+            android:name=".ui.issue.IssuesFragment"
+            android:configChanges="orientation|screenSize">
+        </activity>
         <activity android:name=".ui.extra.ScanActivity" />
         <activity
             android:name=".ui.project.CreateProjectActivity"

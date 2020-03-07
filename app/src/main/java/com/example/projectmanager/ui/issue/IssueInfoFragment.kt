@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -50,7 +51,10 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
         buttonToUpdate.setOnClickListener {view ->
             UpdateIssueFragment.issueEntity = issueEntity
-            view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_update_issue)
+            //view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_update_issue)
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.nav_host_fragment_project, UpdateIssueFragment()
+            ).commit()
         }
 
         return binding.root
@@ -58,6 +62,8 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        //(activity as AppCompatActivity?)?.supportActionBar?.hide()
 
         viewModel = ViewModelProvider(this, factory).get(IssueInfoViewModel::class.java)
 
@@ -99,7 +105,10 @@ class IssueInfoFragment : Fragment(), KodeinAware {
     }
 
     private fun onDelete() {
-        view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_issues)
+        //view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_issues)
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.nav_host_fragment_project, IssuesFragment()
+        ).commit()
     }
 
     private fun onSuccess(issue: IssueEntity) {

@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.IssueEntity
+
 
 class IssuesAdapter (
     var issues: List<IssueEntity>
@@ -32,7 +34,10 @@ class IssuesAdapter (
         holder.view.setOnClickListener {view ->
             IssueInfoFragment.issueId = issues.get(position).id!!
             IssueInfoFragment.IssueIdInRecyclerView = position
-            view.findNavController().navigate(R.id.action_nav_issues_to_nav_view_issue)
+            (view.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
+                R.id.nav_host_fragment_project, IssueInfoFragment()
+            ).commit()
+            //view.findNavController().navigate(R.id.action_nav_issues_to_nav_view_issue)
         }
 
     }
