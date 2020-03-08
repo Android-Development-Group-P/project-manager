@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
 import kotlinx.android.synthetic.main.create_issue_fragment.*
 import com.example.projectmanager.ui.project.ProjectActivity
+import kotlinx.android.synthetic.main.activity_project.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -48,6 +50,8 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        //(activity as AppCompatActivity?)?.supportActionBar?.hide()
 
         viewModel = ViewModelProvider(this, factory).get(CreateIssueViewModel::class.java)
 
@@ -107,7 +111,11 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     private fun onSuccess() {
         Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
-        view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_issues)
+        //nav_host_fragment_project.findNavController().navigate(R.id.action_nav_create_issue_to_nav_issues)
+        //view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_issues)
+        (context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
+            R.id.nav_host_fragment_project, IssuesFragment()
+        ).commit()
     }
 
     private fun onFailure(error: String) {
