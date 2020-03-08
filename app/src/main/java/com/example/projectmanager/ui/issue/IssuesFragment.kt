@@ -47,8 +47,6 @@ class IssuesFragment : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //(activity as AppCompatActivity?)?.supportActionBar?.show()
-
         val adapter = ViewPageAdapter(childFragmentManager)
         adapter.fragments.add(CreatedFragment())
         adapter.titles.add("Created")
@@ -63,17 +61,17 @@ class IssuesFragment : Fragment(), KodeinAware {
 
         tabLayoutIssues.setupWithViewPager(viewPager)
 
-        addIssueButton.setOnClickListener {view ->
+        addIssueButton.setOnClickListener {viewButton ->
             //view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
             //view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
-            activity!!.supportFragmentManager.beginTransaction().replace(
+            (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, CreateIssueFragment()
             ).commit()
         }
 
-        toChatButton.setOnClickListener {view ->
+        toChatButton.setOnClickListener {viewButton ->
             //view.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
-            activity!!.supportFragmentManager.beginTransaction().replace(
+            (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, ChatFragment()
             ).commit()
         }

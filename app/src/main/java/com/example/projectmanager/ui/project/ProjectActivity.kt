@@ -7,9 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.ui.chat.ChatFragment
@@ -17,11 +14,7 @@ import com.example.projectmanager.ui.createProject.StartNotificationFragment
 import com.example.projectmanager.ui.issue.CreateIssueFragment
 import com.example.projectmanager.ui.issue.IssuesFragment
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.activity_start.drawer_layout
-import kotlinx.android.synthetic.main.activity_start.nav_view
-import kotlinx.android.synthetic.main.activity_start.toolbar
 
 
 class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -52,9 +45,9 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             // Initialize the base fragment for the activity
             supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssuesFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
 
-            //nav_view.setCheckedItem(R.id.nav_issues)
+            nav_view.setCheckedItem(R.id.nav_issues)
         }
         //setupActionBar()
     }
@@ -67,8 +60,16 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
+                val count = supportFragmentManager.backStackEntryCount
+                if (count == 0) {
+                    setResult(Activity.RESULT_CANCELED)
+                    finish()
+                } else {
+                    supportFragmentManager.popBackStack()
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.nav_host_fragment_project, IssuesFragment()
+                    ).commit()
+                }
             }
 
             R.id.open_drawer -> {
@@ -91,7 +92,17 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawer(GravityCompat.END)
         } else {
-            super.onBackPressed()
+            val count = supportFragmentManager.backStackEntryCount
+            if (count == 0) {
+                super.onBackPressed()
+                //additional code
+            } else {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.nav_host_fragment_project, IssuesFragment()
+                ).commit()
+            }
+            //super.onBackPressed()
         }
     }
 

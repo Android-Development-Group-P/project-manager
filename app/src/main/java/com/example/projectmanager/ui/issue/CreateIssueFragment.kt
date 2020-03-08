@@ -113,7 +113,7 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
         Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
         //nav_host_fragment_project.findNavController().navigate(R.id.action_nav_create_issue_to_nav_issues)
         //view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_issues)
-        activity!!.supportFragmentManager.beginTransaction().replace(
+        (context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment_project, IssuesFragment()
         ).commit()
     }
