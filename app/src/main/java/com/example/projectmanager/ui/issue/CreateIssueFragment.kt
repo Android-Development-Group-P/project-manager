@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
 import com.example.projectmanager.R
+import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
 import kotlinx.android.synthetic.main.create_issue_fragment.*
@@ -75,16 +76,15 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             priorityDropdown.adapter = adapter
         }
 
-        ArrayAdapter.createFromResource(
-            context!!,
-            R.array.priority_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            assignToUserDropdown.adapter = adapter
+        val list = mutableListOf<String>()
+        list.add("Any one")
+        for (member in ProjectActivity.members) {
+            list.add(member.displayName ?: (member.email ?: "Any one"))
         }
+        val adapterUsers = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, list)
+        adapterUsers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Apply the adapter to the spinner
+        assignToUserDropdown.adapter = adapterUsers
 
         ArrayAdapter.createFromResource(
             context!!,

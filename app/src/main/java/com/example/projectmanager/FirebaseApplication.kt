@@ -65,7 +65,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { JoinProjectViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { CreateIssueViewModelFactory(instance(), instance()) }
         bind() from provider { IssueInfoViewModelFactory(instance()) }
-        bind() from provider { IssuesViewModelFactory(instance()) }
+        bind() from provider { IssuesViewModelFactory(instance(), instance()) }
         bind() from provider { StartProjectsViewModelFactory(instance(), instance()) }
         bind() from provider { UpdateIssueViewModelFactory(instance()) }
         bind() from provider { RegisterViewModelFactory(instance(), instance(), instance(), instance()) }

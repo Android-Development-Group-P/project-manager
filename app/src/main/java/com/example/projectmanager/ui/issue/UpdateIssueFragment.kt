@@ -18,6 +18,7 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.UpdateIssueViewModelFactory
 import com.example.projectmanager.databinding.UpdateIssueFragmentBinding
+import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.update_issue_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -78,16 +79,15 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             updatePriorityDropdown.adapter = adapter
         }
 
-        ArrayAdapter.createFromResource(
-            context!!,
-            R.array.priority_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            updateAssignedUserDropdown.adapter = adapter
+        val list = mutableListOf<String>()
+        list.add("Any one")
+        for (member in ProjectActivity.members) {
+            list.add(member.displayName ?: (member.email ?: "Any one"))
         }
+        val adapterUsers = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, list)
+        adapterUsers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Apply the adapter to the spinner
+        updateAssignedUserDropdown.adapter = adapterUsers
 
         ArrayAdapter.createFromResource(
             context!!,

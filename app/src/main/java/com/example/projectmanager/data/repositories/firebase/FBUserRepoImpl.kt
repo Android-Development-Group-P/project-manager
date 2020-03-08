@@ -1,5 +1,8 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import android.annotation.SuppressLint
+import android.util.Log
+import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -72,6 +75,12 @@ class FBUserRepoImpl :
                     emitter.onError(it)
                 }
         }
+    }
+
+    override fun getAllById(ids: List<String>): Single<List<UserEntity>> {
+        return Observable.fromIterable(ids)
+            .flatMapSingle { id -> getById(id) }
+            .toList()
     }
 
     inner class Listener : IUserRepository.IListener {

@@ -48,9 +48,9 @@ class FBIssueRepoImpl :
                 .addOnSuccessListener {documents ->
                     val issuesList = mutableListOf<IssueEntity>()
 
-                    for (documet in documents) {
-                        val issue = documet.toObject(IssueEntity::class.java)
-                        issue.id = documet.id
+                    for (document in documents) {
+                        val issue = document.toObject(IssueEntity::class.java)
+                        issue.id = document.id
                         issuesList.add(issue)
                     }
 
@@ -76,9 +76,9 @@ class FBIssueRepoImpl :
                 .addOnSuccessListener {documents ->
                     val issuesList = mutableListOf<IssueEntity>()
 
-                    for (documet in documents) {
-                        val issue = documet.toObject(IssueEntity::class.java)
-                        issue.id = documet.id
+                    for (document in documents) {
+                        val issue = document.toObject(IssueEntity::class.java)
+                        issue.id = document.id
                         issuesList.add(issue)
                     }
 
