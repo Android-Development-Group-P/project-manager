@@ -9,11 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.IssuesViewModelFactory
 import com.example.projectmanager.ui.chat.ChatFragment
+import com.example.projectmanager.ui.project.ProjectActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_project.*
@@ -46,6 +49,14 @@ class IssuesFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, factory).get(IssuesViewModel::class.java)
+
+        val members = ProjectActivity.currentProject?.members!!
+        viewModel.loadUsers(members)
+
+        viewModel.getUsers().observe(viewLifecycleOwner, Observer {
+            ProjectActivity.members = it.data!!
+        })
 
         val adapter = ViewPageAdapter(childFragmentManager)
         adapter.fragments.add(CreatedFragment())

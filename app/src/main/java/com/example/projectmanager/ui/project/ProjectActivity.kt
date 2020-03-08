@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
+import com.example.projectmanager.data.entities.UserEntity
 import com.example.projectmanager.ui.chat.ChatFragment
 import com.example.projectmanager.ui.createProject.StartNotificationFragment
 import com.example.projectmanager.ui.issue.CreateIssueFragment
@@ -22,6 +23,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     companion object {
         const val PROJECT_EXTRA_ID = "Project"
         var currentProject: ProjectEntity? = null
+        var members: List<UserEntity> = listOf()
     }
 
     private val project: ProjectEntity by lazy {
@@ -41,13 +43,18 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         nav_view.setNavigationItemSelectedListener(this)
         setupActionBar()
 
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            Log.d("test123", "nein")
+        }
+
         if (savedInstanceState == null) {
             // Initialize the base fragment for the activity
             supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssuesFragment()
             ).addToBackStack(null).commit()
 
-            nav_view.setCheckedItem(R.id.nav_issues)
+            //nav_view.setCheckedItem(R.id.nav_issues)
         }
         //setupActionBar()
     }

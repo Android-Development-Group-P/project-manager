@@ -15,6 +15,8 @@ interface IUserRepository {
     fun getById(id: String) : Single<UserEntity>
     fun getAll(): Single<List<UserEntity>>
 
+    fun getAllById(ids: List<String>) : Single<List<UserEntity>>
+
     interface IListener {
         fun getById(id: String): Observable<UserEntity>
     }
