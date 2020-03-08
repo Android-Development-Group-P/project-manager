@@ -161,7 +161,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
             R.id.nav_members -> {
                 supportFragmentManager.beginTransaction().replace(
-                    R.id.nav_host_fragment_project, StartNotificationFragment()
+                    R.id.nav_host_fragment_project, ProjectMembers()
                 ).commit()
             }
         }
