@@ -77,9 +77,9 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
         }
 
         val list = mutableListOf<String>()
-        list.add("Any one")
+        list.add("Anyone")
         for (member in ProjectActivity.members) {
-            list.add(member.displayName ?: (member.email ?: "Any one"))
+            list.add(member.email ?: "Anyone")
         }
         val adapterUsers = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, list)
         adapterUsers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
