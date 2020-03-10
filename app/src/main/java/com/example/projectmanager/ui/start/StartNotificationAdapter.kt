@@ -31,6 +31,11 @@ class StartNotificationAdapter (
         holder.view.findViewById<TextView>(R.id.title).text = notification.title
 
     }
+
+    fun updateNotificationList(notificationUpdate: List<IssueEntity>) {
+        notifications = notificationUpdate
+        notifyDataSetChanged()
+    }
 }
 
 class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) { }

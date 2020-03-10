@@ -72,5 +72,6 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { LoginViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { UserCreationViewModelFactory(instance(), instance()) }
         bind() from provider { ChatViewModelFactory(instance(), instance()) }
+        bind() from provider { StartNotificationViewModelFactory(instance(), instance ())}
     }
 }

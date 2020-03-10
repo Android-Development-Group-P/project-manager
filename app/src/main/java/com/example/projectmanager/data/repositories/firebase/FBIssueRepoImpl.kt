@@ -93,10 +93,10 @@ class FBIssueRepoImpl :
         }
     }
 
-    override fun getAllIssuesByAssignedUser(userId: String) : Single<List<IssueEntity>> {
+    override fun getAllIssuesByAssignedUser(assignedUser: String) : Single<List<IssueEntity>> {
         return Single.create {emitter ->
             db.collection(COLLECTION_PATH)
-                .whereEqualTo("assigned_user", userId).get()
+                .whereEqualTo("assigned_user", assignedUser).get()
                 .addOnSuccessListener { documents ->
                     val issueList = mutableListOf<IssueEntity>()
                     for (document in documents) {
