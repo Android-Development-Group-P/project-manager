@@ -1,5 +1,6 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import androidx.lifecycle.LiveData
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -85,6 +86,25 @@ class FBIssueRepoImpl :
                     emitter.onSuccess(issuesList)
 
                     //emitter.onSuccess(documents.toObjects(IssueEntity::class.java))
+                }
+                .addOnFailureListener {
+                    emitter.onError(Exception("error with db"))
+                }
+        }
+    }
+
+    override fun getAllIssuesByAssignedUser(userId: String) : Single<List<IssueEntity>> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_PATH)
+                .whereEqualTo("assigned_user", userId).get()
+                .addOnSuccessListener { documents ->
+                    val issueList = mutableListOf<IssueEntity>()
+                    for (document in documents) {
+                        val issue = document.toObject(IssueEntity::class.java)
+                        issue.id = document.id
+                        issueList.add(issue)
+                    }
+                    emitter.onSuccess(issueList)
                 }
                 .addOnFailureListener {
                     emitter.onError(Exception("error with db"))
