@@ -13,6 +13,8 @@ interface IIssueRepository {
 
     fun getAllIssuesForProjectByStatus(projectId: String, status: String) : Single<List<IssueEntity>>
 
+    fun getAllIssuesByAssignedUser(assignedUser: String) : Single<List<IssueEntity>>
+
     fun updateIssue(issue: IssueEntity, issueId: String) : Single<Boolean>
 
     fun deleteIssue(issueId: String) : Single<Boolean>

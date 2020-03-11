@@ -10,6 +10,7 @@ import com.example.projectmanager.data.interfaces.repositories.IProjectRepositor
 import com.example.projectmanager.data.interfaces.repositories.IUserRepository
 import com.example.projectmanager.data.interfaces.repositories.*
 import com.example.projectmanager.data.interfaces.services.IInviteCodeService
+import com.example.projectmanager.data.interfaces.services.INotificationService
 import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.data.interfaces.services.IUserService
 import com.example.projectmanager.data.repositories.firebase.FBChatRepoImpl
@@ -17,6 +18,7 @@ import com.example.projectmanager.data.repositories.firebase.FBIssueRepoImpl
 import com.example.projectmanager.data.repositories.firebase.FBProjectRepoImpl
 import com.example.projectmanager.data.repositories.firebase.FBUserRepoImpl
 import com.example.projectmanager.data.services.firebase.FBInviteCodeService
+import com.example.projectmanager.data.services.firebase.FBNotificationService
 import com.example.projectmanager.data.services.firebase.FBProjectService
 import com.example.projectmanager.data.services.firebase.FBUserService
 import com.example.projectmanager.data.storage.firebase.FBImageStorage
@@ -52,6 +54,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind<IProjectService>() with singleton { FBProjectService(instance(), instance()) }
         bind<IInviteCodeService>() with singleton { FBInviteCodeService(instance()) }
         bind<IUserService>() with singleton { FBUserService(instance()) }
+        bind<INotificationService>() with singleton { FBNotificationService(instance(), instance()) }
 
         /** Storage layer initialization */
         bind<IImageStorage>() with singleton { FBImageStorage() }
@@ -72,5 +75,6 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { LoginViewModelFactory(instance(), instance(), instance()) }
         bind() from provider { UserCreationViewModelFactory(instance(), instance()) }
         bind() from provider { ChatViewModelFactory(instance(), instance()) }
+        bind() from provider { StartNotificationViewModelFactory(instance(), instance ())}
     }
 }

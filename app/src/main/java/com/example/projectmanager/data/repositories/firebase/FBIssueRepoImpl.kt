@@ -1,5 +1,7 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.interfaces.repositories.IIssueRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -92,8 +94,27 @@ class FBIssueRepoImpl :
         }
     }
 
-    override fun updateIssue(issue: IssueEntity, issueId: String): Single<Boolean> {
+    override fun getAllIssuesByAssignedUser(assignedUser: String) : Single<List<IssueEntity>> {
+        return Single.create { emitter ->
+            db.collection(COLLECTION_PATH)
+                .whereEqualTo("assigned_user", assignedUser)
+                .get()
+                .addOnSuccessListener { documents ->
+                    val issueList = mutableListOf<IssueEntity>()
+                    for (document in documents) {
+                        val issue = document.toObject(IssueEntity::class.java)
+                        issue.id = document.id
+                        issueList.add(issue)
+                    }
+                    emitter.onSuccess(issueList)
+                }
+                .addOnFailureListener {
+                    emitter.onError(Exception("error with db"))
+                }
+        }
+    }
 
+    override fun updateIssue(issue: IssueEntity, issueId: String): Single<Boolean> {
         return Single.create {emitter ->
             db.collection(COLLECTION_PATH).document(issueId)
                 .set(issue)
