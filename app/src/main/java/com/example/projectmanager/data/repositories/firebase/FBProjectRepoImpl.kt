@@ -65,6 +65,27 @@ class FBProjectRepoImpl :
         }
     }
 
+    override fun getByIdList(ids: List<String>): Single<List<ProjectEntity>> {
+        return Single.create {emitter ->
+            db.collection(COLLECTION_ROOT)
+                .whereIn("id", ids)
+                .get()
+                .addOnSuccessListener { documents ->
+                    val projectsList = mutableListOf<ProjectEntity>()
+
+                    for (document in documents) {
+                        val project = document.toObject(ProjectEntity::class.java)
+                        project.id = document.id
+                        projectsList.add(project)
+                    }
+                    emitter.onSuccess(projectsList)
+                }
+                .addOnFailureListener { exception ->
+                    emitter.onError(exception)
+                }
+        }
+    }
+
     override fun getAll() : Single<List<ProjectEntity>> {
         return Single.create { emitter ->
             db.collection(COLLECTION_ROOT)
@@ -72,9 +93,9 @@ class FBProjectRepoImpl :
                 .addOnSuccessListener { documents ->
                     val projectsList = mutableListOf<ProjectEntity>()
 
-                    for (documet in documents) {
-                        val project = documet.toObject(ProjectEntity::class.java)
-                        project.id = documet.id
+                    for (document in documents) {
+                        val project = document.toObject(ProjectEntity::class.java)
+                        project.id = document.id
                         projectsList.add(project)
                     }
                     emitter.onSuccess(projectsList)

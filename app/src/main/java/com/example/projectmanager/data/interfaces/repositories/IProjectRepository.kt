@@ -15,6 +15,8 @@ interface IProjectRepository {
 
     fun getById(id: String) : Single<ProjectEntity>
 
+    fun getByIdList(ids: List<String>): Single<List<ProjectEntity>>
+
     fun getAll() : Single<List<ProjectEntity>>
 
     interface Listener {
