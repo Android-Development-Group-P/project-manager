@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.IssueEntity
+import com.example.projectmanager.data.entities.NotificationEntity
 import com.example.projectmanager.ui.chat.CustomViewHolder
 
 class StartNotificationAdapter (
-    private var notifications: List<IssueEntity>
+    private var notifications: List<NotificationEntity>
 ) : RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -26,13 +27,12 @@ class StartNotificationAdapter (
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val notification = notifications[position]
 
-        holder.view.findViewById<TextView>(R.id.author).text = notification.creator
-        holder.view.findViewById<TextView>(R.id.source).text = notification.project
-        holder.view.findViewById<TextView>(R.id.title).text = notification.title
+        holder.view.findViewById<TextView>(R.id.notificationIssue).text = notification.issue
+        holder.view.findViewById<TextView>(R.id.notificationProject).text = notification.project
 
     }
 
-    fun updateNotificationList(notificationUpdate: List<IssueEntity>) {
+    fun updateNotificationList(notificationUpdate: List<NotificationEntity>) {
         notifications = notificationUpdate
         notifyDataSetChanged()
     }

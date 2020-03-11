@@ -2,6 +2,7 @@ package com.example.projectmanager.ui.createProject
 
 import android.app.Notification
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,10 +45,7 @@ class StartNotificationFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(StartNotificationViewModel::class.java)
 
-
         viewModel.loadNotifications()
-
-
 
         adapter = StartNotificationAdapter(mutableListOf())
         notificationRecyclerView.adapter = adapter
@@ -55,7 +53,7 @@ class StartNotificationFragment : Fragment(), KodeinAware {
 
         viewModel.getNotifications().observe(viewLifecycleOwner, Observer { result ->
             if (result.error != null) {
-
+                Log.d("getNotifications", "Error: ${result.error.localizedMessage}")
             } else {
                 adapter.updateNotificationList(result.data!!)
             }

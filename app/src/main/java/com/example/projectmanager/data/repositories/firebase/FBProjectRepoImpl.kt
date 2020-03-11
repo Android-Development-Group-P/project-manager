@@ -1,5 +1,6 @@
 package com.example.projectmanager.data.repositories.firebase
 
+import android.util.Log
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.interfaces.repositories.IProjectRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -66,24 +67,9 @@ class FBProjectRepoImpl :
     }
 
     override fun getByIdList(ids: List<String>): Single<List<ProjectEntity>> {
-        return Single.create {emitter ->
-            db.collection(COLLECTION_ROOT)
-                .whereIn("id", ids)
-                .get()
-                .addOnSuccessListener { documents ->
-                    val projectsList = mutableListOf<ProjectEntity>()
-
-                    for (document in documents) {
-                        val project = document.toObject(ProjectEntity::class.java)
-                        project.id = document.id
-                        projectsList.add(project)
-                    }
-                    emitter.onSuccess(projectsList)
-                }
-                .addOnFailureListener { exception ->
-                    emitter.onError(exception)
-                }
-        }
+        return Observable.fromIterable(ids)
+            .flatMapSingle { id -> getById(id) }
+            .toList()
     }
 
     override fun getAll() : Single<List<ProjectEntity>> {
