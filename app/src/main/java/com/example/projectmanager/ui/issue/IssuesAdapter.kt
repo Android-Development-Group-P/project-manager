@@ -15,8 +15,6 @@ class IssuesAdapter (
     var issues: List<IssueEntity>
 ) : RecyclerView.Adapter<CustomViewHolder>() {
 
-    //private lateinit var context: Context
-
     override fun getItemCount(): Int {
         return issues.size
     }
@@ -37,7 +35,6 @@ class IssuesAdapter (
             (view.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssueInfoFragment()
             ).commit()
-            //view.findNavController().navigate(R.id.action_nav_issues_to_nav_view_issue)
         }
 
     }

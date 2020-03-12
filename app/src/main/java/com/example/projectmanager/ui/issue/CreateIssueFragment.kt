@@ -52,7 +52,10 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //(activity as AppCompatActivity?)?.supportActionBar?.hide()
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
 
         viewModel = ViewModelProvider(this, factory).get(CreateIssueViewModel::class.java)
 
@@ -62,6 +65,7 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             when (it.status) {
                 CreateIssueViewModel.IssueStatus.Success -> onSuccess()
                 CreateIssueViewModel.IssueStatus.Failure -> onFailure(it.error!!)
+                CreateIssueViewModel.IssueStatus.Started -> onStarted()
             }
         })
 
@@ -70,9 +74,7 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             R.array.priority_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             priorityDropdown.adapter = adapter
         }
 
@@ -83,7 +85,6 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
         }
         val adapterUsers = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, list)
         adapterUsers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Apply the adapter to the spinner
         assignToUserDropdown.adapter = adapterUsers
 
         ArrayAdapter.createFromResource(
@@ -91,9 +92,7 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             R.array.label_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             departmentDropdown.adapter = adapter
         }
 
@@ -109,10 +108,19 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     }
 
+    private fun onStarted() {
+        activity?.runOnUiThread {
+            progressBar.visibility = View.VISIBLE
+            progressBar.isIndeterminate = true
+        }
+    }
+
     private fun onSuccess() {
         Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
-        //nav_host_fragment_project.findNavController().navigate(R.id.action_nav_create_issue_to_nav_issues)
-        //view?.findNavController()?.navigate(R.id.action_nav_create_issue_to_nav_issues)
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
         (context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment_project, IssuesFragment()
         ).commit()
@@ -120,6 +128,10 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

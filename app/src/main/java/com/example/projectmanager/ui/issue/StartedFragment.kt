@@ -13,9 +13,7 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.IssuesViewModelFactory
 import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.fragment_issues.*
-import kotlinx.android.synthetic.main.issues_layout_created.*
-import kotlinx.android.synthetic.main.issues_layout_created.recyclerView_issues
-import kotlinx.android.synthetic.main.issues_layout_started.*
+import kotlinx.android.synthetic.main.issues_layout.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -36,7 +34,7 @@ class StartedFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.issues_layout_started, container, false)
+        return inflater.inflate(R.layout.issues_layout, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,15 +46,15 @@ class StartedFragment : Fragment(), KodeinAware {
 
         viewModel.initFun()
 
-        recyclerView_issues.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = IssuesAdapter(listOf())
-        recyclerView_issues.adapter = adapter
+        recyclerView.adapter = adapter
         viewModel.getIssues().observe(viewLifecycleOwner, Observer {
             adapter.setList(it.data!!)
-            swipeLayoutStarted.isRefreshing = false
+            swipeLayout.isRefreshing = false
         })
 
-        swipeLayoutStarted.setOnRefreshListener {
+        swipeLayout.setOnRefreshListener {
             viewModel.loadIssues()
         }
     }

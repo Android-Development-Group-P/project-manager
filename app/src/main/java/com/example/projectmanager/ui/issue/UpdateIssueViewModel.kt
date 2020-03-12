@@ -47,10 +47,8 @@ class UpdateIssueViewModel (
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    // PASS
                     event.value = UpdateIssueEvent(UpdateIssueStatus.Success, null)
                 }, {
-                    // FAIL
                     event.value = UpdateIssueEvent(UpdateIssueStatus.Failure, it.localizedMessage)
                 })
 
