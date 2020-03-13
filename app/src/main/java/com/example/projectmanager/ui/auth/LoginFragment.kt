@@ -59,20 +59,17 @@ class LoginFragment : Fragment(), KodeinAware {
         })
 
         viewModel.getFormValidation().observe(viewLifecycleOwner, Observer {
-            Log.d("Hej", it.toString())
             login_button.isEnabled = it
         })
     }
 
     private fun onStarted() {
-        activity?.toast("onStarted")
         activity?.runOnUiThread {
             progress_bar.isIndeterminate = true
         }
     }
 
     private fun onSuccess() {
-        activity?.toast("onSuccess")
         val intent = Intent(activity, StartActivity::class.java)
         startActivity(intent)
         activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

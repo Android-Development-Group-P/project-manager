@@ -40,6 +40,8 @@ class UpdateIssueViewModel (
     fun onUpdateIssue() {
         if (title.isNotEmpty() && description.isNotEmpty()) {
 
+            event.value = UpdateIssueEvent(UpdateIssueStatus.Started)
+
             val issue = IssueEntity(null, issueEntity.creator, issueEntity.created, title, description, priority,
                 assignedUser, label, department, status, issueEntity.project)
 
