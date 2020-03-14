@@ -21,6 +21,7 @@ import com.example.projectmanager.data.factories.CreateIssueViewModelFactory
 import com.example.projectmanager.databinding.CreateIssueFragmentBinding
 import kotlinx.android.synthetic.main.create_issue_fragment.*
 import com.example.projectmanager.ui.project.ProjectActivity
+import com.example.projectmanager.util.toast
 import kotlinx.android.synthetic.main.activity_project.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -127,7 +128,11 @@ class CreateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     private fun onFailure(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        if (error == "You must write something in both fields") {
+            activity?.toast(getString(R.string.issue_error))
+        } else {
+            activity?.toast(error)
+        }
         activity?.runOnUiThread {
             progressBar.visibility = View.INVISIBLE
             progressBar.isIndeterminate = true

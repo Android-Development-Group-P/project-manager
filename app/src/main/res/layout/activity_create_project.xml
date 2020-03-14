@@ -28,7 +28,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="About Project"
+                android:text="@string/create_project_about"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -38,7 +38,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title"
+                    android:hint="@string/create_project_title"
                     android:text="@={viewModel.title}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:hint="Description"
+                android:hint="@string/create_project_description"
                 android:text="@={viewModel.description}" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +60,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/create_project_password"
                     android:text="@={viewModel.password}"/>
 
             </com.google.android.material.textfield.TextInputLayout>

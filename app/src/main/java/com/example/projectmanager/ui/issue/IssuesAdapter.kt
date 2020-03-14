@@ -1,5 +1,6 @@
 package com.example.projectmanager.ui.issue
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,8 @@ class IssuesAdapter (
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.view.findViewById<TextView>(R.id.titleTextView).text = issues.get(position).title
-        holder.view.findViewById<TextView>(R.id.statusTextView).text = "Priority: ${issues.get(position).priority}"
-        holder.view.findViewById<TextView>(R.id.labelTextView).text = "Description: ${issues.get(position).description}"
+        holder.view.findViewById<TextView>(R.id.statusTextView).text = "${issues.get(position).priority}"
+        holder.view.findViewById<TextView>(R.id.labelTextView).text = "${issues.get(position).description}"
         holder.view.setOnClickListener {view ->
             IssueInfoFragment.issueId = issues.get(position).id!!
             IssueInfoFragment.IssueIdInRecyclerView = position

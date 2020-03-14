@@ -60,13 +60,13 @@ class IssuesFragment : Fragment(), KodeinAware {
 
         val adapter = ViewPageAdapter(childFragmentManager)
         adapter.fragments.add(CreatedFragment())
-        adapter.titles.add("Created")
+        adapter.titles.add(getString(R.string.issue_created))
 
         adapter.fragments.add(StartedFragment())
-        adapter.titles.add("Started")
+        adapter.titles.add(getString(R.string.issue_started))
 
         adapter.fragments.add(FinishedFragment())
-        adapter.titles.add("Finished")
+        adapter.titles.add(getString(R.string.issue_finished))
 
         viewPager.adapter = adapter
 
