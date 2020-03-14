@@ -19,7 +19,9 @@ import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.UpdateIssueViewModelFactory
 import com.example.projectmanager.databinding.UpdateIssueFragmentBinding
 import com.example.projectmanager.ui.project.ProjectActivity
+import kotlinx.android.synthetic.main.create_issue_fragment.*
 import kotlinx.android.synthetic.main.update_issue_fragment.*
+import kotlinx.android.synthetic.main.update_issue_fragment.progressBar
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -50,10 +52,12 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        //(activity as AppCompatActivity?)?.supportActionBar?.hide()
-
         viewModel = ViewModelProvider(this, factory).get(UpdateIssueViewModel::class.java)
+
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
 
         viewModel.setText(issueEntity)
 
@@ -73,9 +77,7 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             R.array.priority_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             updatePriorityDropdown.adapter = adapter
         }
 
@@ -86,7 +88,7 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
         }
         val adapterUsers = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, list)
         adapterUsers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Apply the adapter to the spinner
+
         updateAssignedUserDropdown.adapter = adapterUsers
 
         ArrayAdapter.createFromResource(
@@ -94,9 +96,7 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             R.array.label_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             updateDepartmentDropdown.adapter = adapter
         }
 
@@ -105,9 +105,7 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
             R.array.project_status_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             updateStatusDropdown.adapter = adapter
         }
 
@@ -120,11 +118,18 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     private fun onStarted() {
+        activity?.runOnUiThread {
+            progressBar.visibility = View.VISIBLE
+            progressBar.isIndeterminate = true
+        }
     }
 
     private fun onSuccess() {
         Toast.makeText(context, "Success updating the issue", Toast.LENGTH_SHORT).show()
-        //view?.findNavController()?.navigate(R.id.action_nav_update_issue_to_nav_view_issue)
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment_project, IssueInfoFragment()
         ).commit()
@@ -132,6 +137,10 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
 
     private fun onFailure(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        activity?.runOnUiThread {
+            progressBar.visibility = View.INVISIBLE
+            progressBar.isIndeterminate = true
+        }
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

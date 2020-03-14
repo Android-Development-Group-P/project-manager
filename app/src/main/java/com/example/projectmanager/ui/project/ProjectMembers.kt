@@ -15,7 +15,7 @@ import com.example.projectmanager.data.factories.IssuesViewModelFactory
 import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.fragment_issues.*
 import kotlinx.android.synthetic.main.fragment_project_members.*
-import kotlinx.android.synthetic.main.issues_layout_created.*
+import kotlinx.android.synthetic.main.issues_layout.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance

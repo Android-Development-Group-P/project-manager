@@ -73,15 +73,12 @@ class IssuesFragment : Fragment(), KodeinAware {
         tabLayoutIssues.setupWithViewPager(viewPager)
 
         addIssueButton.setOnClickListener {viewButton ->
-            //view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
-            //view.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
             (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, CreateIssueFragment()
             ).commit()
         }
 
         toChatButton.setOnClickListener {viewButton ->
-            //view.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
             (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, ChatFragment()
             ).commit()

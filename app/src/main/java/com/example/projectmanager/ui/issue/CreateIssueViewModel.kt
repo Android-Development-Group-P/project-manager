@@ -35,7 +35,7 @@ class CreateIssueViewModel (
 
     fun onCreateIssue(view: View) {
         if (title.isNotEmpty() && description.isNotEmpty()) {
-
+            event.value = IssueEvent(IssueStatus.Started)
             val created = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date());
 
             val issue = IssueEntity(null, session.user!!.id, created, title, description, priority,
@@ -62,6 +62,7 @@ class CreateIssueViewModel (
     data class IssueEvent(var status: IssueStatus, var error: String? = null)
     enum class IssueStatus
     {
+        Started,
         Success,
         Failure
     }

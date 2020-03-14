@@ -51,7 +51,6 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
         buttonToUpdate.setOnClickListener {view ->
             UpdateIssueFragment.issueEntity = issueEntity
-            //view.findNavController().navigate(R.id.action_nav_view_issue_to_nav_update_issue)
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, UpdateIssueFragment()
             ).commit()
@@ -62,8 +61,6 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        //(activity as AppCompatActivity?)?.supportActionBar?.hide()
 
         viewModel = ViewModelProvider(this, factory).get(IssueInfoViewModel::class.java)
 
@@ -98,14 +95,13 @@ class IssueInfoFragment : Fragment(), KodeinAware {
     }
 
     private fun onStarted() {
-        /*activity?.runOnUiThread {
+        activity?.runOnUiThread {
             progressBar.visibility = View.VISIBLE
             progressBar.isIndeterminate = true
-        }*/
+        }
     }
 
     private fun onDelete() {
-        //view?.findNavController()?.navigate(R.id.action_nav_view_issue_to_nav_issues)
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.nav_host_fragment_project, IssuesFragment()
         ).commit()
@@ -117,7 +113,6 @@ class IssueInfoFragment : Fragment(), KodeinAware {
             progressBar.visibility = View.GONE
             progressBar.isIndeterminate = false
         }
-        Toast.makeText(context, "Success creating the issue", Toast.LENGTH_SHORT).show()
         issueInfoTitleText.text = issue.title
         issueInfoDescriptionText.text = issue.description
         issueInfoStatusText.text = issue.status

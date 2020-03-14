@@ -40,6 +40,8 @@ class UpdateIssueViewModel (
     fun onUpdateIssue() {
         if (title.isNotEmpty() && description.isNotEmpty()) {
 
+            event.value = UpdateIssueEvent(UpdateIssueStatus.Started)
+
             val issue = IssueEntity(null, issueEntity.creator, issueEntity.created, title, description, priority,
                 assignedUser, label, department, status, issueEntity.project)
 
@@ -47,10 +49,8 @@ class UpdateIssueViewModel (
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    // PASS
                     event.value = UpdateIssueEvent(UpdateIssueStatus.Success, null)
                 }, {
-                    // FAIL
                     event.value = UpdateIssueEvent(UpdateIssueStatus.Failure, it.localizedMessage)
                 })
 
