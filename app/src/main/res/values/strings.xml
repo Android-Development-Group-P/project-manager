@@ -4,23 +4,27 @@
     <!-- Main Activity -->
     <string name="main_activity_header">Welcome to "ProjectManager"!&#128522;</string>
 
-    #Login
-    <string name="login_button">Login</string>
+    <!-- Login -->
+    <string name="login_button">Sign In</string>
     <string name="login_button_google">Login with Google</string>
     <string name="login_hint_password">Password</string>
     <string name="login_hint_email">Email</string>
     <string name="login_service_text">By signing in you accept the terms of use and the privacy policy</string>
     <string name="login_register_button">Sign up?</string>
     <string name="login_reset_password_button">Reset Password?</string>
+    <string name="login_error">"Invalid email or password"</string>
+    <string name="login_forgot_password">Forgot your password?</string>
 
-    #Register
+    <!-- Register -->
     <string name="register_button">Register</string>
     <string name="register_hint_password">Password</string>
+    <string name="register_hint_repeat_password">Repeated password</string>
     <string name="register_hint_email">Email</string>
     <string name="register_hint_username">Username</string>
     <string name="register_service_text">By signing up you accept the terms of use and the privacy policy</string>
+    <string name="register_error">"All fields not set."</string>
 
-    #Reset Password
+    <!-- Reset Password -->
     <string name="reset_password_button">Reset password</string>
     <string name="reset_password_hint_email">Email</string>
     <string name="title_activity_start_page">StartPage</string>
@@ -29,7 +33,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    #Menu
+    <!-- Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_project">Projects</string>
     <string name="menu_chat">Chat</string>
@@ -43,27 +47,43 @@
     <string name="menu_issue_info">Issue info</string>
     <string name="menu_update_issue">Update Issue</string>
 
-    #Issue
+    <!-- Issue -->
     <string name="issue_hint_title">Title</string>
     <string name="issue_hint_description">Description</string>
     <string name="issue_set_priority">Set priority</string>
     <string name="issue_assign_to_user">Assign to user</string>
     <string name="issue_add_label">Add label</string>
     <string name="issue_submit_button">Submit</string>
+    <string name="issue_error">You must write something in both fields</string>
+    <string name="issue_title">Title:</string>
+    <string name="issue_priority">Priority:</string>
+    <string name="issue_description">Description:</string>
+    <string name="issue_created">Created</string>
+    <string name="issue_started">Started</string>
+    <string name="issue_finished">Finished</string>
 
-    #Project
+    <!-- Project -->
     <string name="project_hint_title">Title</string>
     <string name="project_hint_description">Description</string>
     <string name="project_password_requirement">Require password to join project</string>
     <string name="project_create_button">Create</string>
 
-    #JoinProject
+    <!-- Create Project -->
+    <string name="create_project_about">About Project</string>
+    <string name="create_project_title">Title</string>
+    <string name="create_project_description">Description</string>
+    <string name="create_project_password">Password</string>
+
+    <!-- JoinProject -->
     <string name="project_join_camera_button">Use camera to scan code</string>
     <string name="project_join_hint_code">Write your  code here...</string>
     <string name="project_join_button">Join</string>
+    <string name="project_join_password">Password</string>
+    <string name="project_join_search">Search</string>
+    <string name="project_join_code">Invite code</string>
+    <string name="project_join_label">Join Project</string>
 
-
-    #IssueInfo
+    <!-- IssueInfo -->
     <string name="issue_info_update_button">Update</string>
     <string name="issue_info_delete_button">Delete</string>
     <string name="issue_info_send_button">Send</string>
@@ -72,13 +92,25 @@
     <string name="issue_info_dialog_body">Delete this issue (this action can not be reversed)</string>
     <string name="issue_info_dialog_yes">Yes</string>
     <string name="issue_info_dialog_no">No</string>
+    <string name="issue_info_title">Title:</string>
 
-    #Notification
+    <!-- Issue update -->
+    <string name="issue_update_message">Success updating the issue</string>
+    <string name="issue_update_input_error">You must write something in both fields</string>
+    <string name="issue_update_label">Update label</string>
+    <string name="issue_update_update">Update</string>
+    <string name="issue_update_department">Update department</string>
+    <string name="issue_update_assigned_user">Update assigned user</string>
+    <string name="issue_update_priority">Update priority</string>
+    <string name="issue_update_status">Update status</string>
+
+    <string name="issue_created_add_department">add department</string>
+
+    <!-- Notification -->
     <string name="notification_issue_label">Assigned to issue:</string>
     <string name="notification_project_label">in project:</string>
 
-
-    #Chat
+    <!-- Chat -->
     <string name="chat_send_button">Send</string>
     <string name="chat_hint_message">Message</string>
 

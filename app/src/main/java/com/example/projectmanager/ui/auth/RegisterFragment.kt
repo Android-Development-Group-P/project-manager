@@ -75,7 +75,11 @@ class RegisterFragment : Fragment(), KodeinAware {
     }
 
     private fun onFailure(error: String) {
-        activity?.toast(error)
+        if (error == "All fields not set.") {
+            activity?.toast(getString(R.string.register_error))
+        } else {
+            activity?.toast(error)
+        }
 
         activity?.runOnUiThread {
             progress_bar.isIndeterminate = false

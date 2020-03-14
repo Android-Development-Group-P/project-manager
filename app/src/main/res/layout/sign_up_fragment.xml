@@ -22,7 +22,7 @@ tools:context=".ui.auth.RegisterFragment">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/register_button"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="24sp" />
@@ -77,7 +77,7 @@ tools:context=".ui.auth.RegisterFragment">
                 android:id="@+id/repeated_password_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Repeated password"
+                android:hint="@string/register_hint_repeat_password"
                 android:text="@={viewModel.repeatedPassword}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +103,7 @@ tools:context=".ui.auth.RegisterFragment">
             android:backgroundTint="#CC3F3F"
             android:backgroundTintMode="multiply"
             android:onClick="@{() -> viewModel.register()}"
-            android:text="Register"
+            android:text="@string/register_button"
             android:textColor="@android:color/white" />
 
         <TextView

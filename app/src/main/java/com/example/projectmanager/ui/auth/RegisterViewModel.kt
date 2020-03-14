@@ -61,7 +61,7 @@ class RegisterViewModel (
      * @return The status of the validation
      */
     private fun isValidated(): Boolean {
-        return Validation.isEmail(email.value!!) && Validation.isPassword(password.value, repeatedPassword.value)
+        return Validation.isEmail(email.value) && Validation.isPassword(password.value, repeatedPassword.value)
     }
 
     private val _formValidation = MediatorLiveData<Boolean>().apply {

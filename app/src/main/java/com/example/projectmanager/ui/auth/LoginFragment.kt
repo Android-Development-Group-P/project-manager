@@ -78,7 +78,11 @@ class LoginFragment : Fragment(), KodeinAware {
     }
 
     private fun onFailure(error: String) {
-        activity?.toast(error)
+        if (error == "Invalid email or password") {
+            activity?.toast(getString(R.string.login_error))
+        } else {
+            activity?.toast(error)
+        }
 
         activity?.runOnUiThread {
             progress_bar.isIndeterminate = false
