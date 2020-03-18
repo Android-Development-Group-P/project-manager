@@ -63,18 +63,23 @@
     <string name="issue_finished">Finished</string>
 
     <!-- Project -->
+    <string name="project_title">Projects</string>
     <string name="project_hint_title">Title</string>
     <string name="project_hint_description">Description</string>
     <string name="project_password_requirement">Require password to join project</string>
     <string name="project_create_button">Create</string>
 
+    <string name="project_enter">Enter project</string>
+
     <!-- Create Project -->
+    <string name="create_new_project">Create new project</string>
     <string name="create_project_about">About Project</string>
     <string name="create_project_title">Title</string>
     <string name="create_project_description">Description</string>
     <string name="create_project_password">Password</string>
 
     <!-- JoinProject -->
+    <string name="project_find_and_join">"Find and join project"</string>
     <string name="project_join_camera_button">Use camera to scan code</string>
     <string name="project_join_hint_code">Write your  code here...</string>
     <string name="project_join_button">Join</string>
@@ -107,6 +112,7 @@
     <string name="issue_created_add_department">add department</string>
 
     <!-- Notification -->
+    <string name="notification_title">Notifications</string>
     <string name="notification_issue_label">Assigned to issue:</string>
     <string name="notification_project_label">in project:</string>
 

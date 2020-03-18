@@ -36,7 +36,7 @@ class StartNotificationFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = ACTIVITY_TITLE
+        activity?.title = getString(R.string.notification_title)
         return inflater.inflate(R.layout.fragment_start_notification, container, false)
     }
 

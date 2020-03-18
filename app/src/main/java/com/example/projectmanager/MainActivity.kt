@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
-        toast("CardView")
-
         viewModel.isLoggedIn().observe(this, Observer {
             when (it) {
                 true -> {

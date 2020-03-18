@@ -64,25 +64,29 @@
     <string name="issue_finished">Färdig</string>
 
     <!-- Project -->
+    <string name="project_title">Projekt</string>
     <string name="project_hint_title">Titel</string>
     <string name="project_hint_description">Beskrivning</string>
     <string name="project_password_requirement">Kräv lösenord för att gå med i projektet</string>
     <string name="project_create_button">Skapa</string>
+    <string name="project_enter">Gå in i projekt</string>
 
     <!-- Create Project -->
+    <string name="create_new_project">Skapa nytt projekt</string>
     <string name="create_project_about">Om Projekt</string>
     <string name="create_project_title">Titel</string>
     <string name="create_project_description">Beskrivning</string>
     <string name="create_project_password">Lösenord</string>
 
     <!-- JoinProject -->
+    <string name="project_find_and_join">"Hitta och gå med projekt"</string>
     <string name="project_join_camera_button">Använd kameran för att skanna kod</string>
     <string name="project_join_hint_code">Skriv din kod här ...</string>
-    <string name="project_join_button">Join</string>
+    <string name="project_join_button">Gå med</string>
     <string name="project_join_password">Lösenord</string>
     <string name="project_join_search">Sök</string>
     <string name="project_join_code">Inbjudningskod</string>
-    <string name="project_join_label">Join Projekt</string>
+    <string name="project_join_label">Gå med Projekt</string>
 
     <!-- IssueInfo -->
     <string name="issue_info_update_button">Uppdatera</string>
@@ -108,6 +112,7 @@
     <string name="issue_created_add_department">lägg till avdelning</string>
 
     <!-- Notification -->
+    <string name="notification_title">Notifikationer</string>
     <string name="notification_issue_label">Tilldelad till:</string>
     <string name="notification_project_label">i projekt:</string>
 
