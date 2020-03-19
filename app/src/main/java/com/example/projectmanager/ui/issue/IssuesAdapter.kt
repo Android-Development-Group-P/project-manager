@@ -35,7 +35,7 @@ class IssuesAdapter (
             IssueInfoFragment.IssueIdInRecyclerView = position
             (view.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssueInfoFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
         }
 
     }

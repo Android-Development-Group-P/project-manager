@@ -49,7 +49,7 @@ class IssueInfoFragment : Fragment(), KodeinAware {
 
         val buttonToUpdate = binding.root.findViewById<Button>(R.id.issueInfoUpdateButton)
 
-        buttonToUpdate.setOnClickListener {view ->
+        buttonToUpdate.setOnClickListener {
             UpdateIssueFragment.issueEntity = issueEntity
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, UpdateIssueFragment()
