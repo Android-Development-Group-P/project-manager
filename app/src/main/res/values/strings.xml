@@ -46,6 +46,10 @@
     <string name="menu_invite_to_project">Invite To Project</string>
     <string name="menu_issue_info">Issue info</string>
     <string name="menu_update_issue">Update Issue</string>
+    <string name="menu_issues">Issues</string>
+    <string name="menu_members">Members</string>
+    <string name="menu_events">Events</string>
+    <string name="menu_notifications">Notifications</string>
 
     <!-- Issue -->
     <string name="issue_hint_title">Title</string>
@@ -79,6 +83,7 @@
     <string name="create_project_password">Password</string>
 
     <!-- JoinProject -->
+    <string name="project_join_project">Join new project</string>
     <string name="project_find_and_join">"Find and join project"</string>
     <string name="project_join_camera_button">Use camera to scan code</string>
     <string name="project_join_hint_code">Write your  code here...</string>

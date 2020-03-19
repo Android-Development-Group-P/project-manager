@@ -47,6 +47,10 @@
     <string name="menu_invite_to_project">Bjud in till projektet</string>
     <string name="menu_issue_info">Issue information</string>
     <string name="menu_update_issue">Uppdatera Issue</string>
+    <string name="menu_issues">Issues</string>
+    <string name="menu_members">Medlemmar</string>
+    <string name="menu_events">Event</string>
+    <string name="menu_notifications">Notifikationer</string>
 
     <!-- Issue -->
     <string name="issue_hint_title">Titel</string>
@@ -79,6 +83,7 @@
     <string name="create_project_password">Lösenord</string>
 
     <!-- JoinProject -->
+    <string name="project_join_project">Gå med nytt projekt</string>
     <string name="project_find_and_join">"Hitta och gå med projekt"</string>
     <string name="project_join_camera_button">Använd kameran för att skanna kod</string>
     <string name="project_join_hint_code">Skriv din kod här ...</string>

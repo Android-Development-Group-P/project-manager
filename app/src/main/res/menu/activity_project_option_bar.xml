@@ -5,7 +5,7 @@
     <item
         android:id="@+id/open_drawer"
         android:icon="@drawable/ic_more_horiz_white_24dp"
-        android:title="Settings"
+        android:title="@string/menu_settings"
         app:showAsAction="always"
         android:orderInCategory="0"/>
 
