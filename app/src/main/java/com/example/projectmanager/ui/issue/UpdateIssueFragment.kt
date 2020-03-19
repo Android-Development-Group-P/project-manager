@@ -19,6 +19,7 @@ import com.example.projectmanager.data.entities.IssueEntity
 import com.example.projectmanager.data.factories.UpdateIssueViewModelFactory
 import com.example.projectmanager.databinding.UpdateIssueFragmentBinding
 import com.example.projectmanager.ui.project.ProjectActivity
+import com.example.projectmanager.util.toast
 import kotlinx.android.synthetic.main.create_issue_fragment.*
 import kotlinx.android.synthetic.main.update_issue_fragment.*
 import kotlinx.android.synthetic.main.update_issue_fragment.progressBar
@@ -125,7 +126,7 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     private fun onSuccess() {
-        Toast.makeText(context, "Success updating the issue", Toast.LENGTH_SHORT).show()
+        activity?.toast(getString(R.string.issue_update_message))
         activity?.runOnUiThread {
             progressBar.visibility = View.INVISIBLE
             progressBar.isIndeterminate = true
@@ -136,7 +137,11 @@ class UpdateIssueFragment : Fragment(), KodeinAware, AdapterView.OnItemSelectedL
     }
 
     private fun onFailure(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        if (error == "You must write something in both fields") {
+            activity?.toast(getString(R.string.issue_update_input_error))
+        } else {
+            activity?.toast(error)
+        }
         activity?.runOnUiThread {
             progressBar.visibility = View.INVISIBLE
             progressBar.isIndeterminate = true

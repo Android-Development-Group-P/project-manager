@@ -7,23 +7,23 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_issues"
             android:icon="@drawable/ic_issues_white_24dp"
-            android:title="Issues" />
+            android:title="@string/menu_issues" />
         <item android:id="@+id/nav_chat"
             android:icon="@drawable/ic_issues_white_24dp"
-            android:title="Chat" />
+            android:title="@string/menu_chat" />
         <item android:id="@+id/nav_create_issue"
             android:icon="@drawable/ic_issues_white_24dp"
-            android:title="Create Issue" />
+            android:title="@string/menu_create_issue" />
         <item android:id="@+id/nav_members"
             android:icon="@drawable/ic_group_white_24dp"
-            android:title="Members" />
+            android:title="@string/menu_members" />
     </group>
 
-    <item android:title="Events">
+    <item android:title="@string/menu_events">
         <menu>
             <item android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_camera"
-                android:title="Settings" />
+                android:title="@string/menu_settings" />
         </menu>
     </item>
 

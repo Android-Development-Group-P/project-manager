@@ -18,10 +18,10 @@
         <activity android:name=".ui.extra.ScanActivity" />
         <activity
             android:name=".ui.project.CreateProjectActivity"
-            android:label="Create new project" />
+            android:label="@string/create_new_project" />
         <activity
             android:name=".ui.project.JoinProjectActivity"
-            android:label="Create new project" />
+            android:label="@string/project_join_project" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />

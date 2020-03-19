@@ -43,17 +43,13 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         nav_view.setNavigationItemSelectedListener(this)
         setupActionBar()
 
-
-        supportFragmentManager.addOnBackStackChangedListener {
-            Log.d("test123", "nein")
-        }
-
         if (savedInstanceState == null) {
             // Initialize the base fragment for the activity
             supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssuesFragment()
-            ).addToBackStack(null).commit()
+            ).commit()
 
+            //.addToBackStack(null)
             //nav_view.setCheckedItem(R.id.nav_issues)
         }
         //setupActionBar()

@@ -45,7 +45,7 @@ class StartProjectsFragment : Fragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.title = ACTIVITY_TITLE
+        activity?.title = getString(R.string.project_title)
 
         return inflater.inflate(R.layout.fragment_start_projects, container, false)
     }
@@ -122,10 +122,10 @@ class StartProjectsFragment : Fragment(), KodeinAware {
             activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
-        menuItemAdd.text_view!!.text = "Create new project"
+        menuItemAdd.text_view!!.text = getString(R.string.create_new_project)
         menuItemAdd.fab.setImageResource(R.drawable.ic_create_white_24dp)
 
-        menuItemJoin.text_view!!.text = "Find and join project"
+        menuItemJoin.text_view!!.text = getString(R.string.project_find_and_join)
         menuItemJoin.fab.setImageResource(R.drawable.ic_search_white_24dp)
 
         return FloatingMenu(fab_main, listOf(menuItemAdd, menuItemJoin))

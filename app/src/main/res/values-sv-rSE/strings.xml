@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProjectManager</string>
+
+    <!-- Main Activity -->
+    <string name="main_activity_header">Välkommen till "ProjectManager"!&#128522;</string>
+
+    <!-- Login -->
+    <string name="login_button">Logga In</string>
+    <string name="login_button_google">Logga in med Google</string>
+    <string name="login_hint_password">Lösenord</string>
+    <string name="login_hint_email">Email</string>
+    <string name="login_service_text">Genom att logga in accepterar du användarvillkoren och sekretesspolicyn</string>
+    <string name="login_register_button">Registera dig?</string>
+    <string name="login_reset_password_button">Återställ lösenord?</string>
+    <string name="login_error">Ogiltig e-post eller lösenord</string>
+    <string name="login_forgot_password">Glömt ditt lösenord?</string>
+
+    <!-- Register -->
+    <string name="register_button">Registera</string>
+    <string name="register_hint_password">Lösenord</string>
+    <string name="register_hint_repeat_password">Upprepa lösenord</string>
+    <string name="register_hint_email">Email</string>
+    <string name="register_hint_username">Användarnamn</string>
+    <string name="register_service_text">Genom att registrera dig accepterar du användarvillkoren och sekretesspolicyn</string>
+    <string name="register_error">All fields not set.</string>
+
+    <!-- Reset Password -->
+    <string name="reset_password_button">Återställ lösenord</string>
+    <string name="reset_password_hint_email">Email</string>
+    <string name="title_activity_start_page">Startsida</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigationsrubrik</string>
+    <string name="action_settings">Inställningar</string>
+
+    <!-- Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_project">Projekt</string>
+    <string name="menu_chat">Chatt</string>
+    <string name="menu_create_issue">Skapa Issue</string>
+    <string name="menu_quickmenu">Quick access menu</string>
+    <string name="menu_settings">Inställningar</string>
+    <string name="menu_logout">Logga ut</string>
+    <string name="menu_create_project">Skapa Projekt</string>
+    <string name="menu_join_project">Gå med i Projekt</string>
+    <string name="menu_invite_to_project">Bjud in till projektet</string>
+    <string name="menu_issue_info">Issue information</string>
+    <string name="menu_update_issue">Uppdatera Issue</string>
+    <string name="menu_issues">Issues</string>
+    <string name="menu_members">Medlemmar</string>
+    <string name="menu_events">Event</string>
+    <string name="menu_notifications">Notifikationer</string>
+
+    <!-- Issue -->
+    <string name="issue_hint_title">Titel</string>
+    <string name="issue_hint_description">Beskrivning</string>
+    <string name="issue_set_priority">Sätt Prioritet</string>
+    <string name="issue_assign_to_user">Tilldela till användare</string>
+    <string name="issue_add_label">Lägg till etikett</string>
+    <string name="issue_submit_button">Skicka in</string>
+    <string name="issue_error">Du måste skriva något i båda fälten</string>
+    <string name="issue_title">Titel:</string>
+    <string name="issue_priority">Prioritet:</string>
+    <string name="issue_description">Beskrivning:</string>
+    <string name="issue_created">Skapad</string>
+    <string name="issue_started">Startad</string>
+    <string name="issue_finished">Färdig</string>
+
+    <!-- Project -->
+    <string name="project_title">Projekt</string>
+    <string name="project_hint_title">Titel</string>
+    <string name="project_hint_description">Beskrivning</string>
+    <string name="project_password_requirement">Kräv lösenord för att gå med i projektet</string>
+    <string name="project_create_button">Skapa</string>
+    <string name="project_enter">Gå in i projekt</string>
+
+    <!-- Create Project -->
+    <string name="create_new_project">Skapa nytt projekt</string>
+    <string name="create_project_about">Om Projekt</string>
+    <string name="create_project_title">Titel</string>
+    <string name="create_project_description">Beskrivning</string>
+    <string name="create_project_password">Lösenord</string>
+
+    <!-- JoinProject -->
+    <string name="project_join_project">Gå med nytt projekt</string>
+    <string name="project_find_and_join">"Hitta och gå med projekt"</string>
+    <string name="project_join_camera_button">Använd kameran för att skanna kod</string>
+    <string name="project_join_hint_code">Skriv din kod här ...</string>
+    <string name="project_join_button">Gå med</string>
+    <string name="project_join_password">Lösenord</string>
+    <string name="project_join_search">Sök</string>
+    <string name="project_join_code">Inbjudningskod</string>
+    <string name="project_join_label">Gå med Projekt</string>
+
+    <!-- IssueInfo -->
+    <string name="issue_info_update_button">Uppdatera</string>
+    <string name="issue_info_delete_button">Ta bort</string>
+    <string name="issue_info_send_button">Skicka</string>
+    <string name="issue_info_hint_message">Meddelande</string>
+    <string name="issue_info_dialog_title">Ta bort</string>
+    <string name="issue_info_dialog_body">Ta bort det här Issue (den här åtgärden kan inte omvändas)</string>
+    <string name="issue_info_dialog_yes">Ja</string>
+    <string name="issue_info_dialog_no">Nej</string>
+    <string name="issue_info_title">Titel:</string>
+
+    <!-- Issue update -->
+    <string name="issue_update_message">Framgång med att uppdatera problemet</string>
+    <string name="issue_update_input_error">Du måste skriva något i båda fälten</string>
+    <string name="issue_update_label">Uppdatera etiketten</string>
+    <string name="issue_update_update">Uppdatera</string>
+    <string name="issue_update_department">Uppdatera avdelningen</string>
+    <string name="issue_update_assigned_user">Uppdatera tilldelad användare</string>
+    <string name="issue_update_priority">Uppdatera prioritet</string>
+    <string name="issue_update_status">Uppdatera status</string>
+
+    <string name="issue_created_add_department">lägg till avdelning</string>
+
+    <!-- Notification -->
+    <string name="notification_title">Notifikationer</string>
+    <string name="notification_issue_label">Tilldelad till:</string>
+    <string name="notification_project_label">i projekt:</string>
+
+    <!-- Chat -->
+    <string name="chat_send_button">Skicka</string>
+    <string name="chat_hint_message">Meddelande</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">inställningar</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">meddelanden</string>
+    <string name="sync_header">Synkronisera</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Din signatur</string>
+    <string name="reply_title">Standard svarsåtgärd</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Synkronisera e-post regelbundet</string>
+    <string name="attachment_title">Ladda ner inkommande bilagor</string>
+    <string name="attachment_summary_on">Ladda ner bilagor automatiskt för inkommande e-postmeddelanden</string>
+    <string name="attachment_summary_off">Ladda bara ned bilagor när du manuellt begär det</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Öppna navigationslådan</string>
+    <string name="navigation_drawer_close">Stäng navigationslådan</string>
+
+
+</resources>

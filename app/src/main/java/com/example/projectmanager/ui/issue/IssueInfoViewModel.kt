@@ -27,9 +27,9 @@ class IssueInfoViewModel (
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({issue ->
                 // PASS
-                title = "Title: ${issue.title}"
-                description = "Description: ${issue.description}"
-                status = "Status: ${issue.status}"
+                title = "${issue.title}"
+                description = "${issue.description}"
+                status = "${issue.status}"
 
                 event.value = IssueEvent(IssueStatus.Success, null, issue)
             }, {

@@ -13,12 +13,12 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        var adapter = EntryPagerAdapter(supportFragmentManager)
+        val adapter = EntryPagerAdapter(supportFragmentManager)
         adapter.fragments.add(LoginFragment())
-        adapter.titles.add("Sign In")
+        adapter.titles.add(getString(R.string.login_button))
 
         adapter.fragments.add(RegisterFragment())
-        adapter.titles.add("Register")
+        adapter.titles.add(getString(R.string.register_button))
 
         view_pager.adapter = adapter
         view_pager.setPagingEnabled(false)
