@@ -125,7 +125,13 @@
     <string name="chat_send_button">Skicka</string>
     <string name="chat_hint_message">Meddelande</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- user creation -->
+    <string name="user_creation_title">Gör i ordning Profilen</string>
+    <string name="user_creation_hint">Användarnamn</string>
+    <string name="user_creation_save">Spara</string>
+    <string name="user_creation_skip">Hoppa över</string>
+
+    <!-- fragment text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">inställningar</string>
 
