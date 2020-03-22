@@ -23,7 +23,6 @@ class StartProjectsViewModel (
 
     init {
         loadProjects()
-        // https://github.com/android/architecture-components-samples/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/vo/Resource.kt
     }
 
     fun getProjects(): LiveData<LiveDataResult<List<ProjectEntity>>> = _projects

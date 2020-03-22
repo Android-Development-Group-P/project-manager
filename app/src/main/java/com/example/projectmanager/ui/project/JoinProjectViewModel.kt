@@ -33,6 +33,9 @@ class JoinProjectViewModel (
     fun scan() { _event.value = Event.StartScanner() }
 
     fun search() {
+        if (code.value.isNullOrEmpty())
+            return
+
         disposables.add(inviteService.getById(code.value!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

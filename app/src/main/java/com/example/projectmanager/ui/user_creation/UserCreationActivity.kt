@@ -40,14 +40,11 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
                 is UserCreationViewModel.Event.Skipped -> onActivityFinished()
 
                 is UserCreationViewModel.Event.Failure -> {
-                    Log.d("Hejhej", "Failure")
                 }
             }
         })
 
         binding.viewModel = viewModel
-
-        pickImageFromGallery()
     }
 
     private fun onActivityFinished() {

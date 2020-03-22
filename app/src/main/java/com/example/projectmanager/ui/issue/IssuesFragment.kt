@@ -78,11 +78,5 @@ class IssuesFragment : Fragment(), KodeinAware {
             ).commit()
         }
 
-        toChatButton.setOnClickListener {viewButton ->
-            (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
-                R.id.nav_host_fragment_project, ChatFragment()
-            ).commit()
-        }
-
     }
 }

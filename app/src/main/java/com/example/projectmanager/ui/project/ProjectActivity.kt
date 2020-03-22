@@ -7,18 +7,31 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.projectmanager.R
 import com.example.projectmanager.data.entities.ProjectEntity
 import com.example.projectmanager.data.entities.UserEntity
+import com.example.projectmanager.data.factories.JoinProjectViewModelFactory
+import com.example.projectmanager.data.factories.ProjectViewModelFactory
+import com.example.projectmanager.databinding.ActivityJoinProjectBinding
 import com.example.projectmanager.ui.chat.ChatFragment
-import com.example.projectmanager.ui.createProject.StartNotificationFragment
 import com.example.projectmanager.ui.issue.CreateIssueFragment
 import com.example.projectmanager.ui.issue.IssuesFragment
+import com.example.projectmanager.util.QRGenerator
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_start.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
-class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, KodeinAware {
+
+    override val kodein by kodein()
+    private val factory: ProjectViewModelFactory by instance()
+
+    private lateinit var viewModel: ProjectViewModel
 
     companion object {
         const val PROJECT_EXTRA_ID = "Project"
@@ -33,6 +46,9 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project)
+
+        viewModel = ViewModelProvider(this, factory).get(ProjectViewModel::class.java)
+        setupViewModelActions()
 
         // Set the title for the activity
         title = project.title
@@ -53,6 +69,17 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             //nav_view.setCheckedItem(R.id.nav_issues)
         }
         //setupActionBar()
+    }
+
+    private fun setupViewModelActions() {
+        viewModel.getEvent().observe(this, Observer {
+            when (it) {
+                is ProjectViewModel.Event.StartInviteDialog -> {
+                    val fragment: InviteDialog = InviteDialog.newInstance(QRGenerator.QRObject(it.code.projectId, 512, 512))
+                    fragment.show(supportFragmentManager, "")
+                }
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -159,6 +186,10 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 supportFragmentManager.beginTransaction().replace(
                     R.id.nav_host_fragment_project, ProjectMembers()
                 ).commit()
+            }
+
+            R.id.nav_invite_code -> {
+                viewModel.startInviteDialog(currentProject!!.id!!)
             }
         }
 

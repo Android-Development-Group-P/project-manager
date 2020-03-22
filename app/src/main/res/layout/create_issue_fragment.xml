@@ -12,205 +12,124 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00BCD4">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#F6F9FF">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.issue.CreateIssueFragment" >
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/form_round"
+            android:elevation="2dp"
+            android:layout_margin="@dimen/standard_12">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/issue_hint_title"/>
 
             <EditText
                 android:id="@+id/issueTitleInput"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="50dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="@string/issue_hint_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:paddingLeft="10dp"
                 android:text="@={viewModel.title}"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/issue_hint_description"/>
 
             <EditText
-                android:id="@+id/issueDescriptionInput"
-                android:layout_width="0dp"
+                android:id="@+id/issueDescription"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:gravity="top"
-                android:hint="@string/issue_hint_description"
                 android:inputType="textMultiLine"
+                android:gravity="top"
                 android:lines="5"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
                 android:scrollbars="vertical"
                 android:singleLine="false"
                 android:text="@={viewModel.description}"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/issueTitleInput" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="-10dp"
-                android:layout_marginBottom="-10dp"
-                android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/priorityDropdown"
-                app:layout_constraintEnd_toEndOf="@+id/issueDescriptionInput"
-                app:layout_constraintStart_toStartOf="@+id/issueDescriptionInput"
-                app:layout_constraintTop_toTopOf="@+id/priorityDropdown" />
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
 
             <TextView
-                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/issue_update_label"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.label}"
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                android:text="@string/issue_set_priority"
-                app:layout_constraintStart_toStartOf="@+id/issueDescriptionInput"
-                app:layout_constraintTop_toTopOf="@+id/view" />
+                android:textSize="20sp"
+                android:text="@string/issue_update_priority" />
 
             <Spinner
                 android:id="@+id/priorityDropdown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="5dp"
-                android:gravity="right"
-                app:layout_constraintEnd_toEndOf="@+id/issueDescriptionInput"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/view11" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_23"
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="-10dp"
-                android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/assignToUserDropdown"
-                app:layout_constraintEnd_toEndOf="@+id/issueDescriptionInput"
-                app:layout_constraintStart_toStartOf="@+id/issueDescriptionInput"
-                app:layout_constraintTop_toTopOf="@+id/assignToUserDropdown" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/issue_update_assigned_user"/>
 
             <Spinner
                 android:id="@+id/assignToUserDropdown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="19dp"
-                android:gravity="right"
-                app:layout_constraintEnd_toEndOf="@+id/priorityDropdown"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/priorityDropdown" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_23"
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/issue_assign_to_user"
-                app:layout_constraintStart_toStartOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-            <View
-                android:id="@+id/view6"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="-10dp"
-                android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/departmentDropdown"
-                app:layout_constraintEnd_toEndOf="@+id/issueDescriptionInput"
-                app:layout_constraintStart_toStartOf="@+id/issueDescriptionInput"
-                app:layout_constraintTop_toTopOf="@+id/departmentDropdown" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/issue_created_add_department"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                android:textSize="20sp"
+                android:text="@string/issue_update_department"/>
 
             <Spinner
                 android:id="@+id/departmentDropdown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="19dp"
-                android:gravity="right"
-                app:layout_constraintEnd_toEndOf="@+id/assignToUserDropdown"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/assignToUserDropdown" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_23"
+                android:layout_marginTop="@dimen/standard_12"
+                android:layout_marginBottom="@dimen/standard_12"/>
 
             <Button
-                android:id="@+id/issueSubmitButton"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:fontFamily="sans-serif"
+                android:id="@+id/updateIssueButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTintMode="multiply"
                 android:onClick="@{viewModel::onCreateIssue}"
-                android:text="@string/issue_submit_button"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view6" />
-
-            <View
-                android:id="@+id/view11"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="@+id/editText2"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/editText2"
-                app:layout_constraintTop_toTopOf="@+id/editText2"
-                app:layout_constraintVertical_bias="0.644" />
+                android:text="@string/issue_update_update"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/issueDescriptionInput" />
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="@string/issue_add_label"
-                android:inputType="textPersonName"
-                android:text="@={viewModel.label}"
-                app:layout_constraintEnd_toEndOf="@+id/view6"
-                app:layout_constraintStart_toStartOf="@+id/view6"
-                app:layout_constraintTop_toBottomOf="@+id/issueDescriptionInput" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </layout>

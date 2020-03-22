@@ -10,156 +10,167 @@
             type="com.example.projectmanager.ui.issue.IssueInfoViewModel" />
     </data>
     <ScrollView
-        android:background="#00BCD4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:background="#F6F9FF">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="250dp"
-                android:elevation="2dp"
-                android:progressTint="#F44336"
-                app:layout_constraintEnd_toEndOf="@+id/view4"
-                app:layout_constraintStart_toStartOf="@+id/view4"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/view3"
-                android:background="#FFFFFF"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:padding="10dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12">
 
                 <TextView
                     android:id="@+id/issueInfoTitleText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.title}" />
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Title"  />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/issueInfoDescriptionText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.description}" />
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="@string/issue_title" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="Priority" />
 
                 <TextView
                     android:id="@+id/issueInfoStatusText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={viewModel.status}" />
+                    android:layout_height="match_parent"
+                    android:text="@string/issue_priority" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="Description" />
+
+                <TextView
+                    android:id="@+id/issueInfoDescriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/issue_description"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
+                android:padding="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-                <Button
-                    android:id="@+id/issueInfoUpdateButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:text="@string/issue_info_update_button" />
-
-                <Button
-                    android:id="@+id/issueInfoDeleteButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#FF0000"
-                    android:text="@string/issue_info_delete_button"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/issueInfoChatList"
-                android:layout_width="0dp"
-                android:layout_height="350dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toTopOf="@+id/issueInfoSendMessageButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            </ListView>
-
-            <View
-                android:id="@+id/view4"
-                android:background="#FFFFFF"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12">
 
             <Button
-                android:id="@+id/issueInfoSendMessageButton"
+                android:id="@+id/issueInfoUpdateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="#FFFFFF"
-                android:text="@string/issue_info_send_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTintMode="multiply"
+                android:text="@string/issue_info_update_button" />
 
-            <EditText
-                android:id="@+id/issueInfoMessageTextField"
-                android:layout_width="0dp"
+            <Space
+                android:layout_width="@dimen/standard_23"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/issueInfoDeleteButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"
-                android:ems="10"
-                android:hint="@string/issue_info_hint_message"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/issueInfoSendMessageButton"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_weight="1"
+                android:background="@drawable/custom_button"
+                android:backgroundTintMode="multiply"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="@string/issue_info_delete_button"
+                android:textColor="#FFFFFF" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Comments" />
+
+                <ListView
+                    android:id="@+id/issueInfoChatList"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <EditText
+                    android:id="@+id/issueInfoMessageTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/issue_info_hint_message"
+                    android:inputType="textPersonName" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <Button
+                    android:id="@+id/issueInfoSendMessageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_button"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTintMode="multiply"
+                    android:text="@string/issue_info_send_button" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </layout>

@@ -53,13 +53,12 @@
             android:layout_height="20dp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/invite_code_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textIsSelectable="true"
-            android:textSize="24sp"
-            android:text="cd73-flsa13" />
+            android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -67,9 +66,12 @@
 
         <Button
             android:id="@+id/test"
-            android:layout_width="175dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTintMode="multiply"
             android:text="Copy to clipboard" />
 
 

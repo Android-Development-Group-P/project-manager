@@ -1,6 +1,7 @@
 package com.example.projectmanager.ui.project
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,11 +29,8 @@ class InviteDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        test.setOnClickListener {
-
-            image_view.setImageBitmap(QRGenerator.generate(qr))
-
-        }
+        image_view.setImageBitmap(QRGenerator.generate(qr))
+        invite_code_text_view.text = qr.content
     }
 
     companion object {

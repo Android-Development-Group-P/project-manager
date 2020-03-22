@@ -61,6 +61,7 @@ tools:context=".ui.auth.RegisterFragment">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_hint_password"
+                android:inputType="textPassword"
                 android:text="@={viewModel.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,6 +79,7 @@ tools:context=".ui.auth.RegisterFragment">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/register_hint_repeat_password"
+                android:inputType="textPassword"
                 android:text="@={viewModel.repeatedPassword}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -100,7 +102,7 @@ tools:context=".ui.auth.RegisterFragment">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button"
-            android:backgroundTint="#CC3F3F"
+            android:backgroundTint="@color/colorPrimary"
             android:backgroundTintMode="multiply"
             android:onClick="@{() -> viewModel.register()}"
             android:text="@string/register_button"

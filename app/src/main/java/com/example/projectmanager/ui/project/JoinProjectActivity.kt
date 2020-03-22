@@ -1,9 +1,11 @@
 package com.example.projectmanager.ui.project
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -44,6 +46,7 @@ class JoinProjectActivity : AppCompatActivity(), KodeinAware {
         setupViewModelActions()
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        project_container.visibility = View.GONE
     }
 
     private fun setupViewModelActions() {
