@@ -102,7 +102,7 @@ class ChatFragment : Fragment(), KodeinAware {
     }
 
     private fun onSuccess(error: String) {
-        Toast.makeText(context, "hehe", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
     }
 
 

@@ -63,7 +63,7 @@ class IssuesFragment : Fragment(), KodeinAware {
         addIssueButton.setOnClickListener {viewButton ->
             (viewButton.context as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, CreateIssueFragment()
-            ).commit()
+            ).addToBackStack("toCreateIssue").commit()
         }
 
     }

@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="SET-UP PRofile"
+                android:text="@string/user_creation_title"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
@@ -75,7 +75,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="@string/user_creation_hint"
                     android:text="@={viewModel.displayName}"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +94,7 @@
                 android:background="@drawable/custom_button"
                 android:backgroundTint="@color/colorPrimary"
                 android:backgroundTintMode="multiply"
-                android:text="Save"
+                android:text="@string/user_creation_save"
                 android:onClick="@{() -> viewModel.save()}"/>
 
             <Space
@@ -107,7 +107,8 @@
             android:background="@drawable/custom_button"
             android:backgroundTint="#cccccc"
             android:backgroundTintMode="multiply"
-            android:text="Skip"
+
+            android:text="@string/user_creation_skip"
             android:onClick="@{() -> viewModel.skip()}" />
 
         </LinearLayout>

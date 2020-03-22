@@ -59,7 +59,7 @@
     <string name="issue_assign_to_user">Tilldela till användare</string>
     <string name="issue_add_label">Lägg till etikett</string>
     <string name="issue_submit_button">Skicka in</string>
-    <string name="issue_error">Du måste skriva något i båda fälten</string>
+    <string name="issue_error">Du måste skriva något i båda fälten (titel/beskrivning)</string>
     <string name="issue_title">Titel:</string>
     <string name="issue_priority">Prioritet:</string>
     <string name="issue_description">Beskrivning:</string>
@@ -106,7 +106,7 @@
 
     <!-- Issue update -->
     <string name="issue_update_message">Framgång med att uppdatera problemet</string>
-    <string name="issue_update_input_error">Du måste skriva något i båda fälten</string>
+    <string name="issue_update_input_error">Du måste skriva något i båda fälten (titel/beskrivning)</string>
     <string name="issue_update_label">Uppdatera etiketten</string>
     <string name="issue_update_update">Uppdatera</string>
     <string name="issue_update_department">Uppdatera avdelningen</string>
@@ -125,7 +125,13 @@
     <string name="chat_send_button">Skicka</string>
     <string name="chat_hint_message">Meddelande</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- user creation -->
+    <string name="user_creation_title">Gör i ordning Profilen</string>
+    <string name="user_creation_hint">Användarnamn</string>
+    <string name="user_creation_save">Spara</string>
+    <string name="user_creation_skip">Hoppa över</string>
+
+    <!-- fragment text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">inställningar</string>
 
