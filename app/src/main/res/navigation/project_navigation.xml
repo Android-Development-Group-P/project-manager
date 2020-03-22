@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/project_navigation"
+    app:startDestination="@id/nav_issues">
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.projectmanager.ui.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/chat_fragment" >
+        <action
+            android:id="@+id/action_nav_chat_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_create_issue"
+        android:name="com.example.projectmanager.ui.issue.CreateIssueFragment"
+        android:label="@string/menu_create_issue"
+        tools:layout="@layout/create_issue_fragment" >
+        <action
+            android:id="@+id/action_nav_create_issue_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_issues"
+        android:name="com.example.projectmanager.ui.issue.IssuesFragment"
+        android:label="Issues"
+        tools:layout="@layout/issues_fragment" >
+        <action
+            android:id="@+id/action_nav_issues_to_nav_view_issue"
+            app:destination="@id/nav_view_issue" />
+        <action
+            android:id="@+id/action_nav_issues_to_nav_create_issue"
+            app:destination="@id/nav_create_issue"
+            app:popUpTo="@id/nav_issues" />
+        <action
+            android:id="@+id/action_nav_issues_to_nav_chat"
+            app:destination="@id/nav_chat" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_update_issue"
+        android:name="com.example.projectmanager.ui.issue.UpdateIssueFragment"
+        android:label="@string/menu_update_issue"
+        tools:layout="@layout/update_issue_fragment" >
+        <action
+            android:id="@+id/action_nav_update_issue_to_nav_view_issue"
+            app:destination="@id/nav_view_issue"
+            app:popUpTo="@id/nav_issues" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_view_issue"
+        android:name="com.example.projectmanager.ui.issue.IssueInfoFragment"
+        android:label="@string/menu_issue_info"
+        tools:layout="@layout/issue_info_fragment" >
+        <action
+            android:id="@+id/action_nav_view_issue_to_nav_update_issue"
+            app:destination="@id/nav_update_issue"
+            app:popUpTo="@+id/nav_view_issue" />
+        <action
+            android:id="@+id/action_nav_view_issue_to_nav_issues"
+            app:destination="@id/nav_issues"
+            app:popUpTo="@id/nav_issues" />
+    </fragment>
+</navigation>

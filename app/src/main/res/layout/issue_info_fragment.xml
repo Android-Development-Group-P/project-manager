@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.issue.IssueInfoFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.projectmanager.ui.issue.IssueInfoViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F9FF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:text="@string/issue_title" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:id="@+id/issueInfoTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="Title"  />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="Priority" />
+
+                <TextView
+                    android:id="@+id/issueInfoStatusText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/issue_priority" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="Description" />
+
+                <TextView
+                    android:id="@+id/issueInfoDescriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/issue_description"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12">
+
+            <Button
+                android:id="@+id/issueInfoUpdateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTintMode="multiply"
+                android:text="@string/issue_info_update_button" />
+
+            <Space
+                android:layout_width="@dimen/standard_23"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/issueInfoDeleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button"
+                android:backgroundTintMode="multiply"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:text="@string/issue_info_delete_button"
+                android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/form_round"
+                android:elevation="2dp"
+                android:layout_margin="@dimen/standard_12" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Comments" />
+
+                <ListView
+                    android:id="@+id/issueInfoChatList"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <EditText
+                    android:id="@+id/issueInfoMessageTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/issue_info_hint_message"
+                    android:inputType="textPersonName" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <Button
+                    android:id="@+id/issueInfoSendMessageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_button"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTintMode="multiply"
+                    android:text="@string/issue_info_send_button" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
