@@ -58,7 +58,7 @@
     <string name="issue_assign_to_user">Assign to user</string>
     <string name="issue_add_label">Add label</string>
     <string name="issue_submit_button">Submit</string>
-    <string name="issue_error">You must write something in both fields</string>
+    <string name="issue_error">You must write something in both fields (title/description)</string>
     <string name="issue_title">Title:</string>
     <string name="issue_priority">Priority:</string>
     <string name="issue_description">Description:</string>
@@ -106,7 +106,7 @@
 
     <!-- Issue update -->
     <string name="issue_update_message">Success updating the issue</string>
-    <string name="issue_update_input_error">You must write something in both fields</string>
+    <string name="issue_update_input_error">You must write something in both fields (title/description)</string>
     <string name="issue_update_label">Update label</string>
     <string name="issue_update_update">Update</string>
     <string name="issue_update_department">Update department</string>
