@@ -13,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        // Setup the adapter that handles the "ViewPages"
         val adapter = EntryPagerAdapter(supportFragmentManager)
         adapter.fragments.add(LoginFragment())
         adapter.titles.add(getString(R.string.login_button))

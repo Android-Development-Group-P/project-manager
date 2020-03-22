@@ -21,7 +21,7 @@ import com.example.projectmanager.ui.issue.IssuesAdapter
 import com.example.projectmanager.ui.issue.IssuesFragment
 import com.example.projectmanager.ui.project.ProjectActivity
 import kotlinx.android.synthetic.main.chat_fragment.*
-import kotlinx.android.synthetic.main.fragment_issues.*
+import kotlinx.android.synthetic.main.issues_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -95,9 +95,6 @@ class ChatFragment : Fragment(), KodeinAware {
 
         binding.viewModel = viewModel
         viewModel.onCreateMessage(view!!)
-
-
-
     }
 
     private fun onFailure(error: String) {

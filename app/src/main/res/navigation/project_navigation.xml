@@ -32,7 +32,7 @@
         android:id="@+id/nav_issues"
         android:name="com.example.projectmanager.ui.issue.IssuesFragment"
         android:label="Issues"
-        tools:layout="@layout/fragment_issues" >
+        tools:layout="@layout/issues_fragment" >
         <action
             android:id="@+id/action_nav_issues_to_nav_view_issue"
             app:destination="@id/nav_view_issue" />

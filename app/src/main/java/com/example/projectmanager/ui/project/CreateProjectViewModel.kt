@@ -38,7 +38,6 @@ class CreateProjectViewModel (
             return
         }
 
-
         var project = ProjectEntity(
             id = null,
             title = title.value,

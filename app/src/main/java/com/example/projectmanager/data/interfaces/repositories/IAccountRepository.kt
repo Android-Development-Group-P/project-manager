@@ -31,11 +31,4 @@ interface IAccountRepository {
      * @return A "reactivex" "Single" object
      */
     fun register(email: String, password: String) : Single<String>
-/*
-    /**
-     * Logout the account to the application
-     *
-     * @return A "reactivex" "Completeable" object
-     */
-    fun logout() : Completable*/
 }

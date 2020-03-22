@@ -64,11 +64,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             supportFragmentManager.beginTransaction().replace(
                 R.id.nav_host_fragment_project, IssuesFragment()
             ).commit()
-
-            //.addToBackStack(null)
-            //nav_view.setCheckedItem(R.id.nav_issues)
         }
-        //setupActionBar()
     }
 
     private fun setupViewModelActions() {
@@ -104,9 +100,9 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
             R.id.open_drawer -> {
                 if(!drawer_layout.isDrawerOpen(GravityCompat.END))
-                    drawer_layout.openDrawer(GravityCompat.END);
+                    drawer_layout.openDrawer(GravityCompat.END)
                 else
-                    drawer_layout.closeDrawer(GravityCompat.END);
+                    drawer_layout.closeDrawer(GravityCompat.END)
 
                 return true
             }
@@ -125,14 +121,12 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             val count = supportFragmentManager.backStackEntryCount
             if (count == 0) {
                 super.onBackPressed()
-                //additional code
             } else {
                 supportFragmentManager.popBackStack()
                 supportFragmentManager.beginTransaction().replace(
                     R.id.nav_host_fragment_project, IssuesFragment()
                 ).commit()
             }
-            //super.onBackPressed()
         }
     }
 
@@ -146,18 +140,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when (p0.itemId) {
-            /*
-            R.id.nav_issues -> {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.fragment_container, IssuesFragment()
-                ).commit()
-            }
 
-            R.id.nav_members -> {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.fragment_container, StartNotificationFragment()
-                ).commit()
-            }*/
             R.id.nav_issues -> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.nav_host_fragment_project, IssuesFragment()
@@ -168,19 +151,15 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 supportFragmentManager.beginTransaction().replace(
                     R.id.nav_host_fragment_project, ChatFragment()
                 ).commit()
-                //nav_host_fragment_project.findNavController().navigate(R.id.action_nav_issues_to_nav_chat)
-                //findNavController(R.id.nav_host_fragment_project).navigate(R.id.action_nav_issues_to_nav_chat)
             }
             R.id.nav_create_issue -> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.nav_host_fragment_project, CreateIssueFragment()
                 ).commit()
-                //nav_host_fragment_project.findNavController().navigate(R.id.action_nav_issues_to_nav_create_issue)
-                //findNavController(R.id.nav_host_fragment_project).navigate(R.id.action_nav_issues_to_nav_create_issue)
             }
 
             R.id.nav_settings -> {
-                Log.d("test123", "sgghdhgdfsghfgd")
+
             }
             R.id.nav_members -> {
                 supportFragmentManager.beginTransaction().replace(

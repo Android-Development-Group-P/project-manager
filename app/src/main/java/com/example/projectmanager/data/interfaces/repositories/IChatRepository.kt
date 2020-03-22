@@ -24,22 +24,33 @@ interface IChatRepository {
      */
     fun delete(channelId: String, messageId: String) : Single<Boolean>
 
+    /**
+     * Retrieve all messages in a specific channel
+     *
+     * @param channelId The ID of the channel
+     * @return A "reactivex" "Single" object
+     */
     fun getAll(channelId: String) : Single<List<ChatMessageEntity>>
 
+    /**
+     * Retreive all messages in a specific section (pagination)
+     *
+     * @param channelId The ID of the channel
+     * @param limit Limit how many messages to fetch
+     * @param offset The offset to use when fetching
+     * @return A "reactivex" "Single" object
+     */
     fun getAllBySection(channelId: String, limit: Long, offset: Long = 1) : Single<List<ChatMessageEntity>>
 
-    //fun getChannel(issueId: String?, projectId: String?) : Single<Boolean>
-
-    /**
-     * Adds a message listener for a specific issue or project ID
-     *
-     * @param channelId The ID of the specific chat channel
-     * @return A "reactivex" "Observable" object
-     */
 
     interface IListener {
 
+        /**
+         * Adds a message listener for a specific channel
+         *
+         * @param channelId The ID of the specific chat channel
+         * @return A "reactivex" "Observable" object
+         */
         fun getMessageById(channelId: String) : Observable<ChatMessageEntity>
-
     }
 }

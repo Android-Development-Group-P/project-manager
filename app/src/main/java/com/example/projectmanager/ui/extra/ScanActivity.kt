@@ -17,17 +17,14 @@ class ScanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
-      /*  val toolbar =
-            findViewById<Toolbar>(R.id.my_awesome_toolbar)
-        toolbar.title = "Scan Barcode"
-        setSupportActionBar(toolbar)*/
+
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner)
+
+        // Setup capture manager
         capture = CaptureManager(this, barcodeScannerView)
         capture!!.initializeFromIntent(intent, savedInstanceState)
         capture!!.decode()
-
-        Log.d("Scan", "Aktiverad")
     }
 
     override fun onResume() {

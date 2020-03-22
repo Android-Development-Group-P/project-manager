@@ -16,11 +16,10 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.StartProjectsViewModelFactory
 import com.example.projectmanager.ui.project.CreateProjectActivity
 import com.example.projectmanager.ui.project.JoinProjectActivity
-import com.example.projectmanager.ui.project.JoinProjectViewModel
 import com.example.projectmanager.ui.start.StartProjectsAdapter
 import com.example.projectmanager.ui.start.StartProjectsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_start_projects.*
+import kotlinx.android.synthetic.main.start_projects_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -47,7 +46,7 @@ class StartProjectsFragment : Fragment(), KodeinAware {
     ): View? {
         activity?.title = getString(R.string.project_title)
 
-        return inflater.inflate(R.layout.fragment_start_projects, container, false)
+        return inflater.inflate(R.layout.start_projects_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -87,7 +86,7 @@ class StartProjectsFragment : Fragment(), KodeinAware {
         if (requestCode == REQUEST_CREATE_PROJECT_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    //viewModel.loadProjects()
+
                 }
 
                 Activity.RESULT_CANCELED -> {

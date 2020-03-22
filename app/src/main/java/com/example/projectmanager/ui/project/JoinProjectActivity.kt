@@ -54,7 +54,6 @@ class JoinProjectActivity : AppCompatActivity(), KodeinAware {
             when (it) {
 
                 is JoinProjectViewModel.Event.Success -> {
-                    toast("Success")
                     onActivityFinished()
                 }
 
@@ -63,16 +62,14 @@ class JoinProjectActivity : AppCompatActivity(), KodeinAware {
                 }
 
                 is JoinProjectViewModel.Event.InviteCodeFound -> {
-                    toast("Code found")
+
                 }
 
                 is JoinProjectViewModel.Event.ProjectLoaded -> {
-                    toast("Project found")
                     project_container.visibility = View.VISIBLE
                 }
 
                 is JoinProjectViewModel.Event.Failure -> {
-                    toast(it.error)
                     project_container.visibility = View.GONE
                 }
             }

@@ -60,7 +60,6 @@ class LoginViewModel (
     }
     fun getFormValidation(): LiveData<Boolean> = _formValidation
 
-
     private val _event = SingleLiveEvent<Event>()
     fun getEvent(): SingleLiveEvent<Event> = _event
 

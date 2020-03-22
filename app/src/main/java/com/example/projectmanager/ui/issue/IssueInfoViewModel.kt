@@ -60,7 +60,6 @@ class IssueInfoViewModel (
         disposables.dispose()
     }
 
-
     data class IssueEvent(var status: IssueStatus, var error: String? = null, var issue: IssueEntity? = null)
     enum class IssueStatus
     {

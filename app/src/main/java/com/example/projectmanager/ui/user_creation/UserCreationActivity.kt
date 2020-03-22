@@ -28,7 +28,7 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_creation)
         viewModel = ViewModelProvider(this, factory).get(UserCreationViewModel::class.java)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_creation);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_creation)
 
         // Hide top bar
         supportActionBar?.hide()
@@ -56,6 +56,6 @@ class UserCreationActivity : AppCompatActivity(), KodeinAware {
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, 1000) // GIVE AN INTEGER VALUE FOR IMAGE_PICK_CODE LIKE 1000
+        startActivityForResult(intent, 1000)
     }
 }

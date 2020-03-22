@@ -107,7 +107,6 @@
             android:background="@drawable/custom_button"
             android:backgroundTint="#cccccc"
             android:backgroundTintMode="multiply"
-
             android:text="Skip"
             android:onClick="@{() -> viewModel.skip()}" />
 

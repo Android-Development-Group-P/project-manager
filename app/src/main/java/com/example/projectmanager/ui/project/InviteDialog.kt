@@ -1,7 +1,6 @@
 package com.example.projectmanager.ui.project
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 
 import com.example.projectmanager.R
 import com.example.projectmanager.util.QRGenerator
-import kotlinx.android.synthetic.main.fragment_invite_dialog.*
+import kotlinx.android.synthetic.main.invite_dialog_fragment.*
 
 class InviteDialog : DialogFragment() {
 
@@ -20,10 +19,9 @@ class InviteDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         qr = arguments!!.getSerializable(QR_TAG) as QRGenerator.QRObject
 
-        return inflater.inflate(R.layout.fragment_invite_dialog, container, false)
+        return inflater.inflate(R.layout.invite_dialog_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

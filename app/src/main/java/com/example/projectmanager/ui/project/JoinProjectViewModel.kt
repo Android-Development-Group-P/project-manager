@@ -1,23 +1,18 @@
 package com.example.projectmanager.ui.project
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.projectmanager.data.entities.InviteCodeEntity
 import com.example.projectmanager.data.entities.ProjectEntity
-import com.example.projectmanager.data.exceptions.EntityNotFoundException
 import com.example.projectmanager.data.interfaces.*
 import com.example.projectmanager.data.interfaces.services.IInviteCodeService
 import com.example.projectmanager.data.interfaces.services.IProjectService
 import com.example.projectmanager.util.CLASS_TAG
 import com.example.projectmanager.util.SingleLiveEvent
-import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 class JoinProjectViewModel (
     private val session: SessionProvider,
@@ -64,9 +59,6 @@ class JoinProjectViewModel (
     }
 
     private fun loadProject(code: InviteCodeEntity) {
-
-        Log.d("Dispo", disposables.size().toString())
-
         disposables.add(projectService.getById(code.projectId!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -45,10 +45,8 @@ class CreateIssueViewModel (
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    // PASS
                     event.value = IssueEvent(IssueStatus.Success, null)
                 }, {
-                    // FAIL
                     event.value = IssueEvent(IssueStatus.Failure, it.localizedMessage)
                 })
 

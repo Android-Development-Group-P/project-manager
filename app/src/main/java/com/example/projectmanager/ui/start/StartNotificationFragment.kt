@@ -1,6 +1,5 @@
 package com.example.projectmanager.ui.createProject
 
-import android.app.Notification
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import com.example.projectmanager.R
 import com.example.projectmanager.data.factories.StartNotificationViewModelFactory
 import com.example.projectmanager.ui.start.StartNotificationAdapter
 import com.example.projectmanager.ui.start.StartNotificationViewModel
-import kotlinx.android.synthetic.main.fragment_start_notification.*
+import kotlinx.android.synthetic.main.start_notification_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -37,7 +36,7 @@ class StartNotificationFragment : Fragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         activity?.title = getString(R.string.notification_title)
-        return inflater.inflate(R.layout.fragment_start_notification, container, false)
+        return inflater.inflate(R.layout.start_notification_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

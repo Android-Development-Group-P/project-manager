@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.issue.CreateIssueFragment">
 
@@ -36,8 +35,10 @@
                 android:inputType="textPersonName"
                 android:text="@={viewModel.title}"
                 android:textSize="20sp"
+                android:autofillHints="title"
                 android:layout_marginTop="@dimen/standard_12"
-                android:layout_marginBottom="@dimen/standard_12"/>
+                android:layout_marginBottom="@dimen/standard_12"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -71,7 +72,9 @@
                 android:inputType="textPersonName"
                 android:text="@={viewModel.label}"
                 android:layout_marginTop="@dimen/standard_12"
-                android:layout_marginBottom="@dimen/standard_12"/>
+                android:layout_marginBottom="@dimen/standard_12"
+                android:autofillHints="label"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:layout_width="wrap_content"

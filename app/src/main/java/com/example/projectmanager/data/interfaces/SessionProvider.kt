@@ -46,6 +46,10 @@ abstract class SessionProvider {
         editor = preferences.edit()
     }
 
+    /**
+     * Start the listener that fetches information
+     * about current user in real time
+     */
     fun startListener() {
         disposable = userService.listeners.getById(user!!.id!!)
             .subscribeOn(Schedulers.io())
@@ -60,6 +64,10 @@ abstract class SessionProvider {
         isListening = true
     }
 
+    /**
+     * Stop the listener that fetches information
+     * about current user
+     */
     fun stopListener() {
         disposable?.dispose()
         isListening = false
