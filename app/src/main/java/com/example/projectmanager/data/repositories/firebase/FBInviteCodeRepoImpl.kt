@@ -70,6 +70,7 @@ class FBInviteCodeRepoImpl :
             .get()
             .addOnSuccessListener {
                 val code = it.documents[0].toObject(InviteCodeEntity::class.java)
+                code!!.id = it.documents[0].id
                 emitter.onSuccess(code!!)
             }
             .addOnFailureListener {

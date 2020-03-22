@@ -75,7 +75,7 @@ class ProjectActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         viewModel.getEvent().observe(this, Observer {
             when (it) {
                 is ProjectViewModel.Event.StartInviteDialog -> {
-                    val fragment: InviteDialog = InviteDialog.newInstance(QRGenerator.QRObject(it.code.projectId, 512, 512))
+                    val fragment: InviteDialog = InviteDialog.newInstance(QRGenerator.QRObject(it.code.id, 512, 512))
                     fragment.show(supportFragmentManager, "")
                 }
             }
